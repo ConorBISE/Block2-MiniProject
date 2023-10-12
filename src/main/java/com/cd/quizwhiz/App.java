@@ -1,5 +1,7 @@
 package com.cd.quizwhiz;
 
+import com.cd.quizwhiz.ui.UI;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,7 +13,6 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello, quizwhiz!");
-        primaryStage.show();
+        new UI().run(primaryStage);
     }
 }
