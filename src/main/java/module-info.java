@@ -4,6 +4,7 @@ module com.cd.quizwhiz {
     requires javafx.web;
     
     requires jdk.xml.dom;
+    requires org.json;
 
     exports com.cd.quizwhiz;
 }
