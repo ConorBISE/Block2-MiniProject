@@ -42,7 +42,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.cd.quizwhiz.App</mainClass>
+                            <mainClass>com.cd.quizwhiz/com.cd.quizwhiz.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>
