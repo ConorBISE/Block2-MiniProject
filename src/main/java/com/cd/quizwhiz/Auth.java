@@ -5,11 +5,11 @@ import java.io.*;
 // Auth class handles user registration and login.
 public class Auth {
     // Directory where user data files are stored.
-    private String userFolder = "users";
+    private static String userFolder = "users";
 
     // The register method checks if a file with the username already exists,
     // and if not, it creates a new file with the username and password.
-    public String register(String username, String password) {
+    public static String register(String username, String password) {
         // Construct the filename based on the username.
         String userDataFileName = username + ".txt";
         File userFile = new File(userFolder, userDataFileName);
@@ -32,7 +32,7 @@ public class Auth {
     }
 
     // Login method verifies if the entered credentials match a previously registered user's credentials.
-    public boolean Login(String username, String password) {
+    public static boolean login(String username, String password) {
         boolean loggedIn = false; // Tracks whether the user is logged in or not.
 
         // Construct the filename based on the username.
