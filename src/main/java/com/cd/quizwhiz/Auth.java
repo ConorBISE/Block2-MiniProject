@@ -24,6 +24,7 @@ public class Auth {
                 writer.close();
                 return username; // Registration successful.
             } catch (IOException e) {
+                System.out.println(e);
                 return "Error creating user file."; // Handle file creation error.
             }
         } else {
