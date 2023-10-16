@@ -1,5 +1,9 @@
 package com.cd.quizwhiz;
 
+import com.cd.quizwhiz.ui.AppState;
+import com.cd.quizwhiz.ui.HomePage;
+import com.cd.quizwhiz.uiframework.UI;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,7 +15,6 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello, quizwhiz!");
-        primaryStage.show();
+        new UI<AppState>(primaryStage, new AppState()).loadPage(new HomePage());
     }
 }
