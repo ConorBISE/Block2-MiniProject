@@ -13,11 +13,11 @@ public class Question {
         this.Answers = answers;
         this.ActualAnswer = actualAnswer;
         this.category = category;
+        this.difficulty = difficulty;
     }
 
     // Compare the provided answer with the correct answer.
     boolean CompareAnswer(int Answer) {
         return Answer == this.ActualAnswer;
     }
-
 }
