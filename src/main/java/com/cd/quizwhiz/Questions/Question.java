@@ -1,4 +1,4 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.Questions;
 public class Question {
     // Declare instance variables for the question, answer options, actual answer, and category.
     String Question;       // The text of the question
