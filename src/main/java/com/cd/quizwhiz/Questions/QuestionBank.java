@@ -1,15 +1,32 @@
 package com.cd.quizwhiz.Questions;
 
-public class QuestionBank {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class QuestionBank extends Question{
+
     public static final Question[] QUESTIONS = {
         // DISCRETE MATHS
+            //novice
+        new Question("In computer science, what is the binary number system based on?\n",new String[]
+                {"Base2", "Base10", "Base8", "Base32"},2,Category.DiscreteMaths,Difficulty.novice),
+
+        new Question("Which logical operator returns true if both of its operands are true?",new String[]
+                {"AND","OR","NOT","XOR"},1,Category.DiscreteMaths,Difficulty.novice),
+            //intermediate
+        new Question("What is the purpose of Big O notation in computer science?\n",new String[]{
+                    " To denote the largest number in a dataset\n",
+                    "To analyze the efficiency of algorithms\n",
+                    "To represent binary"},2,Category.DiscreteMaths,Difficulty.intermediate),
+
         new Question("Surjectivity means that ...?", new String[]{ 
             "... every element in the codomain has at most one element in the domain that maps to it",
             "... every element in codomain has exactly one element in the domain that maps to it",
             "... every element in the codomain has at least one element in the domain that maps to it",
             "... every element in the domain maps onto at most one element in the codomain"
         }, 2, Category.DiscreteMaths, Difficulty.intermediate),
-
+            //expert
         new Question("Under which of the following conditions is the inverse of a matrix NOT defined?", new String[]{ 
             "If it is an identity matrix",
             "The determinant is negative",
@@ -25,6 +42,7 @@ public class QuestionBank {
         }, 2, Category.DiscreteMaths, Difficulty.expert),
 
         // COMPUTER SCIENCE
+            //novice
         new Question("Backus-Naur Form describes the ___ of a language", new String[]{ 
             "semantics",
             "syntax",
@@ -38,7 +56,7 @@ public class QuestionBank {
             "sup-semilattice",
             "order homomorphism"
         }, 0, Category.ComputerSci, Difficulty.novice),
-
+            //intermediate
         new Question("A Binary Decision Diagram is a special kind of:", new String[]{ 
             "weighted acyclic graph",
             "directed acyclic graph",
@@ -52,7 +70,7 @@ public class QuestionBank {
             "removing duplicate terminal nodes",
             "eliminating redundant tests"
         }, 1, Category.ComputerSci, Difficulty.intermediate),
-
+            //expert
         new Question("If a relation is reflexive, symmetric, and transitive, it is:", new String[]{ 
             "a partial order",
             "a total order",
@@ -66,5 +84,100 @@ public class QuestionBank {
             "(ℤ, ≤)",
             "(P(ℕ), ⊆)"
         }, 1, Category.ComputerSci, Difficulty.expert),
+       //COMP ORG
+            //novice
+        new Question("What does CPU stand?", new String[]{
+                "Computer Personal Unit","Central Proccess Unidiagram",
+                "Centralized Program Unit",
+                "Central Proccesing Unit"
+        },4,Category.ComputerOrg,Difficulty.novice),
+
+        new Question("Which component of a computer stores data long-term?", new String[]{
+                "RAM",
+                "CPU",
+                "Hard Drive",
+                "GPU"
+        },3,Category.ComputerOrg,Difficulty.novice),
+            //intermediate
+        new Question("What does the acronym GPU stand for?",new String[]{
+                "General Processing Unit"
+                ,"Graphics Performace Unit",
+                "Graphical Proccesing Unit",
+                "General Purpose Unit"
+        },3,Category.ComputerOrg,Difficulty.intermediate),
+        new Question("What is the purpose of a motherboard in a computer?",new String[]{
+                "To display images on the screen"
+                ,"To process data",
+                "To connect and communicate with hardware componenets",
+                "To store files and documents"
+        },3,Category.ComputerOrg,Difficulty.intermediate),
+            //expert
+        new Question("What is pipelining in computer architecture",new String[]{
+                "A technique useed in parallel computing to process multiple tasks simultaneously",
+                "A method for cooling computer components","A form of memory storage",
+                "A technique for creating computer viruses"
+        },1,Category.ComputerOrg,Difficulty.expert),
+
+        new Question("What does ALU stand for in computer architecture?",new String[]{
+                "Advanced Learning Utility",
+                "Asynchronous Language Update",
+                "Arithmetic Logic Unit",
+                "Algorithmic Logic Unit"
+        },3,Category.ComputerOrg,Difficulty.expert)
     };
+
+    public QuestionBank(String question, String[] answers, int actualAnswer, Category category, Difficulty difficulty) {
+        super(question, answers, actualAnswer, category, difficulty);
+    }
+
+    public Question[] IncDifficulty(Category category) {
+        List<Question> questionList = new ArrayList<>();
+        //for each question in Questions array
+        for (Question Q : QUESTIONS) {
+            //if the question category = required category then add it to our question Array
+            if (Q.category == category) {
+                questionList.add(Q);
+            }
+        }
+
+        // Convert the list to an array
+        Question[] questions = questionList.toArray(new Question[questionList.size()]);
+        //returns our list of questions
+        return questions;
+    }
+
+    public List<Question> RandomQuestion(Category category) {
+        // Create a list to store my questions
+        List<Question> questions = new ArrayList<>();
+        // Initialize a random variable
+        Random random = new Random();
+        // Iterate 6 times to generate 6 random questions
+        for (int i = 0; i < 6; i++) {
+            // Create a list to store questions of the specified category
+            List<Question> categoryQuestions = new ArrayList();
+
+            // Loop through the array of questions (QUESTIONS)
+            for (Question question : QUESTIONS) {
+                // Check if the question's category matches the specified category
+                if (question.category == category) {
+                    // If it matches, add the question to the categoryQuestions list
+                    categoryQuestions.add(question);
+                }
+            }
+
+            // Check if there are questions in the categoryQuestions list
+            if (!categoryQuestions.isEmpty()) {
+                // Generate a random index within the range of categoryQuestions
+                int randomIndex = random.nextInt(categoryQuestions.size());
+                // Add the randomly selected question to the list of questions
+                questions.add(categoryQuestions.get(randomIndex));
+            }
+        }
+        // Return the list of 6 random questions from the specified category
+        return questions;
+    }
+
+
 }
+
+

@@ -5,7 +5,7 @@ import java.io.*;
 // Auth class handles user registration and login.
 public class Auth {
     // Directory where user data files are stored.
-    private static String userFolder = "users";
+    public static String userFolder = "users";
 
     // The register method checks if a file with the username already exists,
     // and if not, it creates a new file with the username and password.
@@ -21,6 +21,7 @@ public class Auth {
                 FileWriter writer = new FileWriter(userFile);
                 // Write the user's password into the file.
                 writer.write(password);
+                writer.write("\nTarget line");
                 writer.close();
                 return username; // Registration successful.
             } catch (IOException e) {
