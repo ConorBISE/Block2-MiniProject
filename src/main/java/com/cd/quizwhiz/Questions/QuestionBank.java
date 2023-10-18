@@ -2,6 +2,29 @@ package com.cd.quizwhiz.Questions;
 
 public class QuestionBank {
     public static final Question[] QUESTIONS = {
+        // DISCRETE MATHS
+        new Question("Surjectivity means that ...?", new String[]{ 
+            "... every element in the codomain has at most one element in the domain that maps to it",
+            "... every element in codomain has exactly one element in the domain that maps to it",
+            "... every element in the codomain has at least one element in the domain that maps to it",
+            "... every element in the domain maps onto at most one element in the codomain"
+        }, 2, Category.DiscreteMaths, Difficulty.intermediate),
+
+        new Question("Under which of the following conditions is the inverse of a matrix NOT defined?", new String[]{ 
+            "If it is an identity matrix",
+            "The determinant is negative",
+            "The sum of its elements is zero",
+            "The determinant is zero"
+        }, 3, Category.DiscreteMaths, Difficulty.expert),
+
+        new Question("What is the maximum number of walks of length 3 that may be present on a graph composed of 5 nodes?", new String[]{ 
+            "5",
+            "15",
+            "25",
+            "125"
+        }, 2, Category.DiscreteMaths, Difficulty.expert),
+
+        // COMPUTER SCIENCE
         new Question("Backus-Naur Form describes the ___ of a language", new String[]{ 
             "semantics",
             "syntax",
