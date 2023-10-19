@@ -7,4 +7,5 @@ module com.cd.quizwhiz {
     requires org.json;
 
     exports com.cd.quizwhiz;
+    exports com.cd.quizwhiz.Questions;
 }

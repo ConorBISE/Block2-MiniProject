@@ -5,7 +5,7 @@ import java.io.*;
 // Auth class handles user registration and login.
 public class Auth {
     // Directory where user data files are stored.
-    private static String userFolder = "users";
+    public static String userFolder = "users";
 
     // The register method checks if a file with the username already exists,
     // and if not, it creates a new file with the username and password.
