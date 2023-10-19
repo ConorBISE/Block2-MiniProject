@@ -11,22 +11,22 @@ public class QuestionBank {
             // DISCRETE MATHS
             //novice
             new Question("In computer science, what is the binary number system based on?\n", new String[]
-                    {"Base2", "Base10", "Base8", "Base32"}, 2, Category.DiscreteMaths, Difficulty.novice),
+                    {"Base2", "Base10", "Base8", "Base32"}, 0, Category.DiscreteMaths, Difficulty.novice),
 
             new Question("Which logical operator returns true if both of its operands are true?", new String[]
-                    {"AND", "OR", "NOT", "XOR"}, 1, Category.DiscreteMaths, Difficulty.novice),
+                    {"AND", "OR", "NOT", "XOR"}, 0, Category.DiscreteMaths, Difficulty.novice),
             //intermediate
             new Question("What is the purpose of Big O notation in computer science?\n", new String[]{
                     " To denote the largest number in a dataset\n",
                     "To analyze the efficiency of algorithms\n",
-                    "To represent binary"}, 2, Category.DiscreteMaths, Difficulty.intermediate),
+                    "To represent binary"}, 1, Category.DiscreteMaths, Difficulty.intermediate),
 
             new Question("Surjectivity means that ...?", new String[]{
                     "... every element in the codomain has at most one element in the domain that maps to it",
                     "... every element in codomain has exactly one element in the domain that maps to it",
                     "... every element in the codomain has at least one element in the domain that maps to it",
                     "... every element in the domain maps onto at most one element in the codomain"
-            }, 2, Category.DiscreteMaths, Difficulty.intermediate),
+            }, 1, Category.DiscreteMaths, Difficulty.intermediate),
             //expert
             new Question("Under which of the following conditions is the inverse of a matrix NOT defined?", new String[]{
                     "If it is an identity matrix",
@@ -91,40 +91,40 @@ public class QuestionBank {
                     "Computer Personal Unit", "Central Proccess Unidiagram",
                     "Centralized Program Unit",
                     "Central Proccesing Unit"
-            }, 4, Category.ComputerOrg, Difficulty.novice),
+            }, 3, Category.ComputerOrg, Difficulty.novice),
 
             new Question("Which component of a computer stores data long-term?", new String[]{
                     "RAM",
                     "CPU",
                     "Hard Drive",
                     "GPU"
-            }, 3, Category.ComputerOrg, Difficulty.novice),
+            }, 2, Category.ComputerOrg, Difficulty.novice),
             //intermediate
             new Question("What does the acronym GPU stand for?", new String[]{
                     "General Processing Unit"
                     , "Graphics Performace Unit",
                     "Graphical Proccesing Unit",
                     "General Purpose Unit"
-            }, 3, Category.ComputerOrg, Difficulty.intermediate),
+            }, 2, Category.ComputerOrg, Difficulty.intermediate),
             new Question("What is the purpose of a motherboard in a computer?", new String[]{
                     "To display images on the screen"
                     , "To process data",
                     "To connect and communicate with hardware componenets",
                     "To store files and documents"
-            }, 3, Category.ComputerOrg, Difficulty.intermediate),
+            }, 2, Category.ComputerOrg, Difficulty.intermediate),
             //expert
             new Question("What is pipelining in computer architecture", new String[]{
                     "A technique useed in parallel computing to process multiple tasks simultaneously",
                     "A method for cooling computer components", "A form of memory storage",
                     "A technique for creating computer viruses"
-            }, 1, Category.ComputerOrg, Difficulty.expert),
+            }, 0, Category.ComputerOrg, Difficulty.expert),
 
             new Question("What does ALU stand for in computer architecture?", new String[]{
                     "Advanced Learning Utility",
                     "Asynchronous Language Update",
                     "Arithmetic Logic Unit",
                     "Algorithmic Logic Unit"
-            }, 3, Category.ComputerOrg, Difficulty.expert)
+            }, 2, Category.ComputerOrg, Difficulty.expert)
     };
 
     public static Question[] IncDifficulty(Category category) {
