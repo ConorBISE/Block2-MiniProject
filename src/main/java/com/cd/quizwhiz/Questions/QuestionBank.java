@@ -171,6 +171,7 @@ public class QuestionBank {
     }
 
     public static void shuffleArrayList(ArrayList<Question> list, Random random) {
+        //i used fisherYatesShuffle to get a good random shuffle
         int n = list.size();
 
         for (int i = n - 1; i > 0; i--) {

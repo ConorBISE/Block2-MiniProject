@@ -21,7 +21,6 @@ public class Auth {
                 FileWriter writer = new FileWriter(userFile);
                 // Write the user's password into the file.
                 writer.write(password);
-                writer.write("\nTarget line");
                 writer.close();
                 return username; // Registration successful.
             } catch (IOException e) {
