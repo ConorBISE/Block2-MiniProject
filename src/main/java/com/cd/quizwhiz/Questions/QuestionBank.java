@@ -183,8 +183,6 @@ public class QuestionBank {
             list.set(j, temp);
         }
     }
-
-    
 }
 
 
