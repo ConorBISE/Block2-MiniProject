@@ -1,4 +1,4 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.UserStuff;
 
 import java.io.*;
 
@@ -19,13 +19,17 @@ public class Auth {
             // Try to write a new file with the user's data.
             try {
                 FileWriter writer = new FileWriter(userFile);
+                String passwordEnc = PasswordEncryption.encrypt(password);
                 // Write the user's password into the file.
-                writer.write(password);
+                writer.write(passwordEnc);
                 writer.close();
                 return username; // Registration successful.
             } catch (IOException e) {
                 System.out.println(e);
                 return "Error creating user file."; // Handle file creation error.
+            }
+            catch (Exception e) {
+                throw new RuntimeException(e);//catch errors for password Encryption
             }
         } else {
             return "Username already exists."; // Username is already taken.
@@ -45,7 +49,7 @@ public class Auth {
             if (line != null) {
                 String storedPassword = line;
                 // Check if the provided password matches the stored password.
-                if (password.equals(storedPassword)) {
+                if (password.equals(PasswordEncryption.decrypt(storedPassword))) {
                     loggedIn = true;
                 }
             }
@@ -55,6 +59,8 @@ public class Auth {
         } catch (IOException e) {
             // Handle other I/O exceptions.
             loggedIn = false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);// catch errors for password decryption
         }
 
         return loggedIn;

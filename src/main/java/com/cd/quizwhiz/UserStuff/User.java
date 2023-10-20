@@ -1,4 +1,6 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.UserStuff;
+
+import com.cd.quizwhiz.Stats.Statistics;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -95,5 +97,7 @@ public class User
         return  Statistics.StandardDeviation(scores);
     }
 
-    public String getUsername() { return username; }
+    public String getUsername() { return username; };
+
+
 }
