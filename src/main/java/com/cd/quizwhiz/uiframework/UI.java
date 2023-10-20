@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLInputElement;
 
@@ -68,15 +70,7 @@ public class UI<T> {
                 for (Annotation annotation : method.getAnnotations()) {
                     if (annotation instanceof ClickListener) {
                         ClickListener l = (ClickListener) annotation;
-                        EventTarget eventTarget = (EventTarget) engine.getDocument().getElementById(l.id());
-
-                        if (eventTarget == null) {
-                            System.out.println(
-                                    "[WARN] Ignoring event listener for element " + l.id() + " (does not exist)");
-                            continue;
-                        }
-
-                        eventTarget.addEventListener("click", event -> {
+                        this.addClickListener(l.id(), event -> {
                             try {
                                 method.invoke(page, this);
                             } catch (IllegalAccessException e) {
@@ -85,7 +79,7 @@ public class UI<T> {
                             catch (InvocationTargetException e) {
                                 System.out.println("[WARN] Failure while invoking event listener for element " + l.id() + ": " + e.getTargetException());
                             }
-                        }, true);
+                        });
                     }
                 }
             }
@@ -100,6 +94,28 @@ public class UI<T> {
         Document document = webView.getEngine().getDocument();
         HTMLInputElement el = (HTMLInputElement) document.getElementById(id);
         return el.getValue();
+    }
+
+    public void setElementText(String id, String text) {
+        Document document = webView.getEngine().getDocument();
+        Element el = document.getElementById(id);
+        el.setTextContent(text);
+    }
+
+    public void setElementVisibility(String id, boolean visible) {
+        Document document = webView.getEngine().getDocument();
+        Element el = document.getElementById(id);
+        el.setAttribute("style", visible ? "display: block;" : "display: none;");
+    }
+
+    public void setElementClasses(String id, String classes) {
+        Element el = webView.getEngine().getDocument().getElementById(id);
+        el.setAttribute("class", classes);
+    }
+
+    public void addClickListener(String id, EventListener listener) {
+        EventTarget eventTarget = (EventTarget) webView.getEngine().getDocument().getElementById(id);
+        eventTarget.addEventListener("click", listener, true);
     }
 
     public T getState() {

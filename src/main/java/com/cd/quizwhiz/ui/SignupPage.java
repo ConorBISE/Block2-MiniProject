@@ -19,11 +19,14 @@ public class SignupPage extends UIPage<AppState> {
         String registrationStatus = Auth.register(username, password);
 
         if (registrationStatus.equals(username)) {
+            ui.getState().user = new Object(); // TODO: user object
             ui.loadPage(new HomePage());
+            return;
         }
         
         // error :(
-        System.out.println(registrationStatus);
+        ui.setElementText("error-toast", registrationStatus);
+        ui.setElementVisibility("error-toast", true);
     }
 
     @ClickListener(id="signin-link")

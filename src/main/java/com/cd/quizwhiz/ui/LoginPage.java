@@ -23,7 +23,7 @@ public class LoginPage extends UIPage<AppState> {
             ui.getState().user = new Object();
             ui.loadPage(new HomePage());
         } else {
-            System.out.println("Unsuccesful login!");
+            ui.setElementVisibility("error-toast", true);
         }
     }
 
