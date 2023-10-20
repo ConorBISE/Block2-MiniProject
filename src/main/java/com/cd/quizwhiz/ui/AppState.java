@@ -1,5 +1,7 @@
 package com.cd.quizwhiz.ui;
 
+import com.cd.quizwhiz.User;
+
 public class AppState {
-    public Object user = null; // TODO: replace with concrete user type
+    public User user;
 }

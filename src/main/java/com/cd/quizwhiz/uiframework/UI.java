@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLInputElement;
+import org.w3c.dom.html.HTMLSelectElement;
 
 import com.cd.quizwhiz.App;
 
@@ -92,8 +93,19 @@ public class UI<T> {
 
     public String getInputValueById(String id) {
         Document document = webView.getEngine().getDocument();
-        HTMLInputElement el = (HTMLInputElement) document.getElementById(id);
-        return el.getValue();
+        Element el = document.getElementById(id);
+
+        if (el instanceof HTMLSelectElement) {
+            HTMLSelectElement selectEl = (HTMLSelectElement) el;
+            return selectEl.getValue();            
+        }
+
+        if (el instanceof HTMLInputElement) {
+            HTMLInputElement inputEl = (HTMLInputElement) el;
+            return inputEl.getValue();
+        }
+
+        return null;
     }
 
     public void setElementText(String id, String text) {

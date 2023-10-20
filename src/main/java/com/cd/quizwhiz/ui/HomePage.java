@@ -1,5 +1,7 @@
 package com.cd.quizwhiz.ui;
 
+import com.cd.quizwhiz.Questions.Category;
+import com.cd.quizwhiz.Questions.Question;
 import com.cd.quizwhiz.Questions.QuestionBank;
 import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
@@ -22,8 +24,45 @@ public class HomePage extends UIPage<AppState> {
         return true;
     }
 
-    @ClickListener(id="quiz-button")
+    @Override
+    public void onStart(UI<AppState> ui) {
+        ui.setElementText("username", ui.getState().user.getUsername());
+    }
+
+    @ClickListener(id="go-button")
     public void onQuizButtonClick(UI<AppState> ui) {
-       ui.loadPage(new QuizPage(QuestionBank.QUESTIONS));
+        // What kind of quiz does the user want to do?
+        String categoryString = ui.getInputValueById("quiz-category");
+        String modeString = ui.getInputValueById("quiz-mode");
+        
+        Category category = null;
+        
+        switch (categoryString) {
+            case "comp-org":
+                category = Category.ComputerOrg;
+                break;
+
+            case "discrete-maths":
+                category = Category.DiscreteMaths;
+                break;
+
+            case "comp-sci":
+                category = Category.ComputerSci;
+                break;
+        }
+
+        Question[] questions = null;
+
+        switch (modeString) {
+            case "increasing-difficulty":
+                questions = QuestionBank.IncDifficulty(category);
+                break;
+            
+            case "random-draw":
+                questions = QuestionBank.RandomQuestion(category);
+                break;    
+        }
+
+        ui.loadPage(new QuizPage(questions));
     }
 }

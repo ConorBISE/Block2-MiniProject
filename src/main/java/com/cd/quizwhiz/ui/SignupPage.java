@@ -1,6 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.Auth;
+import com.cd.quizwhiz.User;
 import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
@@ -19,7 +20,7 @@ public class SignupPage extends UIPage<AppState> {
         String registrationStatus = Auth.register(username, password);
 
         if (registrationStatus.equals(username)) {
-            ui.getState().user = new Object(); // TODO: user object
+            ui.getState().user = new User(username);
             ui.loadPage(new HomePage());
             return;
         }

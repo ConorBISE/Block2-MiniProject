@@ -1,6 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.Auth;
+import com.cd.quizwhiz.User;
 import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
@@ -20,7 +21,7 @@ public class LoginPage extends UIPage<AppState> {
         if (Auth.login(username, password)) {
             // Success!
             // Bounce the user through to the home page
-            ui.getState().user = new Object();
+            ui.getState().user = new User(username);
             ui.loadPage(new HomePage());
         } else {
             ui.setElementVisibility("error-toast", true);

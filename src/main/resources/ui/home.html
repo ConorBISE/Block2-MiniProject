@@ -9,7 +9,7 @@
     <body>
         <header class="container-fluid">
             <hgroup>
-                <h1>Let's take a quiz, (username)</h1>
+                <h1>Let's take a quiz, <span id="username"></span></h1>
                 <h2>or, <a>view your stats</a></h2>
             </hgroup>
         </header>
@@ -18,15 +18,18 @@
             <section>
                 <form>
                     <div class="grid">
-                        <select>
-                            <option>Increasing Difficulty</option>
-                            <option>Random Draw</option>
+                        <select id="quiz-mode">
+                            <option value="increasing-difficulty">Increasing Difficulty</option>
+                            <option value="random-draw">Random Draw</option>
                         </select>
-                        <select>
-                            <option>Computer Organisation</option>
-                            <option>Discrete Mathematics</option>
-                            <option>Computer Science</option>
+                        <select id="quiz-category">
+                            <option value="comp-org">Computer Organisation</option>
+                            <option value="discrete-maths">Discrete Mathematics</option>
+                            <option value="comp-sci">Computer Science</option>
                         </select>
+                    </div>
+                    <div class="grid">
+                        <button id="go-button">let's do this!</button>
                     </div>
                 </form>
             </section>

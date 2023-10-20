@@ -1,7 +1,6 @@
 package com.cd.quizwhiz.Questions;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +18,8 @@ public class QuestionBank {
             new Question("What is the purpose of Big O notation in computer science?\n", new String[]{
                     " To denote the largest number in a dataset\n",
                     "To analyze the efficiency of algorithms\n",
-                    "To represent binary"}, 1, Category.DiscreteMaths, Difficulty.intermediate),
+                    "To represent binary numbers in a compact form",
+                    "To categorize data types"}, 1, Category.DiscreteMaths, Difficulty.intermediate),
 
             new Question("Surjectivity means that ...?", new String[]{
                     "... every element in the codomain has at most one element in the domain that maps to it",
