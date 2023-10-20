@@ -7,16 +7,6 @@ import java.util.*;
 
 // Define the Leaderboard class
 public class Leaderboard {
-    // Define the main method
-    public static void main(String[] args) throws IOException {
-        // Call the getLeaderboard method to get a map of usernames and their top scores
-        Map<String, Integer> leaderboard = getLeaderboard("users");
-        // Sort the entries in the map by value in descending order and print them
-        leaderboard.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                .forEach(System.out::println);
-    }
-
     // Define the getLeaderboard method that takes a directory path as input and returns a map of usernames and their top scores
     private static Map<String, Integer> getLeaderboard(String dir) throws IOException {
         // Initialize an empty map to store the leaderboard

@@ -11,5 +11,6 @@ public class main {
         System.out.println(user1.GetMean());
         System.out.println(user1.GetDeviation());
         System.out.println(user1.GetMedian());
+        System.out.println(new Leaderboard());
     }
 }
