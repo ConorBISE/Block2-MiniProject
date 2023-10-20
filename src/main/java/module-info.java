@@ -8,4 +8,5 @@ module com.cd.quizwhiz {
 
     exports com.cd.quizwhiz;
     exports com.cd.quizwhiz.Questions;
+    exports com.cd.quizwhiz.UserStuff;
 }

@@ -1,6 +1,8 @@
 package com.cd.quizwhiz;
 
 // Import necessary Java libraries
+import com.cd.quizwhiz.UserStuff.Auth;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
