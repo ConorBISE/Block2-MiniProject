@@ -1,6 +1,6 @@
 package com.cd.quizwhiz.ui;
 
-import com.cd.quizwhiz.Auth;
+import com.cd.quizwhiz.UserStuff.Auth;
 import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;

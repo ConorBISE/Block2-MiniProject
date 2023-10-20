@@ -1,4 +1,4 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.Stats;
 
 import static java.util.Arrays.sort;
 

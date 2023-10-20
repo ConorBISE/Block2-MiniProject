@@ -1,4 +1,6 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.UserStuff;
+
+import com.cd.quizwhiz.Stats.Statistics;
 
 import java.io.*;
 import java.util.ArrayList;

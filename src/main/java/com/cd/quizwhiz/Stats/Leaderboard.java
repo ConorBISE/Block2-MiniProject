@@ -1,6 +1,8 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.Stats;
 
 // Import necessary Java libraries
+import com.cd.quizwhiz.UserStuff.Auth;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -16,9 +18,8 @@ public class Leaderboard {
         List<String[]> leaderboardList = new ArrayList<>();
 
         // Walk through the directory and process each file
-        Files.walk(Paths.get(dir))
-                .filter(Files::isRegularFile)
-                .forEach(path -> {
+        Files.walk(Paths.get(dir)).filter(Files::isRegularFile).forEach(path -> {
+
                     // Extract the username from the filename
                     String username = path.getFileName().toString().replace(".txt", "");
 
@@ -54,7 +55,7 @@ public class Leaderboard {
     }
 
     // Overloaded getLeaderboard method that takes a username and score as inputs
-    public static String[][] getLeaderboard(String currentUsername, double currentScore) throws IOException {
+    public static String[][] getLeaderboard(String currentUsername, int currentScore) throws IOException {
         // Define the directory path
         String dir = Auth.userFolder;
 
@@ -62,7 +63,7 @@ public class Leaderboard {
         List<String[]> leaderboardList = new ArrayList<>();
 
         // Add the current user's score to the leaderboardList
-        leaderboardList.add(new String[]{currentUsername + "a", String.valueOf(currentScore)});
+        leaderboardList.add(new String[]{"*"+currentUsername , String.valueOf(currentScore)});
 
         // Walk through the directory and process each file
         Files.walk(Paths.get(dir))
