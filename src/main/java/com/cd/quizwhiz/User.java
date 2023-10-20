@@ -94,4 +94,6 @@ public class User
         double[] scores = ReturnScores();
         return  Statistics.StandardDeviation(scores);
     }
+
+
 }
