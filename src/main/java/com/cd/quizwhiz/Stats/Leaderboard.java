@@ -1,4 +1,4 @@
-package com.cd.quizwhiz;
+package com.cd.quizwhiz.Stats;
 
 // Import necessary Java libraries
 import com.cd.quizwhiz.UserStuff.Auth;
@@ -18,9 +18,8 @@ public class Leaderboard {
         List<String[]> leaderboardList = new ArrayList<>();
 
         // Walk through the directory and process each file
-        Files.walk(Paths.get(dir))
-                .filter(Files::isRegularFile)
-                .forEach(path -> {
+        Files.walk(Paths.get(dir)).filter(Files::isRegularFile).forEach(path -> {
+                    
                     // Extract the username from the filename
                     String username = path.getFileName().toString().replace(".txt", "");
 
