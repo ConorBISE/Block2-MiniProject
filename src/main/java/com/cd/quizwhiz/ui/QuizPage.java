@@ -44,6 +44,7 @@ public class QuizPage extends UIPage<AppState> {
         if (id == currentQuestion.getActualAnswer()) {
             ui.setElementText("feedback-toast", "Correct!");
             ui.setElementClasses("feedback-toast", "toast good");
+            ui.getState().user.AddScore();
         } else {
             ui.setElementText("feedback-toast", "Incorrect! The right answer was: " + currentQuestion.getAnswers()[currentQuestion.getActualAnswer()]);
             ui.setElementClasses("feedback-toast", "toast bad");
@@ -55,6 +56,12 @@ public class QuizPage extends UIPage<AppState> {
 
     @ClickListener(id="next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
+        if (currentQuestionIndex == this.questionsToAsk.length - 1) {
+            // We're done here!
+            ui.loadPage(new StatsPage(true));
+            return;
+        }
+
         currentQuestionIndex += 1;
         this.loadQuestion(ui, this.questionsToAsk[this.currentQuestionIndex]);
     }

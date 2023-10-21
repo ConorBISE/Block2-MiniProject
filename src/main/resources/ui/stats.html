@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/pico.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body>
+        <main class="container-fluid">
+            <article>
+                <header class="text-align-center" id="just-finished-quiz-section" style="display: none;">
+                    <hgroup>
+                        <h2>You got: <span id="score"></span> / 6</h2>
+                        <h3 id="score-message"></h3>
+                    </hgroup>
+                </header>
+
+                <section>
+                    <h3>Your stats:</h3>
+                    <ul>
+                        <li>Lifetime mean: <span id="mean"></span></li>
+                        <li>Lifetime median: <span id="median"></span></li>
+                        <li>Lifetime standard deviation: <span id="std-dev"></span></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">Max score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="leaderboard-row-template" style="display: none;">
+                                <td ui-template-id="username">User1</th>
+                                <td ui-template-id="score">9</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </article>
+        </main>
+    </body>
+</html>

@@ -65,4 +65,9 @@ public class HomePage extends UIPage<AppState> {
 
         ui.loadPage(new QuizPage(questions));
     }
+
+    @ClickListener(id="stats-link")
+    public void onStatsLinkClicked(UI<AppState> ui) {
+        ui.loadPage(new StatsPage());
+    }
 }

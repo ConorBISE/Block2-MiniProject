@@ -34,6 +34,7 @@ public class UI<T> {
         this.primaryStage = primaryStage;
 
         this.webView = new WebView();
+        this.webView.setContextMenuEnabled(false);
 
         StackPane pane = new StackPane();
         pane.getChildren().add(webView);
@@ -52,8 +53,6 @@ public class UI<T> {
 
         WebEngine engine = webView.getEngine();
         Worker<?> worker = engine.getLoadWorker();
-
-        engine.load(App.class.getResource("/ui/" + page.getPageName() + ".html").toExternalForm());
 
         if (this.activeChangeListener != null)
             worker.stateProperty().removeListener(this.activeChangeListener);
@@ -89,6 +88,8 @@ public class UI<T> {
         };
 
         worker.stateProperty().addListener(this.activeChangeListener);
+
+        engine.load(App.class.getResource("/ui/" + page.getPageName() + ".html").toExternalForm());
     }
 
     public String getInputValueById(String id) {
