@@ -2,10 +2,17 @@ package com.cd.quizwhiz.UserStuff;
 
 import java.io.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.cd.quizwhiz.uiframework.UI;
+
 // Auth class handles user registration and login.
 public class Auth {
     // Directory where user data files are stored.
     public static String userFolder = "users";
+
+    private static final Logger logger = LoggerFactory.getLogger(Auth.class);
 
     // The register method checks if a file with the username already exists,
     // and if not, it creates a new file with the username and password.
@@ -25,7 +32,7 @@ public class Auth {
                 writer.close();
                 return username; // Registration successful.
             } catch (IOException e) {
-                System.out.println(e);
+                logger.error("", e);
                 return "Error creating user file."; // Handle file creation error.
             }
             catch (Exception e) {

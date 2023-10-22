@@ -4,6 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -42,6 +44,8 @@ public class UI<T> {
     private TemplateEngine templateEngine;
     private Context currentPageContext;
 
+    private final Logger logger = LoggerFactory.getLogger(UI.class);
+
     public UI(Stage primaryStage, T initialState) {
         this.state = initialState;
         this.primaryStage = primaryStage;
@@ -68,7 +72,7 @@ public class UI<T> {
         // when it's bundled up inside a jar file.
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCacheable(false);
 
         this.templateEngine = new TemplateEngine();
@@ -131,13 +135,9 @@ public class UI<T> {
                             try {
                                 method.invoke(page, this);
                             } catch (IllegalAccessException e) {
-                                System.out
-                                        .println("[WARN] Failed to invoke event listener for element " + l.id() + ": ");
-                                e.printStackTrace();
+                                logger.error("Failed to invoke event listener for element {}:", l.id(), e);
                             } catch (InvocationTargetException e) {
-                                System.out.println(
-                                        "[WARN] Failure while invoking event listener for element " + l.id() + ": ");
-                                e.getTargetException().printStackTrace();
+                                logger.error("Failure while invoking event listener for element {}:", l.id(), e.getTargetException());
                             }
                         });
                     }

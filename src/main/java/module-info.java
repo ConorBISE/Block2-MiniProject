@@ -5,7 +5,8 @@ module com.cd.quizwhiz {
     
     requires jdk.xml.dom;
     requires thymeleaf;
-    requires java.sql;
+    requires java.sql; // dependency of thymeleaf not correctly imported otherwise
+    requires org.slf4j;
 
     exports com.cd.quizwhiz;
     exports com.cd.quizwhiz.Questions;

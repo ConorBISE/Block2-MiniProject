@@ -6,11 +6,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class User
 {
     //declare variables to store user data
     String username;
     int currentScore;
+
+    private final Logger logger = LoggerFactory.getLogger(User.class);
 
     //intizilization method takes in an String argument username
     public User(String username)
@@ -50,7 +55,7 @@ public class User
             catch (IOException e)
                 {
                     //print out error
-                    System.out.println(e);
+                    logger.error("", e);
                 }
         }
         //return the current
