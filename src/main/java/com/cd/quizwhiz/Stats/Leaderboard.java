@@ -2,6 +2,8 @@ package com.cd.quizwhiz.Stats;
 
 // Import necessary Java libraries
 import com.cd.quizwhiz.UserStuff.Auth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.*;
@@ -9,6 +11,9 @@ import java.util.*;
 
 // Define the Leaderboard class
 public class Leaderboard {
+
+    private static final Logger logger = LoggerFactory.getLogger(Auth.class);
+
     // Define the getLeaderboard method that takes no inputs and returns a 2D array of usernames and their top scores
     public static String[][] getLeaderboard() throws IOException {
         // Define the directory path
@@ -27,7 +32,7 @@ public class Leaderboard {
                     try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
                         reader.readLine();
                         String line;
-                        int maxScore = Integer.MIN_VALUE;
+                        int maxScore = 0;
 
                         // Read each line in the file and update maxScore with the highest score found
                         while ((line = reader.readLine()) != null) {
@@ -37,7 +42,7 @@ public class Leaderboard {
                         // Add the username and their top score to the leaderboardList
                         leaderboardList.add(new String[]{username, String.valueOf(maxScore)});
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        logger.error("", e);
                     }
                 });
 
@@ -76,7 +81,7 @@ public class Leaderboard {
                     try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
                         reader.readLine();
                         String line;
-                        int maxScore = Integer.MIN_VALUE;
+                        int maxScore = 0;
 
                         // Read each line in the file and update maxScore with the highest score found
                         while ((line = reader.readLine()) != null) {
@@ -86,7 +91,7 @@ public class Leaderboard {
                         // Add the username and their top score to the leaderboardList
                         leaderboardList.add(new String[]{username, String.valueOf(maxScore)});
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        logger.error("", e);
                     }
                 });
 
