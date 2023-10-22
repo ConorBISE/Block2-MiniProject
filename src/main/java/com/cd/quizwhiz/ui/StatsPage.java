@@ -1,6 +1,12 @@
 package com.cd.quizwhiz.ui;
 
+import java.io.IOException;
+
+import org.thymeleaf.context.Context;
+
+import com.cd.quizwhiz.Stats.Leaderboard;
 import com.cd.quizwhiz.UserStuff.User;
+import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
@@ -28,20 +34,33 @@ public class StatsPage extends UIPage<AppState> {
     }
 
     @Override
-    public void onStart(UI<AppState> ui) {
+    public boolean onPreload(UI<AppState> ui) {
+        Context context = ui.getContext();
         User user = ui.getState().user;
 
+        context.setVariable("justFinishedQuiz", this.justFinishedQuiz);
+        context.setVariable("user", user);
+
         if (justFinishedQuiz) {
-            int finalScore = ui.getState().user.FinalScore();
-            
-            ui.setElementText("score", Integer.toString(finalScore));
-            ui.setElementText("score-message", scoreMessages[finalScore]);
-            ui.setElementVisibility("just-finished-quiz-section", true);
+            int finalScore = user.FinalScore();
+
+            context.setVariable("score", Integer.toString(finalScore));
+            context.setVariable("scoreMessage", scoreMessages[finalScore]);
         }
 
-        ui.setElementText("mean", String.format("%.2f", user.GetMean()));
-        ui.setElementText("median", String.format("%.2f", user.GetMedian()));
-        ui.setElementText("std-dev", String.format("%.2f", user.GetDeviation()));
+        // Leaderboard
+        try {
+            String[][] leaderboard = Leaderboard.getLeaderboard();
+            context.setVariable("leaderboard", leaderboard);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
+    @ClickListener(id="back-link")
+    public void onBackLinkClick(UI<AppState> ui) {
+        ui.loadPage(new HomePage());
+    }
 }

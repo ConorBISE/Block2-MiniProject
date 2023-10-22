@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <base data-th-href="${base}" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/pico.min.css" />
@@ -11,20 +12,20 @@
             <article class="grid">
                 <div>
                     <div>
-                        <h1>sign up to quizwhiz</h1>
+                        <h1>sign in to quizwhiz</h1>
                     </div>
                     <form>
                         <input type="text" placeholder="username" id="username" required></input>
                         <input type="password" placeholder="password" id="password" required></input>
                     </form>
-                    <button type="submit" class="contrast" id="signup-button">sign up</button>
-                    <a class="secondary" id="signin-link">already have an account? sign in here!</a>
+                    <button type="submit" class="contrast" id="login-button">log in</button>
+                    <a class="secondary" id="signup-link">don't have an account? sign up here!</a>
                 </div>
             </article>
 
             <div class="grid text-align-center">
                 <div></div>
-                <div><span id="error-toast" class="toast bad margin-y" style="display: none;"></span></div>
+                <div><span id="error-toast" class="toast bad margin-y" style="display: none;">Invalid username or password. Please try again.</span></div>
                 <div></div>
             </div>
         </main>

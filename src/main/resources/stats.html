@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base data-th-href="${base}" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/pico.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body>
+        <main class="container-fluid">
+            <article>
+                <div class="text-align-center" data-th-if="${justFinishedQuiz}">
+                    <hgroup>
+                        <h2>You got: <span data-th-text="${score}"></span> / 6</h2>
+                        <h3 data-th-text="${scoreMessage}"></h3>
+                    </hgroup>
+                </div>
+
+                <div class="grid">
+                    <h3>Your stats:</h3>
+                    <ul>
+                        <li>Lifetime mean: <span data-th-text="${#numbers.formatDecimal(user.GetMean(), 1, 2)}"></span></li>
+                        <li>Lifetime median: <span data-th-text="${#numbers.formatDecimal(user.GetMedian(), 1, 2)}"></span></li>
+                        <li>Lifetime standard deviation: <span data-th-text="${#numbers.formatDecimal(user.GetDeviation(), 1, 2)}"></span></li>
+                    </ul>
+                </div>
+
+                <div class="grid">
+                    <h3>Leaderboard:</h3>
+                    <center>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Max score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-th-each="user: ${leaderboard}">
+                                    <td data-th-text="${user[0]}">User1</th>
+                                    <td data-th-text="${user[1]}">9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+
+                <a id="back-link">← back to home</a>
+            </article>
+        </main>
+    </body>
+</html>

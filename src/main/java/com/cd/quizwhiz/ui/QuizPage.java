@@ -20,6 +20,9 @@ public class QuizPage extends UIPage<AppState> {
         this.loadQuestion(ui, this.questionsToAsk[0]);
 
         for (int i = 0; i < 4; i++) {
+            // Java has strict rules about lambdas capturing variables from another scope.
+            // Technically, we define i in another scope, so we can't use it in the click listener lambda.
+            // So, to get around that, we make a copy of i within this scope.
             int finalI = i;
             ui.addClickListener("answer-" + i, event -> {
                 this.onAnswerClicked(ui, finalI);
@@ -62,7 +65,6 @@ public class QuizPage extends UIPage<AppState> {
             return;
         }
 
-        currentQuestionIndex += 1;
-        this.loadQuestion(ui, this.questionsToAsk[this.currentQuestionIndex]);
+        this.loadQuestion(ui, this.questionsToAsk[++this.currentQuestionIndex]);
     }
 }
