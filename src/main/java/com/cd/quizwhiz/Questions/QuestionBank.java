@@ -1,7 +1,6 @@
 package com.cd.quizwhiz.Questions;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -19,14 +18,15 @@ public class QuestionBank {
             new Question("What is the purpose of Big O notation in computer science?\n", new String[]{
                     " To denote the largest number in a dataset\n",
                     "To analyze the efficiency of algorithms\n",
-                    "To represent binary"}, 1, Category.DiscreteMaths, Difficulty.intermediate),
+                    "To represent binary numbers in a compact form",
+                    "To categorize data types"}, 1, Category.DiscreteMaths, Difficulty.intermediate),
 
             new Question("Surjectivity means that ...?", new String[]{
                     "... every element in the codomain has at most one element in the domain that maps to it",
                     "... every element in codomain has exactly one element in the domain that maps to it",
                     "... every element in the codomain has at least one element in the domain that maps to it",
                     "... every element in the domain maps onto at most one element in the codomain"
-            }, 1, Category.DiscreteMaths, Difficulty.intermediate),
+            }, 2, Category.DiscreteMaths, Difficulty.intermediate),
             //expert
             new Question("Under which of the following conditions is the inverse of a matrix NOT defined?", new String[]{
                     "If it is an identity matrix",

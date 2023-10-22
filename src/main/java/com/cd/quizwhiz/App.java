@@ -15,6 +15,7 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) {
-        new UI<AppState>(primaryStage, new AppState()).loadPage(new HomePage());
+        new UI<AppState>(primaryStage, new AppState())
+            .loadPage(new HomePage());
     }
 }

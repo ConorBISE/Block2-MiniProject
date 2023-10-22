@@ -4,7 +4,8 @@ module com.cd.quizwhiz {
     requires javafx.web;
     
     requires jdk.xml.dom;
-    requires org.json;
+    requires thymeleaf;
+    requires java.sql;
 
     exports com.cd.quizwhiz;
     exports com.cd.quizwhiz.Questions;

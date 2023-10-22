@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base data-th-href="${base}" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/pico.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body>
+        <main class="container-fluid">
+            <div class="grid text-align-center">
+                <h1 id="question-text">Question?</h1>
+            </div>
+
+            <div class="grid text-align-center">
+                <div><button id="answer-0">Hello</button></div>
+                <div><button id="answer-1">World</button></div>
+            </div>
+
+            <div class="grid text-align-center">
+                <div><button id="answer-2">Hello</button></div>
+                <div><button id="answer-3">World</button></div>
+            </div>
+
+            <div class="grid text-align-center">
+                <div></div>
+                <div><span id="feedback-toast" class="toast good">This is some good text!</span></div>
+                <div></div>
+            </div>
+
+            <div class="grid text-align-center">
+                <div></div>
+                <div><button id="next-button" role="button" class="margin-y">Next question!</button></div>
+                <div></div>
+            </div>
+        </main>
+    </body>
+</html>

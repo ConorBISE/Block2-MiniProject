@@ -1,6 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.UserStuff.Auth;
+import com.cd.quizwhiz.UserStuff.User;
 import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
@@ -19,11 +20,14 @@ public class SignupPage extends UIPage<AppState> {
         String registrationStatus = Auth.register(username, password);
 
         if (registrationStatus.equals(username)) {
+            ui.getState().user = new User(username);
             ui.loadPage(new HomePage());
+            return;
         }
         
         // error :(
-        System.out.println(registrationStatus);
+        ui.setElementText("error-toast", registrationStatus);
+        ui.setElementVisibility("error-toast", true);
     }
 
     @ClickListener(id="signin-link")

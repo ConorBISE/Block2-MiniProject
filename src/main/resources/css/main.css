@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Inter";
+    src: url('fonts/Inter-Light.ttf') format('truetype');
+}
+
+html {
+    font-family: "Inter", sans-serif;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+a {
+    cursor: pointer;
+}
+
+.toast {
+    color: #fff;
+    border-radius: 8px;
+    padding: 5px 15px;
+}
+
+.toast.good {
+    background: #5cb85c;
+}
+
+.toast.bad {
+    background: #d9534f;
+}
+
+.margin-y {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

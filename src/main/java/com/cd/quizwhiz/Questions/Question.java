@@ -20,4 +20,10 @@ public class Question {
     boolean CompareAnswer(int Answer) {
         return Answer == this.ActualAnswer;
     }
+
+    public String getQuestion() { return Question; };
+    public String[] getAnswers() { return Answers; };
+    public int getActualAnswer() { return ActualAnswer; };
+    public Category getCategory() { return category; };
+    public Difficulty getDifficulty() { return difficulty; };
 }

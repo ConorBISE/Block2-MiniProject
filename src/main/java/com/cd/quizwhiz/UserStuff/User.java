@@ -97,5 +97,7 @@ public class User
         return  Statistics.StandardDeviation(scores);
     }
 
+    public String getUsername() { return username; };
+
 
 }
