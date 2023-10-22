@@ -5,8 +5,6 @@ import java.io.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cd.quizwhiz.uiframework.UI;
-
 // Auth class handles user registration and login.
 public class Auth {
     // Directory where user data files are stored.
