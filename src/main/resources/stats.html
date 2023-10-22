@@ -21,12 +21,17 @@
                     <div class="grid">
                         <h3>Your stats:</h3>
                         <ul>
-                            <li>Lifetime mean: <span data-th-text="${#numbers.formatDecimal(user.GetMean(), 1, 2)}"></span>
+                            <li>
+                                Lifetime mean: <span data-th-text="${#numbers.formatDecimal(user.GetMean(), 1, 2)}"></span>
                             </li>
-                            <li>Lifetime median: <span
-                                    data-th-text="${#numbers.formatDecimal(user.GetMedian(), 1, 2)}"></span></li>
-                            <li>Lifetime standard deviation: <span
-                                    data-th-text="${#numbers.formatDecimal(user.GetDeviation(), 1, 2)}"></span></li>
+
+                            <li>
+                                Lifetime median: <span data-th-text="${#numbers.formatDecimal(user.GetMedian(), 1, 2)}"></span>
+                            </li>
+                            
+                             <li>
+                                Lifetime standard deviation: <span data-th-text="${#numbers.formatDecimal(user.GetDeviation(), 1, 2)}"></span>
+                            </li>
                         </ul>
 
                         <div class="grid">
@@ -53,7 +58,7 @@
             
                 <div data-th-case="false">
                     <div class="grid text-align-center">
-                        <span class="margin-y">you don't have any stats at the moment! Try taking a quiz, and checking back later.</span>
+                        <span class="margin-y">You don't have any stats at the moment! Try taking a quiz, and checking back later.</span>
                     </div>
                 </div>
 
