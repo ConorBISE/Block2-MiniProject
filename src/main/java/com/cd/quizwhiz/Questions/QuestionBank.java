@@ -127,6 +127,30 @@ public class QuestionBank {
             }, 2, Category.ComputerOrg, Difficulty.expert)
     };
 
+    //return a randomly sorted list of all questions
+    public static Question[] Coop(){
+        // Create an ArrayList to store the questions
+        ArrayList<Question> questionList = new ArrayList<>();
+
+        // Initialize a random variable
+        Random random = new Random();
+
+        // Iterate through your QUESTIONS array
+        for (Question Q : QUESTIONS) {
+            // Check if the question category matches the specified category
+                questionList.add(Q);
+        }
+
+        // Shuffle the ArrayList to randomize the questions
+        shuffleArrayList(questionList, random);
+
+        // Convert the ArrayList back to an array
+        Question[] questions = questionList.toArray(new Question[questionList.size()]);
+
+        // Return the array of randomized questions
+        return questions;
+    }
+
     public static Question[] IncDifficulty(Category category) {
         List<Question> questionList = new ArrayList<>();
         //for each question in Questions array

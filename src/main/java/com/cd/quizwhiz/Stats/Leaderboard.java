@@ -49,8 +49,13 @@ public class Leaderboard {
         // Sort the leaderboardList in descending order of scores
         leaderboardList.sort((a, b) -> Integer.compare(Integer.parseInt(b[1]), Integer.parseInt(a[1])));
 
+
         // Convert the leaderboardList to a 2D array
+
+            //creates string array with a row for each pair in leadrboard and 2 columns
         String[][] leaderboard = new String[leaderboardList.size()][2];
+
+            //for each item in leaderboard add it to our 2D array
         for (int i = 0; i < leaderboardList.size(); i++) {
             leaderboard[i] = leaderboardList.get(i);
         }
@@ -79,12 +84,16 @@ public class Leaderboard {
 
                     // Open the file and read its contents
                     try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+
+                            //read first line and discard
                         reader.readLine();
+
                         String line;
                         int maxScore = 0;
 
                         // Read each line in the file and update maxScore with the highest score found
                         while ((line = reader.readLine()) != null) {
+                            //math.max simply returns the larger of two items a,b
                             maxScore = Math.max(maxScore, Integer.parseInt(line));
                         }
 
