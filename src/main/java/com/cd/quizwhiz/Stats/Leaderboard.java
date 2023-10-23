@@ -9,13 +9,20 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-// Define the Leaderboard class
+/**The Leaderboard class is a public class that
+provides a method to get a leaderboard of users and their top scores.*/
 public class Leaderboard {
 
     private static final Logger logger = LoggerFactory.getLogger(Auth.class);
 
-    // Define the getLeaderboard method that takes no inputs and returns a 2D array of usernames and their top scores
     public static String[][] getLeaderboard() throws IOException {
+        /**
+         * Returns a 2D array of usernames and their top scores from user data files in a directory.
+         *
+         * @return A 2D array (String[][]) where each row contains a username and their top score in descending order of score.
+         * @throws IOException If an I/O error occurs when opening or reading a file.
+         */
+
         // Define the directory path
         String dir = Auth.userFolder;
 
@@ -66,6 +73,15 @@ public class Leaderboard {
 
     // Overloaded getLeaderboard method that takes a username and score as inputs
     public static String[][] getLeaderboard(String currentUsername, int currentScore) throws IOException {
+        /**
+         * Returns a 2D array of usernames, their top scores,
+         * and currentUsername with currentScore from user data files in a directory.
+         *
+         * @param currentUsername The username of the current user.
+         * @param currentScore The score of the current user.
+         * @return A 2D array (String[][]) where each row contains a username and their top score in descending order of score. The row containing currentUsername will have currentScore as its second column.
+         * @throws IOException If an I/O error occurs when opening or reading a file.
+         */
         // Define the directory path
         String dir = Auth.userFolder;
 
@@ -89,6 +105,7 @@ public class Leaderboard {
                         reader.readLine();
 
                         String line;
+                        //had to change this to 0 as it was displaying as MIN_VALUE when a user had no data
                         int maxScore = 0;
 
                         // Read each line in the file and update maxScore with the highest score found

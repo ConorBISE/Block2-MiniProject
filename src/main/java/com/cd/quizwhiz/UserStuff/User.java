@@ -8,7 +8,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * The `User` class represents a user in the QuizWhiz application and provides methods
+ * for managing user data and statistics.
+ */
 public class User
 {
     //declare variables to store user data
@@ -19,12 +22,21 @@ public class User
 
     //intizilization method takes in an String argument username
     public User(String username)
+    /**
+     * Initializes a new user with the given username.
+     *
+     * @param username The username for the new user.
+     */
         {
             this.username = username;
         }
 
     //add score used everytime a user gets an answer correct to increment score
     public void AddScore()
+    /**
+     * Increases the user's current score by 1, typically used when a user gets an answer correct.
+     */
+
         {
             currentScore++;
         }
@@ -33,6 +45,13 @@ public class User
     // score for the game and saves it to there user file , it the resets the score back to zero for the next game
 
     public int FinalScore()
+    /**
+     * Gets the player's current and final score for the game, saves it to their user file,
+     * and resets the score back to zero for the next game.
+     *
+     * @return The final score for the game.
+     */
+
     {
         // Construct the filename based on the username.
         String userDataFileName = username + ".txt";
@@ -62,7 +81,14 @@ public class User
         return finalScore;
     }
 
-    public double[] ReturnScores() {
+    public double[] ReturnScores()
+    /**
+     * Returns an array of the user's scores stored in their user file.
+     *
+     * @return An array of user scores as doubles.
+     */
+
+    {
         // Create a list to temporarily store user scores as doubles.
         List<Double> scoresList = new ArrayList<>();
 
@@ -89,20 +115,48 @@ public class User
         return scoresArray;
     }
 
-    public double GetMean(){
+    public double GetMean()
+    /**
+     * Calculates and returns the mean (average) of the user's scores.
+     *
+     * @return The mean of the user's scores.
+     */
+
+    {
       double[] scores = ReturnScores();
       return  Statistics.Mean(scores);
     }
-    public double GetMedian(){
+    public double GetMedian()
+    /**
+     * Calculates and returns the median of the user's scores.
+     *
+     * @return The median of the user's scores.
+     */
+
+    {
         double[] scores = ReturnScores();
         return  Statistics.Median(scores);
     }
-    public double GetDeviation(){
+    public double GetDeviation()
+    /**
+     * Calculates and returns the standard deviation of the user's scores.
+     *
+     * @return The standard deviation of the user's scores.
+     */
+    {
         double[] scores = ReturnScores();
         return  Statistics.StandardDeviation(scores);
     }
 
-    public String getUsername() { return username; };
+    public String getUsername()
+    /**
+     * Gets the username of the user.
+     *
+     * @return The username of the user.
+     */
+    {
+        return username;
+    };
 
 
 }

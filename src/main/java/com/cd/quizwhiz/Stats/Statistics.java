@@ -1,10 +1,21 @@
+/**
+ * The Stats package contains classes for calculating statistical measures.
+ */
 package com.cd.quizwhiz.Stats;
 
 import static java.util.Arrays.sort;
 
+/**
+ * The Statistics class contains methods for calculating statistical measures.
+ */
 public class Statistics {
 
-    // Calculate the mean of an array of scores.
+    /**
+     * Calculates the mean of an array of scores.
+     *
+     * @param scores An array of scores.
+     * @return The mean of the scores.
+     */
     public static double Mean(double[] scores) {
         double sum = 0;
 
@@ -16,7 +27,12 @@ public class Statistics {
         return sum / scores.length;
     }
 
-    // Calculate the median of an array of scores.
+    /**
+     * Calculates the median of an array of scores.
+     *
+     * @param scores An array of scores.
+     * @return The median of the scores.
+     */
     public static double Median(double[] scores) {
         double median = 0;
 
@@ -36,16 +52,15 @@ public class Statistics {
         return median;
     }
 
-//Standard deviation is computed using the formula square root of ( ∑ ( Xi – ų ) ^ 2 ) / N, where:
-
-//∑ is the sum of each element
-//Xi is each element of the array
-//ų is the mean of the elements of the array
-//N is the number of elements
+    /**
+     * Calculates the standard deviation of an array of scores.
+     *
+     * @param scores An array of scores.
+     * @return The standard deviation of the scores.
+     */
     public static double StandardDeviation(double[] scores){
         //get mean
         double mean = Mean(scores);
-
 
         // calculate the standard deviation
         double standardDeviation = 0.0;

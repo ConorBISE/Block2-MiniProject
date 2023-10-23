@@ -3,6 +3,10 @@ package com.cd.quizwhiz.Questions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+/**
+ * A class that represents a question bank containing various categories of questions
+ * with different levels of difficulty.
+ */
 
 public class QuestionBank {
 
@@ -129,6 +133,10 @@ public class QuestionBank {
 
     //return a randomly sorted list of all questions
     public static Question[] Coop(){
+        /**
+         * Retrieves a randomly sorted list of all questions in the question bank.
+         * @return An array of Question objects containing randomized questions.
+         */
         // Create an ArrayList to store the questions
         ArrayList<Question> questionList = new ArrayList<>();
 
@@ -152,6 +160,11 @@ public class QuestionBank {
     }
 
     public static Question[] IncDifficulty(Category category) {
+        /**
+         * Retrieves questions of a specified category and returns them in the original order.
+         * @param category The category of questions to retrieve.
+         * @return An array of Question objects with the specified category.
+         */
         List<Question> questionList = new ArrayList<>();
         //for each question in Questions array
         for (Question Q : QUESTIONS) {
@@ -170,6 +183,11 @@ public class QuestionBank {
 
 
     public static Question[] RandomQuestion(Category category) {
+        /**
+         * Retrieves questions of a specified category and returns them in a randomized order.
+         * @param category The category of questions to retrieve.
+         * @return An array of Question objects with the specified category, randomized.
+         */
         // Create an ArrayList to store the questions
         ArrayList<Question> questionList = new ArrayList<>();
 
@@ -195,6 +213,11 @@ public class QuestionBank {
     }
 
     public static void shuffleArrayList(ArrayList<Question> list, Random random) {
+        /**
+         * Shuffles an ArrayList of questions using the Fisher-Yates shuffle algorithm.
+         * @param list The ArrayList to be shuffled.
+         * @param random A random number generator to introduce randomness into the shuffle.
+         */
         //i used fisherYatesShuffle to get a good random shuffle
         int n = list.size();
 

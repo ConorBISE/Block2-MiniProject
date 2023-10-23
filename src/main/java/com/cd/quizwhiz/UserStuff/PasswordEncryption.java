@@ -5,6 +5,10 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * This class provides encryption and decryption methods for passwords using AES encryption.
+ */
+
 public class PasswordEncryption {
     // Define the encryption algorithm (AES) and encryption key
     private static final String ALGORITHM = "AES";
@@ -12,6 +16,13 @@ public class PasswordEncryption {
 
     // Method to encrypt a password
     public static String encrypt(String password) throws Exception {
+        /**
+         * Encrypts a password using AES encryption.
+         *
+         * @param password The password to be encrypted.
+         * @return The encrypted password as a Base64 encoded string.
+         * @throws Exception if an error occurs during encryption.
+         */
         // Generate a secret key from the provided key string
         Key key = generateKey();
         // Create a cipher object for encryption
@@ -25,6 +36,13 @@ public class PasswordEncryption {
 
     // Method to decrypt an encrypted password
     public static String decrypt(String encryptedPassword) throws Exception {
+        /**
+         * Decrypts an encrypted password using AES decryption.
+         *
+         * @param encryptedPassword The encrypted password as a Base64 encoded string.
+         * @return The decrypted password.
+         * @throws Exception if an error occurs during decryption.
+         */
         // Generate a secret key from the provided key string
         Key key = generateKey();
         // Create a cipher object for decryption
