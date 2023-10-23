@@ -9,20 +9,23 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-/**The Leaderboard class is a public class that
-provides a method to get a leaderboard of users and their top scores.*/
+/**
+ * The `Leaderboard` class provides methods for retrieving and managing user leaderboards,
+ * including sorting users by their top scores and including the current user's score.
+ */
 public class Leaderboard {
 
     private static final Logger logger = LoggerFactory.getLogger(Auth.class);
 
-    public static String[][] getLeaderboard() throws IOException {
-        /**
-         * Returns a 2D array of usernames and their top scores from user data files in a directory.
-         *
-         * @return A 2D array (String[][]) where each row contains a username and their top score in descending order of score.
-         * @throws IOException If an I/O error occurs when opening or reading a file.
-         */
 
+
+    /**
+     * Returns a 2D array of usernames and their top scores from user data files in a directory.
+     *
+     * @return A 2D array (String[][]) where each row contains a username and their top score in descending order of score.
+     * @throws IOException If an I/O error occurs when opening or reading a file.
+     */
+    public static String[][] getLeaderboard() throws IOException {
         // Define the directory path
         String dir = Auth.userFolder;
 
@@ -71,17 +74,18 @@ public class Leaderboard {
         return leaderboard;
     }
 
-    // Overloaded getLeaderboard method that takes a username and score as inputs
+
+
+    /**
+     * Returns a 2D array of usernames, their top scores, and currentUsername with currentScore from user data files in a directory.
+     *
+     * @param currentUsername The username of the current user.
+     * @param currentScore The score of the current user.
+     * @return A 2D array (String[][]) where each row contains a username and their top score in descending order of score. The row containing currentUsername will have currentScore as its second column.
+     * @throws IOException If an I/O error occurs when opening or reading a file.
+     */
     public static String[][] getLeaderboard(String currentUsername, int currentScore) throws IOException {
-        /**
-         * Returns a 2D array of usernames, their top scores,
-         * and currentUsername with currentScore from user data files in a directory.
-         *
-         * @param currentUsername The username of the current user.
-         * @param currentScore The score of the current user.
-         * @return A 2D array (String[][]) where each row contains a username and their top score in descending order of score. The row containing currentUsername will have currentScore as its second column.
-         * @throws IOException If an I/O error occurs when opening or reading a file.
-         */
+
         // Define the directory path
         String dir = Auth.userFolder;
 
