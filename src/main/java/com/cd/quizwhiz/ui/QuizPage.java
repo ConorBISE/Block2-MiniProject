@@ -6,7 +6,7 @@ import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
 public class QuizPage extends UIPage<AppState> {
-    private Question[] questionsToAsk;
+    private final Question[] questionsToAsk;
     private int currentQuestionIndex = 0;
     
     public QuizPage(Question[] questionsToAsk) {
@@ -28,7 +28,7 @@ public class QuizPage extends UIPage<AppState> {
                 this.onAnswerClicked(ui, finalI);
             });
         }
-    };
+    }
 
     private void loadQuestion(UI<AppState> ui, Question question) {
         ui.setElementText("question-text", question.getQuestion());

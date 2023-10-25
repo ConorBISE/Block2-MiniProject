@@ -12,9 +12,9 @@ import com.cd.quizwhiz.uiframework.UIPage;
 
 public class StatsPage extends UIPage<AppState> {
 
-    private boolean justFinishedQuiz;
+    private final boolean justFinishedQuiz;
 
-    private static String[] scoreMessages = new String[] {
+    private static final String[] scoreMessages = new String[] {
         "keep trying - you got this",
         "keep trying - you got this",
         "you're getting it!",
@@ -47,10 +47,9 @@ public class StatsPage extends UIPage<AppState> {
             context.setVariable("score", Integer.toString(finalScore));
             context.setVariable("scoreMessage", scoreMessages[finalScore]);
         }
-
         // Leaderboard
         try {
-            String[][] leaderboard = Leaderboard.getLeaderboard();
+            String[][] leaderboard = Leaderboard.getLeaderboard(user.getUsername(), user.FinalScore());
             context.setVariable("leaderboard", leaderboard);
         } catch (IOException e) {
             e.printStackTrace();

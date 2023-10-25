@@ -31,17 +31,17 @@ import javafx.stage.Stage;
  * near-transparently.
  */
 public class UI<T> {
-    private Stage primaryStage;
-    private WebView webView;
+    private final Stage primaryStage;
+    private final WebView webView;
 
     // In order to be able to remove old change listeners registered from loading
     // old pages
     // we need to keep a reference to change listener currently active
     private ChangeListener<? super State> activeChangeListener;
 
-    private T state;
+    private final T state;
 
-    private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
     private Context currentPageContext;
 
     private final Logger logger = LoggerFactory.getLogger(UI.class);
@@ -90,7 +90,7 @@ public class UI<T> {
         // Putting the value of base inside a <base> element will let WebKit know where to
         // load resources from.
         currentPageContext.setVariable("base",
-                UI.class.getResource("/" + page.getPageName() + ".html").toExternalForm().toString());
+                UI.class.getResource("/" + page.getPageName() + ".html").toExternalForm());
 
 
         // Stage one of page loading: preloading.
@@ -199,7 +199,7 @@ public class UI<T> {
 
     public T getState() {
         return state;
-    };
+    }
 
     public Context getContext() {
         return currentPageContext;

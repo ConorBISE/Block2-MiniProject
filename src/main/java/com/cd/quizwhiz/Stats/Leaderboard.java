@@ -62,7 +62,7 @@ public class Leaderboard {
 
         // Convert the leaderboardList to a 2D array
 
-            //creates string array with a row for each pair in leadrboard and 2 columns
+            //creates string array with a row for each pair in leaderboard and 2 columns
         String[][] leaderboard = new String[leaderboardList.size()][2];
 
             //for each item in leaderboard add it to our 2D array

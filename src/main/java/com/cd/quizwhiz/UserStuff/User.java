@@ -31,15 +31,13 @@ public class User
             this.username = username;
         }
 
-    //add score used everytime a user gets an answer correct to increment score
     public void AddScore()
     /**
      * Increases the user's current score by 1, typically used when a user gets an answer correct.
      */
-
-        {
-            currentScore++;
-        }
+    {
+        currentScore++;
+    }
 
     //Used at the end of a quiz this method Gets the players current and final
     // score for the game and saves it to there user file , it the resets the score back to zero for the next game
@@ -96,7 +94,7 @@ public class User
         File userFile = new File(Auth.userFolder, userDataFileName);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
-            String line = reader.readLine(); // Read and discard the first line as it is our password.
+            String line ; // Read and discard the first line as it is our password.
 
             while ((line = reader.readLine()) != null) {
                 double score = Double.parseDouble(line);
@@ -156,7 +154,7 @@ public class User
      */
     {
         return username;
-    };
+    }
 
 
 }

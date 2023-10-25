@@ -1,6 +1,7 @@
 package com.cd.quizwhiz.Questions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 /**
@@ -144,10 +145,7 @@ public class QuestionBank {
         Random random = new Random();
 
         // Iterate through your QUESTIONS array
-        for (Question Q : QUESTIONS) {
-            // Check if the question category matches the specified category
-                questionList.add(Q);
-        }
+        Collections.addAll(questionList, QUESTIONS);
 
         // Shuffle the ArrayList to randomize the questions
         shuffleArrayList(questionList, random);
@@ -165,7 +163,7 @@ public class QuestionBank {
          * @param category The category of questions to retrieve.
          * @return An array of Question objects with the specified category.
          */
-        List<Question> questionList = new ArrayList<>();
+         List<Question>questionList = new ArrayList<>();
         //for each question in Questions array
         for (Question Q : QUESTIONS) {
             //if the question category = required category then add it to our question Array
@@ -182,7 +180,8 @@ public class QuestionBank {
 
 
 
-    public static Question[] RandomQuestion(Category category) {
+    public static Question[] RandomQuestion(Category category)
+    {
         /**
          * Retrieves questions of a specified category and returns them in a randomized order.
          * @param category The category of questions to retrieve.
@@ -195,9 +194,11 @@ public class QuestionBank {
         Random random = new Random();
 
         // Iterate through your QUESTIONS array
-        for (Question Q : QUESTIONS) {
+        for (Question Q : QUESTIONS)
+        {
             // Check if the question category matches the specified category
-            if (Q.category == category) {
+            if (Q.category == category)
+            {
                 questionList.add(Q);
             }
         }
@@ -212,7 +213,8 @@ public class QuestionBank {
         return questions;
     }
 
-    public static void shuffleArrayList(ArrayList<Question> list, Random random) {
+    public static void shuffleArrayList(ArrayList<Question> list, Random random)
+    {
         /**
          * Shuffles an ArrayList of questions using the Fisher-Yates shuffle algorithm.
          * @param list The ArrayList to be shuffled.
@@ -221,7 +223,8 @@ public class QuestionBank {
         //i used fisherYatesShuffle to get a good random shuffle
         int n = list.size();
 
-        for (int i = n - 1; i > 0; i--) {
+        for (int i = n - 1; i > 0; i--)
+        {
             int j = random.nextInt(i + 1);
 
             // Swap elements at indices i and j
