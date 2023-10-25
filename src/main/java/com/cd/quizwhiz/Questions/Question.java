@@ -12,6 +12,7 @@ public class Question {
     Category category;     // The category of the question
     Difficulty difficulty; // The Difficulty of the question
 
+
     /**
      * Initializes a new question with the provided details.
      *
@@ -27,6 +28,7 @@ public class Question {
         this.ActualAnswer = actualAnswer;
         this.category = category;
         this.difficulty = difficulty;
+
     }
 
     /**

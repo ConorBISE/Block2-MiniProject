@@ -135,8 +135,8 @@ public class QuestionBank {
     //return a randomly sorted list of all questions
     public static Question[] Coop(){
         /**
-         * Retrieves a randomly sorted list of all questions in the question bank.
-         * @return An array of Question objects containing randomized questions.
+         * Retrieves a randomly sorted list of 12 questions in the question bank.
+         * @return An array of 12 Question objects containing randomized questions.
          */
         // Create an ArrayList to store the questions
         ArrayList<Question> questionList = new ArrayList<>();
@@ -150,8 +150,10 @@ public class QuestionBank {
         // Shuffle the ArrayList to randomize the questions
         shuffleArrayList(questionList, random);
 
-        // Convert the ArrayList back to an array
-        Question[] questions = questionList.toArray(new Question[questionList.size()]);
+
+        // Convert the ArrayList back to an array// subList gets a sublist of the array of size 12 questions as we want
+        //6 questions for player1 and 6 questions for player 2
+        Question[] questions = questionList.subList(0,11).toArray(new Question[questionList.size()]);
 
         // Return the array of randomized questions
         return questions;
