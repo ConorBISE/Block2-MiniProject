@@ -118,8 +118,14 @@ public class Leaderboard {
                             maxScore = Math.max(maxScore, Integer.parseInt(line));
                         }
 
-                        // Add the username and their top score to the leaderboardList
-                        leaderboardList.add(new String[]{username, String.valueOf(maxScore)});
+                        //to ensure if my current score is my max score to place it twice on the leaderboard
+                        if (currentScore !=maxScore && username != currentUsername){
+
+                            // Add the username and their top score to the leaderboardList
+                            leaderboardList.add(new String[]{username, String.valueOf(maxScore)});
+
+                        }
+
                     } catch (IOException e) {
                         logger.error("", e);
                     }
