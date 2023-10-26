@@ -94,7 +94,7 @@ public class User
         File userFile = new File(Auth.userFolder, userDataFileName);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
-            String line ; // Read and discard the first line as it is our password.
+            String line = reader.readLine(); ; // Read and discard the first line as it is our password.
 
             while ((line = reader.readLine()) != null) {
                 double score = Double.parseDouble(line);
