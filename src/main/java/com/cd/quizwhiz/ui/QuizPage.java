@@ -8,7 +8,8 @@ import com.cd.quizwhiz.uiframework.UIPage;
 public class QuizPage extends UIPage<AppState> {
     private final Question[] questionsToAsk;
     private int currentQuestionIndex = 0;
-    
+    private boolean answerLocked = false;
+
     public QuizPage(Question[] questionsToAsk) {
         super("quiz");
 
@@ -31,6 +32,7 @@ public class QuizPage extends UIPage<AppState> {
     }
 
     private void loadQuestion(UI<AppState> ui, Question question) {
+        this.answerLocked = false;
         ui.setElementText("question-text", question.getQuestion());
 
         for (int i = 0; i < 4; i++) {
@@ -42,6 +44,10 @@ public class QuizPage extends UIPage<AppState> {
     }
 
     public void onAnswerClicked(UI<AppState> ui, int id) {
+        if (this.answerLocked)
+            return;
+
+        this.answerLocked = true;
         Question currentQuestion = this.questionsToAsk[this.currentQuestionIndex];
 
         if (id == currentQuestion.getActualAnswer()) {
