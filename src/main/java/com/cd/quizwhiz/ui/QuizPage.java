@@ -9,11 +9,13 @@ public class QuizPage extends UIPage<AppState> {
     private final Question[] questionsToAsk;
     private int currentQuestionIndex = 0;
     private boolean answerLocked = false;
+    protected UIPage<AppState> statsPage;
 
     public QuizPage(Question[] questionsToAsk) {
         super("quiz");
-
+        
         this.questionsToAsk = questionsToAsk;
+        this.statsPage = new StatsPage(true);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class QuizPage extends UIPage<AppState> {
         ui.setElementVisibility("next-button", false);
     }
 
-    public void onAnswerClicked(UI<AppState> ui, int id) {
+    protected void onAnswerClicked(UI<AppState> ui, int id) {
         if (this.answerLocked)
             return;
 
@@ -53,7 +55,7 @@ public class QuizPage extends UIPage<AppState> {
         if (id == currentQuestion.getActualAnswer()) {
             ui.setElementText("feedback-toast", "Correct!");
             ui.setElementClasses("feedback-toast", "toast good");
-            ui.getState().user.AddScore();
+            incrementScore(ui);
         } else {
             ui.setElementText("feedback-toast", "Incorrect! The right answer was: " + currentQuestion.getAnswers()[currentQuestion.getActualAnswer()]);
             ui.setElementClasses("feedback-toast", "toast bad");
@@ -63,11 +65,15 @@ public class QuizPage extends UIPage<AppState> {
         ui.setElementVisibility("next-button", true);
     }
 
+    protected void incrementScore(UI<AppState> ui) {
+        ui.getState().user.AddScore();
+    }
+
     @ClickListener(id="next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
             // We're done here!
-            ui.loadPage(new StatsPage(true));
+            ui.loadPage(this.statsPage);
             return;
         }
 
