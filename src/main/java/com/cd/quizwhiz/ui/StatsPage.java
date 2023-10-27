@@ -49,7 +49,13 @@ public class StatsPage extends UIPage<AppState> {
         }
         // Leaderboard
         try {
-            String[][] leaderboard = Leaderboard.getLeaderboard(user.getUsername(), user.FinalScore());
+            String[][] leaderboard;
+            if (this.justFinishedQuiz) {
+                leaderboard = Leaderboard.getLeaderboard(user.getUsername(), user.FinalScore());
+            } else {
+                leaderboard = Leaderboard.getLeaderboard();
+            }
+
             context.setVariable("leaderboard", leaderboard);
         } catch (IOException e) {
             e.printStackTrace();
