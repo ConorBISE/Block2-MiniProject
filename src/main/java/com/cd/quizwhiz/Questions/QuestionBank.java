@@ -153,7 +153,8 @@ public class QuestionBank {
 
         // Convert the ArrayList back to an array// subList gets a sublist of the array of size 12 questions as we want
         //6 questions for player1 and 6 questions for player 2
-        Question[] questions = questionList.subList(0,11).toArray(new Question[questionList.size()]);
+        Question[] questions = questionList.subList(0, 12).toArray(new Question[12]);  /// changed from sub array(0,11)
+        // to (0,12) as it was only returning 11
 
         // Return the array of randomized questions
         return questions;
