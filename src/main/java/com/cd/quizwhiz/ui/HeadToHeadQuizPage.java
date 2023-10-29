@@ -28,7 +28,7 @@ public class HeadToHeadQuizPage extends QuizPage {
     @Override
     public void onStart(UI<AppState> ui) {
         super.onStart(ui);
-        this.currentPlayer = new Switcher(Player.player1);
+        this.currentPlayer = new Switcher();
     }
 
     @Override
