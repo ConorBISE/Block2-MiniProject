@@ -1,8 +1,8 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.Questions.Category;
-import com.cd.quizwhiz.Questions.Question;
 import com.cd.quizwhiz.Questions.QuestionBank;
+import com.cd.quizwhiz.Questions.Player;
 import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
@@ -17,7 +17,7 @@ public class HomePage extends UIPage<AppState> {
         ui.setTitle("quizwhiz");
         
         if (ui.getState().user == null) {
-            ui.loadPage(new LoginPage());
+            ui.loadPage(new LoginPage(Player.player1, this));
             return false;
         }
         
@@ -51,19 +51,23 @@ public class HomePage extends UIPage<AppState> {
                 break;
         }
 
-        Question[] questions = null;
+        UIPage<AppState> nextPage = null;
 
         switch (modeString) {
             case "increasing-difficulty":
-                questions = QuestionBank.IncDifficulty(category);
+                nextPage = new QuizPage(QuestionBank.IncDifficulty(category));
                 break;
             
             case "random-draw":
-                questions = QuestionBank.RandomQuestion(category);
-                break;    
+                nextPage = new QuizPage(QuestionBank.RandomQuestion(category));
+                break;
+                
+            case "head-to-head":
+                nextPage = new HeadToHeadQuizPage(QuestionBank.Coop());
+                break;
         }
 
-        ui.loadPage(new QuizPage(questions));
+        ui.loadPage(nextPage);
     }
 
     @ClickListener(id="stats-link")
