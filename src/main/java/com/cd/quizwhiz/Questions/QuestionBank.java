@@ -10,7 +10,6 @@ import java.util.Random;
  */
 
 public class QuestionBank {
-
     public static final Question[] QUESTIONS = {
             // DISCRETE MATHS
             //novice
@@ -92,7 +91,7 @@ public class QuestionBank {
             }, 1, Category.ComputerSci, Difficulty.expert),
             //COMP ORG
             //novice
-            new Question("What does CPU stand?", new String[]{
+            new Question("What does CPU stand for?", new String[]{
                     "Computer Personal Unit", "Central Proccess Unidiagram",
                     "Centralized Program Unit",
                     "Central Proccesing Unit"
@@ -106,29 +105,30 @@ public class QuestionBank {
             }, 2, Category.ComputerOrg, Difficulty.novice),
             //intermediate
             new Question("What does the acronym GPU stand for?", new String[]{
-                    "General Processing Unit"
-                    , "Graphics Performace Unit",
+                    "General Processing Unit",
+                    "Graphics Performace Unit",
                     "Graphical Proccesing Unit",
                     "General Purpose Unit"
             }, 2, Category.ComputerOrg, Difficulty.intermediate),
             new Question("What is the purpose of a motherboard in a computer?", new String[]{
                     "To display images on the screen"
-                    , "To process data",
-                    "To connect and communicate with hardware componenets",
+                    ,"To process data"
+                    ,"To connect and communicate with hardware componenets",
                     "To store files and documents"
             }, 2, Category.ComputerOrg, Difficulty.intermediate),
             //expert
             new Question("What is pipelining in computer architecture", new String[]{
-                    "A technique useed in parallel computing to process multiple tasks simultaneously",
-                    "A method for cooling computer components", "A form of memory storage",
+                    "A technique used in parallel computing to process multiple tasks simultaneously",
+                    "A method for cooling computer components",
+                    "A form of memory storage",
                     "A technique for creating computer viruses"
             }, 0, Category.ComputerOrg, Difficulty.expert),
 
-            new Question("What does ALU stand for in computer architecture?", new String[]{
-                    "Advanced Learning Utility",
-                    "Asynchronous Language Update",
-                    "Arithmetic Logic Unit",
-                    "Algorithmic Logic Unit"
+            new Question("To reduce the memory access time we generally make use of ______", new String[]{
+                    "SDRAM's",
+                    "Headps",
+                    "Cache's",
+                    "Higher capacity RAM's"
             }, 2, Category.ComputerOrg, Difficulty.expert)
     };
 
@@ -226,14 +226,14 @@ public class QuestionBank {
         //i used fisherYatesShuffle to get a good random shuffle
         int n = list.size();
 
-        for (int i = n - 1; i > 0; i--)
+        for (int i = n - 1; i > 0; i--)//iterates from the list size to 0
         {
-            int j = random.nextInt(i + 1);
+            int j = random.nextInt(i + 1);//gets a random int between 0 and i+1
 
             // Swap elements at indices i and j
-            Question temp = list.get(i);
-            list.set(i, list.get(j));
-            list.set(j, temp);
+            Question temp = list.get(i);//store i`s value ina temp variable
+            list.set(i, list.get(j));// set i = j
+            list.set(j, temp);// set j = i
         }
     }
 }
