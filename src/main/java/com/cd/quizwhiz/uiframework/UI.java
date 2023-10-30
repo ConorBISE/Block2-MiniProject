@@ -126,7 +126,7 @@ public class UI<T> {
             // to the elements they're meant to be handling events for.
             Class<?> pageClass = page.getClass();
 
-            for (Method method : pageClass.getDeclaredMethods()) {
+            for (Method method : pageClass.getMethods()) {
                 for (Annotation annotation : method.getAnnotations()) {
                     if (annotation instanceof ClickListener) {
                         ClickListener l = (ClickListener) annotation;
