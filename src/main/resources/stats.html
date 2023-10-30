@@ -12,9 +12,14 @@
             <article data-th-switch="${user.ReturnScores().length != 0}">
                 <div data-th-case="true">
                     <div class="text-align-center" data-th-if="${justFinishedQuiz}">
-                        <hgroup>
+                        <hgroup data-th-if="${!multiplayer}">
                             <h2>You got: <span data-th-text="${score}"></span> / 6</h2>
-                            <h2><span data-th-if="${multiplayer}" data-th-text="${multiplayerUserTwo.getUsername()}"></span> got: <span data-th-text="${multiplayerUserTwoScore}"></span> / 6</h2>
+                            <h3 data-th-text="${scoreMessage}"></h3>
+                        </hgroup>
+
+                        <hgroup data-th-if="${multiplayer}">
+                            <h2><span data-th-text="${user.getUsername()}"></span> got: <span data-th-text="${score}"></span> / 6</h2>
+                            <h2><span data-th-text="${multiplayerUserTwo.getUsername()}"></span> got: <span data-th-text="${multiplayerUserTwoScore}"></span> / 6</h2>
                             <h3 data-th-text="${scoreMessage}"></h3>
                         </hgroup>
                     </div>
