@@ -133,11 +133,12 @@ public class QuestionBank {
     };
 
     //return a randomly sorted list of all questions
+    /**
+     * Retrieves a randomly sorted list of 12 questions in the question bank.
+     * @return An array of 12 Question objects containing randomized questions.
+     */
     public static Question[] Coop() {
-        /**
-         * Retrieves a randomly sorted list of 12 questions in the question bank.
-         * @return An array of 12 Question objects containing randomized questions.
-         */
+
         // Create an ArrayList to store the questions
         ArrayList<Question> questionList = new ArrayList<>();
 
@@ -156,13 +157,12 @@ public class QuestionBank {
         // Return the array of randomized questions
         return questions;
     }
-
+    /**
+     * Retrieves questions of a specified category and returns them in the original order.
+     * @param category The category of questions to retrieve.
+     * @return An array of Question objects with the specified category.
+     */
     public static Question[] IncDifficulty(Category category) {
-        /**
-         * Retrieves questions of a specified category and returns them in the original order.
-         * @param category The category of questions to retrieve.
-         * @return An array of Question objects with the specified category.
-         */
         List<Question> questionList = new ArrayList<>();
         // for each question in Questions array
         for (Question Q : QUESTIONS) {
@@ -177,13 +177,12 @@ public class QuestionBank {
         // returns our list of questions
         return questions;
     }
-
+    /**
+     * Retrieves questions of a specified category and returns them in a randomized order.
+     * @param category The category of questions to retrieve.
+     * @return An array of Question objects with the specified category, randomized.
+     */
     public static Question[] RandomQuestion(Category category) {
-        /**
-         * Retrieves questions of a specified category and returns them in a randomized order.
-         * @param category The category of questions to retrieve.
-         * @return An array of Question objects with the specified category, randomized.
-         */
         // Create an ArrayList to store the questions
         ArrayList<Question> questionList = new ArrayList<>();
 
@@ -207,13 +206,12 @@ public class QuestionBank {
         // Return the array of randomized questions
         return questions;
     }
-
+    /**
+     * Shuffles an ArrayList of questions using the Fisher-Yates shuffle algorithm.
+     * @param list The ArrayList to be shuffled.
+     * @param random A random number generator to introduce randomness into the shuffle.
+     */
     public static void shuffleArrayList(ArrayList<Question> list, Random random) {
-        /**
-         * Shuffles an ArrayList of questions using the Fisher-Yates shuffle algorithm.
-         * @param list The ArrayList to be shuffled.
-         * @param random A random number generator to introduce randomness into the shuffle.
-         */
         int n = list.size();
 
         for (int i = n - 1; i > 0; i--) {

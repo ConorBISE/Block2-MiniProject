@@ -1,5 +1,5 @@
 package com.cd.quizwhiz.UserStuff;
-// Import necessary libraries
+
 import java.security.Key;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -8,21 +8,19 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * This class provides encryption and decryption methods for passwords using AES encryption.
  */
-
 public class PasswordEncryption {
     // Define the encryption algorithm (AES) and encryption key
     private static final String ALGORITHM = "AES";
     private static final String KEY = "1Hbfh667adfDEJ78";
 
-    // Method to encrypt a password
+    /**
+     * Encrypts a password using AES encryption.
+     *
+     * @param password The password to be encrypted.
+     * @return The encrypted password as a Base64 encoded string.
+     * @throws Exception if an error occurs during encryption.
+     */
     public static String encrypt(String password) throws Exception {
-        /**
-         * Encrypts a password using AES encryption.
-         *
-         * @param password The password to be encrypted.
-         * @return The encrypted password as a Base64 encoded string.
-         * @throws Exception if an error occurs during encryption.
-         */
         // Generate a secret key from the provided key string
         Key key = generateKey();
         // Create a cipher object for encryption
@@ -34,15 +32,14 @@ public class PasswordEncryption {
         return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 
-    // Method to decrypt an encrypted password
+    /**
+     * Decrypts an encrypted password using AES decryption.
+     *
+     * @param encryptedPassword The encrypted password as a Base64 encoded string.
+     * @return The decrypted password.
+     * @throws Exception if an error occurs during decryption.
+     */
     public static String decrypt(String encryptedPassword) throws Exception {
-        /**
-         * Decrypts an encrypted password using AES decryption.
-         *
-         * @param encryptedPassword The encrypted password as a Base64 encoded string.
-         * @return The decrypted password.
-         * @throws Exception if an error occurs during decryption.
-         */
         // Generate a secret key from the provided key string
         Key key = generateKey();
         // Create a cipher object for decryption
@@ -54,7 +51,12 @@ public class PasswordEncryption {
         return new String(decryptedBytes);
     }
 
-    // Method to generate a secret key from the provided key string
+    /**
+     * Generate a secret key from the provided key string.
+     *
+     * @return A secret key for encryption and decryption.
+     * @throws Exception if an error occurs during key generation.
+     */
     private static Key generateKey() throws Exception {
         // Convert the key string to bytes
         byte[] keyValue = KEY.getBytes();
