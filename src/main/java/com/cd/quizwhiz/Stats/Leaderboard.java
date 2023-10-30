@@ -51,7 +51,7 @@ public class Leaderboard {
                         // Add the username and their top score to the leaderboardList
                         leaderboardList.add(new String[]{username, String.valueOf(maxScore)});
                     } catch (IOException e) {
-                        logger.error("", e);
+                        logger.error("leaderboardError", e);
                     }
                 });
 
@@ -127,7 +127,7 @@ public class Leaderboard {
                         }
 
                     } catch (IOException e) {
-                        logger.error("", e);
+                        logger.error("leaderboardError", e);
                     }
                 });
 
@@ -200,7 +200,7 @@ public class Leaderboard {
                         }
 
                     } catch (IOException e) {
-                        logger.error("", e);
+                        logger.error("leaderboardError", e);
                     }
                 });
 

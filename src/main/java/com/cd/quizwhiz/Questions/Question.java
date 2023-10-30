@@ -12,7 +12,6 @@ public class Question {
     Category category;     // The category of the question
     Difficulty difficulty; // The Difficulty of the question
 
-
     /**
      * Initializes a new question with the provided details.
      *
@@ -28,7 +27,6 @@ public class Question {
         this.ActualAnswer = actualAnswer;
         this.category = category;
         this.difficulty = difficulty;
-
     }
 
     /**
@@ -46,33 +44,43 @@ public class Question {
      *
      * @return The text of the question.
      */
-    public String getQuestion() { return Question; }
+    public String getQuestion() {
+        return Question;
+    }
 
     /**
      * Gets an array of answer options.
      *
      * @return An array of answer options.
      */
-    public String[] getAnswers() { return Answers; }
+    public String[] getAnswers() {
+        return Answers;
+    }
 
     /**
      * Gets the index of the correct answer in the 'answers' array.
      *
      * @return The index of the correct answer.
      */
-    public int getActualAnswer() { return ActualAnswer; }
+    public int getActualAnswer() {
+        return ActualAnswer;
+    }
 
     /**
      * Gets the category of the question.
      *
      * @return The category of the question.
      */
-    public Category getCategory() { return category; }
+    public Category getCategory() {
+        return category;
+    }
 
     /**
      * Gets the difficulty level of the question.
      *
      * @return The difficulty level of the question.
      */
-    public Difficulty getDifficulty() { return difficulty; }
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
 }

@@ -1,28 +1,36 @@
 package com.cd.quizwhiz.Questions;
 
+/**
+ * The `Switcher` class is responsible for switching between players in a quiz game.
+ */
 public class Switcher {
     private Player player;
 
-    // Constructor for the Switcher class
+    /**
+     * Initializes a new Switcher with the first player set to Player 1.
+     */
     public Switcher() {
-        // Initialize the 'player' instance variable with the player set to player 1 intially when the switcher object is created
-        this.player = Player.player1;
+        this.player = Player.player1; // Set the initial player to Player 1
     }
 
-    // Method for switching the player
+    /**
+     * Switches the current player. If the current player is Player 1, it switches to Player 2,
+     * and if the current player is Player 2, it switches back to Player 1.
+     */
     public void Switch() {
-        // Check if the current player is player1
         if (this.player == Player.player1) {
-            // If the current player is player1, switch to player2
-            this.player = Player.player2;
+            this.player = Player.player2; // Switch to Player 2
         } else {
-            // If the current player is not player1 (implying it's player2), switch back to player1
-            this.player = Player.player1;
+            this.player = Player.player1; // Switch back to Player 1
         }
     }
 
-   //method to get player
-    public Player getPlayer (){
-        return this.player;
+    /**
+     * Gets the current player.
+     *
+     * @return The current player (either Player 1 or Player 2).
+     */
+    public Player getPlayer() {
+        return this.player; // Return the current player
     }
 }

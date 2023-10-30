@@ -19,7 +19,7 @@ public class Statistics {
     public static double Mean(double[] scores) {
         double sum = 0;
 
-        // Loop through the array using enhanced for loop and calculate the sum of all scores.
+        // Loop through the array using an enhanced for loop and calculate the sum of all scores.
         for (double i : scores) {
             sum += i;
         }
@@ -58,19 +58,20 @@ public class Statistics {
      * @param scores An array of scores.
      * @return The standard deviation of the scores.
      */
-    public static double StandardDeviation(double[] scores){
-        //get mean
+    public static double StandardDeviation(double[] scores) {
+        // Calculate the mean of the scores.
         double mean = Mean(scores);
 
-        // calculate the standard deviation
+        // Initialize the standard deviation.
         double standardDeviation = 0.0;
 
+        // Calculate the sum of squared differences from the mean.
         for (double num : scores) {
-            //  ∑                         ( Xi – ų ) ^ 2
+            // Standard deviation formula: √(Σ(Xi - μ)^2 / N)
             standardDeviation += Math.pow(num - mean, 2);
         }
 
-        //square root of ( ∑ ( Xi – ų ) ^ 2 ) / N
+        // Calculate the square root of the sum of squared differences divided by the number of scores.
         return Math.sqrt(standardDeviation / scores.length);
     }
 }
