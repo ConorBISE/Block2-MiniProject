@@ -15,6 +15,7 @@ public class HomePage extends UIPage<AppState> {
     @Override
     public boolean onPreload(UI<AppState> ui) {
         ui.setTitle("quizwhiz");
+        ui.setIcon("/images/logo.jpg");
         
         if (ui.getState().user == null) {
             ui.loadPage(new LoginPage(Player.player1, this));
@@ -73,5 +74,10 @@ public class HomePage extends UIPage<AppState> {
     @ClickListener(id="stats-link")
     public void onStatsLinkClicked(UI<AppState> ui) {
         ui.loadPage(new StatsPage());
+    }
+
+    @ClickListener(id="about-link")
+    public void onAboutPageClicked(UI<AppState> ui) {
+        ui.loadPage(new AboutPage());
     }
 }

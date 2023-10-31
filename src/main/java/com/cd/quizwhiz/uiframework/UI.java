@@ -20,6 +20,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -207,5 +208,9 @@ public class UI<T> {
 
     public void setTitle(String title) {
         this.primaryStage.setTitle(title);
+    }
+
+    public void setIcon(String iconPath) {
+        this.primaryStage.getIcons().add(new Image(UI.class.getResourceAsStream(iconPath)));
     }
 }

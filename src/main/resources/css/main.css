@@ -3,8 +3,11 @@
     src: url('fonts/Inter-Light.ttf') format('truetype');
 }
 
-html {
+:root {
     font-family: "Inter", sans-serif;
+    background-color: #11191f;
+    --webkit-user-select: none;
+    --primary: #8339c4;
 }
 
 .text-align-center {
@@ -32,4 +35,17 @@ a {
 .margin-y {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.logo-background {
+    display: none;
+    background-image: url("../images/logo.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+@media (min-width: 992px) {
+    .logo-background {
+        display: block;
+    }
 }

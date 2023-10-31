@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
     <head>
         <base data-th-href="${base}" />
         <meta charset="UTF-8">
@@ -39,26 +39,30 @@
                                 Lifetime standard deviation: <span data-th-text="${#numbers.formatDecimal(user.GetDeviation(), 1, 2)}"></span>
                             </li>
                         </ul>
+                    </div>
 
-                        <div class="grid">
-                            <h3>Leaderboard:</h3>
-                            <center>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Max score</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-th-each="user: ${leaderboard}">
-                                            <td data-th-text="${user[0]}">User1</th>
-                                            <td data-th-text="${user[1]}">9</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </center>
-                        </div>
+
+                    <div class="grid">
+                        <h3>Leaderboard:</h3>
+                        <center>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Max score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-th-each="user: ${leaderboard}">
+                                        <div data-th-switch='${user[0].startsWith("*")}'>
+
+                                        </div>
+                                        <td data-th-text="${user[0]}">User1</th>
+                                        <td data-th-text="${user[1]}">9</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </center>
                     </div>
                 </div>
             
