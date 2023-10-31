@@ -2,15 +2,18 @@ package com.cd.quizwhiz.ui;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.context.Context;
 
 import com.cd.quizwhiz.Stats.Leaderboard;
 import com.cd.quizwhiz.UserStuff.User;
-import com.cd.quizwhiz.uiframework.ClickListener;
+import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
 public class StatsPage extends UIPage<AppState> {
+    private static final Logger logger = LoggerFactory.getLogger(StatsPage.class);
 
     private final boolean justFinishedQuiz;
 
@@ -44,7 +47,7 @@ public class StatsPage extends UIPage<AppState> {
         if (justFinishedQuiz) {
             int finalScore = user.FinalScore();
 
-            context.setVariable("score", Integer.toString(finalScore));
+            context.setVariable("score", finalScore);
             context.setVariable("scoreMessage", scoreMessages[finalScore]);
         }
         // Leaderboard
@@ -58,13 +61,13 @@ public class StatsPage extends UIPage<AppState> {
 
             context.setVariable("leaderboard", leaderboard);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error while creating leaderboard: {}", e);
         }
 
         return true;
     }
 
-    @ClickListener(id="back-link")
+    @UIEventListener(type="click", id="back-link")
     public void onBackLinkClick(UI<AppState> ui) {
         ui.loadPage(new HomePage());
     }

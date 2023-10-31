@@ -20,6 +20,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -126,12 +127,12 @@ public class UI<T> {
             // to the elements they're meant to be handling events for.
             Class<?> pageClass = page.getClass();
 
-            for (Method method : pageClass.getDeclaredMethods()) {
+            for (Method method : pageClass.getMethods()) {
                 for (Annotation annotation : method.getAnnotations()) {
-                    if (annotation instanceof ClickListener) {
-                        ClickListener l = (ClickListener) annotation;
+                    if (annotation instanceof UIEventListener) {
+                        UIEventListener l = (UIEventListener) annotation;
 
-                        this.addClickListener(l.id(), event -> {
+                        this.addListener(l.id(), l.type(), event -> {
                             try {
                                 method.invoke(page, this);
                             } catch (IllegalAccessException e) {
@@ -192,9 +193,9 @@ public class UI<T> {
         el.setAttribute("class", classes);
     }
 
-    public void addClickListener(String id, EventListener listener) {
+    public void addListener(String id, String eventType, EventListener listener) {
         EventTarget eventTarget = (EventTarget) webView.getEngine().getDocument().getElementById(id);
-        eventTarget.addEventListener("click", listener, true);
+        eventTarget.addEventListener(eventType, listener, true);
     }
 
     public T getState() {
@@ -207,5 +208,9 @@ public class UI<T> {
 
     public void setTitle(String title) {
         this.primaryStage.setTitle(title);
+    }
+
+    public void setIcon(String iconPath) {
+        this.primaryStage.getIcons().add(new Image(UI.class.getResourceAsStream(iconPath)));
     }
 }

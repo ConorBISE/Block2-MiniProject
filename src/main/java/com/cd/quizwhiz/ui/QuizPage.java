@@ -1,7 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.Questions.Question;
-import com.cd.quizwhiz.uiframework.ClickListener;
+import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
@@ -27,13 +27,13 @@ public class QuizPage extends UIPage<AppState> {
             // Technically, we define i in another scope, so we can't use it in the click listener lambda.
             // So, to get around that, we make a copy of i within this scope.
             int finalI = i;
-            ui.addClickListener("answer-" + i, event -> {
+            ui.addListener("answer-" + i, "click", event -> {
                 this.onAnswerClicked(ui, finalI);
             });
         }
     }
 
-    private void loadQuestion(UI<AppState> ui, Question question) {
+    protected void loadQuestion(UI<AppState> ui, Question question) {
         this.answerLocked = false;
         ui.setElementText("question-text", question.getQuestion());
 
@@ -69,7 +69,7 @@ public class QuizPage extends UIPage<AppState> {
         ui.getState().user.AddScore();
     }
 
-    @ClickListener(id="next-button")
+    @UIEventListener(type="click", id="next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
             // We're done here!

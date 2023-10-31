@@ -3,7 +3,6 @@ package com.cd.quizwhiz.ui;
 import com.cd.quizwhiz.Questions.Player;
 import com.cd.quizwhiz.Questions.Question;
 import com.cd.quizwhiz.Questions.Switcher;
-import com.cd.quizwhiz.uiframework.ClickListener;
 import com.cd.quizwhiz.uiframework.UI;
 
 public class HeadToHeadQuizPage extends QuizPage {
@@ -13,6 +12,7 @@ public class HeadToHeadQuizPage extends QuizPage {
     public HeadToHeadQuizPage(Question[] questionsToAsk) {
         super(questionsToAsk);
         this.statsPage = new HeadToHeadStatsPage();
+        this.currentPlayer = new Switcher();
     }
 
     @Override
@@ -22,13 +22,17 @@ public class HeadToHeadQuizPage extends QuizPage {
             return false;
         }
 
+        ui.getContext().setVariable("multiplayer", true);
+
         return true;
     }
 
     @Override
-    public void onStart(UI<AppState> ui) {
-        super.onStart(ui);
-        this.currentPlayer = new Switcher();
+    protected void loadQuestion(UI<AppState> ui, Question question) {
+        super.loadQuestion(ui, question);
+        
+        AppState state = ui.getState();
+        ui.setElementText("current-user", this.currentPlayer.getPlayer() == Player.player1 ? state.user.getUsername() : state.multiplayerUserTwo.getUsername());
     }
 
     @Override
@@ -44,11 +48,5 @@ public class HeadToHeadQuizPage extends QuizPage {
         } else {
             ui.getState().multiplayerUserTwo.AddScore();
         }
-    }
-
-    @Override
-    @ClickListener(id="next-button")
-    public void onNextButtonClicked(UI<AppState> ui) {
-        super.onNextButtonClicked(ui);
     }
 }
