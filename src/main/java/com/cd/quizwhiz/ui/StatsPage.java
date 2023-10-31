@@ -8,7 +8,7 @@ import org.thymeleaf.context.Context;
 
 import com.cd.quizwhiz.Stats.Leaderboard;
 import com.cd.quizwhiz.UserStuff.User;
-import com.cd.quizwhiz.uiframework.ClickListener;
+import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
@@ -67,7 +67,7 @@ public class StatsPage extends UIPage<AppState> {
         return true;
     }
 
-    @ClickListener(id="back-link")
+    @UIEventListener(type="click", id="back-link")
     public void onBackLinkClick(UI<AppState> ui) {
         ui.loadPage(new HomePage());
     }
