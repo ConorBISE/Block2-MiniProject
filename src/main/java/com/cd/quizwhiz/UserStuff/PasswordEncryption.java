@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.UserStuff;
+package com.cd.quizwhiz.userstuff;
 
 import java.security.Key;
 import java.util.Base64;
@@ -6,7 +6,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * This class provides encryption and decryption methods for passwords using AES encryption.
+ * This class provides encryption and decryption methods for passwords using AES
+ * encryption.
  */
 public class PasswordEncryption {
     // Define the encryption algorithm (AES) and encryption key

@@ -1,8 +1,8 @@
 package com.cd.quizwhiz.ui;
 
-import com.cd.quizwhiz.Questions.Player;
-import com.cd.quizwhiz.Questions.Question;
-import com.cd.quizwhiz.Questions.Switcher;
+import com.cd.quizwhiz.questions.Player;
+import com.cd.quizwhiz.questions.Question;
+import com.cd.quizwhiz.questions.Switcher;
 import com.cd.quizwhiz.uiframework.UI;
 
 public class HeadToHeadQuizPage extends QuizPage {
@@ -18,7 +18,7 @@ public class HeadToHeadQuizPage extends QuizPage {
     @Override
     public boolean onPreload(UI<AppState> ui) {
         if (ui.getState().multiplayerUserTwo == null) {
-            ui.loadPage(new LoginPage(Player.player2, this));
+            ui.loadPage(new LoginPage(Player.Player2, this));
             return false;
         }
 
@@ -30,23 +30,24 @@ public class HeadToHeadQuizPage extends QuizPage {
     @Override
     protected void loadQuestion(UI<AppState> ui, Question question) {
         super.loadQuestion(ui, question);
-        
+
         AppState state = ui.getState();
-        ui.setElementText("current-user", this.currentPlayer.getPlayer() == Player.player1 ? state.user.getUsername() : state.multiplayerUserTwo.getUsername());
+        ui.setElementText("current-user", this.currentPlayer.getPlayer() == Player.Player1 ? state.user.getUsername()
+                : state.multiplayerUserTwo.getUsername());
     }
 
     @Override
     protected void onAnswerClicked(UI<AppState> ui, int id) {
         super.onAnswerClicked(ui, id);
-        this.currentPlayer.Switch();
+        this.currentPlayer.switchCurrentPlayer();
     }
 
     @Override
     protected void incrementScore(UI<AppState> ui) {
-        if (this.currentPlayer.getPlayer() == Player.player1) {
-            ui.getState().user.AddScore();
+        if (this.currentPlayer.getPlayer() == Player.Player1) {
+            ui.getState().user.addScore();
         } else {
-            ui.getState().multiplayerUserTwo.AddScore();
+            ui.getState().multiplayerUserTwo.addScore();
         }
     }
 }

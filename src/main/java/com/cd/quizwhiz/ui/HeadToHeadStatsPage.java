@@ -6,37 +6,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.context.Context;
 
-import com.cd.quizwhiz.Stats.Leaderboard;
-import com.cd.quizwhiz.UserStuff.User;
+import com.cd.quizwhiz.stats.Leaderboard;
 import com.cd.quizwhiz.uiframework.UI;
+import com.cd.quizwhiz.userstuff.User;
 
 public class HeadToHeadStatsPage extends StatsPage {
     private static final Logger logger = LoggerFactory.getLogger(StatsPage.class);
-    
+
     public HeadToHeadStatsPage() {
         super(true);
     }
-    
+
     @Override
     public boolean onPreload(UI<AppState> ui) {
         super.onPreload(ui);
-        
+
         User primaryUser = ui.getState().user;
         User secondaryUser = ui.getState().multiplayerUserTwo;
-        
+
         Context context = ui.getContext();
         context.setVariable("multiplayer", true);
-        context.setVariable("multiplayerUserTwo", secondaryUser);        
-        
+        context.setVariable("multiplayerUserTwo", secondaryUser);
+
         // Our superclass will already have called FinalScore on our primary user
-        // To get their score for the purpose of leaderboarding, we'll have to extract it from the context
+        // To get their score for the purpose of leaderboarding, we'll have to extract
+        // it from the context
         int primaryUserFinalScore = (int) context.getVariable("score");
-        int secondaryUserFinalScore = ui.getState().multiplayerUserTwo.FinalScore();
+        int secondaryUserFinalScore = ui.getState().multiplayerUserTwo.finalScore();
 
         context.setVariable("multiplayerUserTwoScore", secondaryUserFinalScore);
 
         try {
-            String[][] leaderboard = Leaderboard.getLeaderboard(primaryUser.getUsername(), primaryUserFinalScore, 
+            String[][] leaderboard = Leaderboard.getLeaderboard(primaryUser.getUsername(), primaryUserFinalScore,
                     secondaryUser.getUsername(), secondaryUserFinalScore);
 
             context.setVariable("leaderboard", leaderboard);

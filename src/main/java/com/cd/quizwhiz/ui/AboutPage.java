@@ -9,7 +9,7 @@ public class AboutPage extends UIPage<AppState> {
         super("about");
     }
 
-    @UIEventListener(type="click", id="back-link")
+    @UIEventListener(type = "click", id = "back-link")
     public void onBackLinkClick(UI<AppState> ui) {
         ui.loadPage(new HomePage());
     }

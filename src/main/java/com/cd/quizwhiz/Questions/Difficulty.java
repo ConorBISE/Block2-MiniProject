@@ -1,7 +1,8 @@
-package com.cd.quizwhiz.Questions;
+package com.cd.quizwhiz.questions;
 
 /**
- * The `Difficulty` enum represents the different difficulty levels of quiz questions.
+ * The `Difficulty` enum represents the different difficulty levels of quiz
+ * questions.
  */
 public enum Difficulty {
     /**

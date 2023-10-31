@@ -69,7 +69,8 @@ public class UI<T> {
         this.primaryStage.show();
 
         // Set up thymeleaf, our templating engine
-        // We want it to load from the classpath, which will allow it to locate our template even
+        // We want it to load from the classpath, which will allow it to locate our
+        // template even
         // when it's bundled up inside a jar file.
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setSuffix(".html");
@@ -86,19 +87,22 @@ public class UI<T> {
         currentPageContext = new Context();
 
         // Because we're routing all our pages through thymeleaf,
-        // WebKit doesn't assign it a concrete URL. This messes relative resource loading up.
+        // WebKit doesn't assign it a concrete URL. This messes relative resource
+        // loading up.
         // To fix this: let the template know where on disk it is!
-        // Putting the value of base inside a <base> element will let WebKit know where to
+        // Putting the value of base inside a <base> element will let WebKit know where
+        // to
         // load resources from.
         currentPageContext.setVariable("base",
                 UI.class.getResource("/" + page.getPageName() + ".html").toExternalForm());
 
-
         // Stage one of page loading: preloading.
-        // Pages can get all the information they want to have available to the template into the context,
+        // Pages can get all the information they want to have available to the template
+        // into the context,
         // and, optionally, halt the page load entirely.
         // This is useful if the page realizes it needs to make a loadPage right away
-        // (i.e. a page that requires the user to be logged in redirecting to a login page)
+        // (i.e. a page that requires the user to be logged in redirecting to a login
+        // page)
         boolean shouldLoad = page.onPreload(this);
 
         if (!shouldLoad) {
@@ -108,7 +112,8 @@ public class UI<T> {
         WebEngine engine = webView.getEngine();
         Worker<?> worker = engine.getLoadWorker();
 
-        // Next: we want to prepare for the things we want to happen after the page loads
+        // Next: we want to prepare for the things we want to happen after the page
+        // loads
         // but first: housekeeping. We probably registered a listener last page load.
         // Let's get rid of it.
         if (this.activeChangeListener != null)
@@ -120,7 +125,7 @@ public class UI<T> {
             }
 
             // Everything past this point inside the listener will only be run
-            //  when the page load is finished
+            // when the page load is finished
 
             // We need to tie any convienience event handler annotations
             // (things like @ClickListener)
@@ -138,7 +143,8 @@ public class UI<T> {
                             } catch (IllegalAccessException e) {
                                 logger.error("Failed to invoke event listener for element {}:", l.id(), e);
                             } catch (InvocationTargetException e) {
-                                logger.error("Failure while invoking event listener for element {}:", l.id(), e.getTargetException());
+                                logger.error("Failure while invoking event listener for element {}:", l.id(),
+                                        e.getTargetException());
                             }
                         });
                     }

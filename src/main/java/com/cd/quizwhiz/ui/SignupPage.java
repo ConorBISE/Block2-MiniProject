@@ -1,11 +1,11 @@
 package com.cd.quizwhiz.ui;
 
-import com.cd.quizwhiz.Questions.Player;
-import com.cd.quizwhiz.UserStuff.Auth;
-import com.cd.quizwhiz.UserStuff.User;
+import com.cd.quizwhiz.questions.Player;
 import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
+import com.cd.quizwhiz.userstuff.Auth;
+import com.cd.quizwhiz.userstuff.User;
 
 public class SignupPage extends UIPage<AppState> {
     private Player playerType;
@@ -18,7 +18,7 @@ public class SignupPage extends UIPage<AppState> {
         this.nextPage = nextPage;
     }
 
-    @UIEventListener(type="click", id="signup-button")
+    @UIEventListener(type = "click", id = "signup-button")
     public void onSignupButtonClick(UI<AppState> ui) {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
@@ -29,10 +29,10 @@ public class SignupPage extends UIPage<AppState> {
             User user = new User(username);
 
             switch (this.playerType) {
-                case player1:
+                case Player1:
                     ui.getState().user = user;
                     break;
-                case player2:
+                case Player2:
                     ui.getState().multiplayerUserTwo = user;
                     break;
             }
@@ -40,15 +40,15 @@ public class SignupPage extends UIPage<AppState> {
             ui.loadPage(nextPage);
             return;
         }
-        
+
         // error :(
         ui.setElementText("error-toast", registrationStatus);
         ui.setElementVisibility("error-toast", true);
     }
 
-    @UIEventListener(type="click", id="signin-link")
+    @UIEventListener(type = "click", id = "signin-link")
     public void onSignupLinkClick(UI<AppState> ui) {
         ui.loadPage(new LoginPage(this.playerType, this.nextPage));
     }
-    
+
 }

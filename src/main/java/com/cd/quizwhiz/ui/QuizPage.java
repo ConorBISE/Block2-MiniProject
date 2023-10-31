@@ -1,7 +1,7 @@
 package com.cd.quizwhiz.ui;
 
-import com.cd.quizwhiz.Questions.Question;
 import com.cd.quizwhiz.uiframework.UIEventListener;
+import com.cd.quizwhiz.questions.Question;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
@@ -13,7 +13,7 @@ public class QuizPage extends UIPage<AppState> {
 
     public QuizPage(Question[] questionsToAsk) {
         super("quiz");
-        
+
         this.questionsToAsk = questionsToAsk;
         this.statsPage = new StatsPage(true);
     }
@@ -24,7 +24,8 @@ public class QuizPage extends UIPage<AppState> {
 
         for (int i = 0; i < 4; i++) {
             // Java has strict rules about lambdas capturing variables from another scope.
-            // Technically, we define i in another scope, so we can't use it in the click listener lambda.
+            // Technically, we define i in another scope, so we can't use it in the click
+            // listener lambda.
             // So, to get around that, we make a copy of i within this scope.
             int finalI = i;
             ui.addListener("answer-" + i, "click", event -> {
@@ -57,7 +58,8 @@ public class QuizPage extends UIPage<AppState> {
             ui.setElementClasses("feedback-toast", "toast good");
             incrementScore(ui);
         } else {
-            ui.setElementText("feedback-toast", "Incorrect! The right answer was: " + currentQuestion.getAnswers()[currentQuestion.getActualAnswer()]);
+            ui.setElementText("feedback-toast", "Incorrect! The right answer was: "
+                    + currentQuestion.getAnswers()[currentQuestion.getActualAnswer()]);
             ui.setElementClasses("feedback-toast", "toast bad");
         }
 
@@ -66,10 +68,10 @@ public class QuizPage extends UIPage<AppState> {
     }
 
     protected void incrementScore(UI<AppState> ui) {
-        ui.getState().user.AddScore();
+        ui.getState().user.addScore();
     }
 
-    @UIEventListener(type="click", id="next-button")
+    @UIEventListener(type = "click", id = "next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
             // We're done here!

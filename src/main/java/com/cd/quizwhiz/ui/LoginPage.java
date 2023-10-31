@@ -1,11 +1,11 @@
 package com.cd.quizwhiz.ui;
 
-import com.cd.quizwhiz.Questions.Player;
-import com.cd.quizwhiz.UserStuff.Auth;
-import com.cd.quizwhiz.UserStuff.User;
+import com.cd.quizwhiz.questions.Player;
 import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
+import com.cd.quizwhiz.userstuff.Auth;
+import com.cd.quizwhiz.userstuff.User;
 
 public class LoginPage extends UIPage<AppState> {
 
@@ -19,7 +19,7 @@ public class LoginPage extends UIPage<AppState> {
         this.nextPage = nextPage;
     }
 
-    @UIEventListener(type="click", id="login-button")
+    @UIEventListener(type = "click", id = "login-button")
     public void onLoginButtonClick(UI<AppState> ui) {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
@@ -30,12 +30,13 @@ public class LoginPage extends UIPage<AppState> {
             User user = new User(username);
 
             switch (this.playerType) {
-                case player1:
+                case Player1:
                     ui.getState().user = user;
                     break;
 
-                case player2:
-                    // Check if the same user's just tried to log in twice - we don't want someone playing themself
+                case Player2:
+                    // Check if the same user's just tried to log in twice - we don't want someone
+                    // playing themself
                     if (ui.getState().user.getUsername().equals(username)) {
                         ui.setElementText("error-toast", "The second player must be a different user to the first!");
                         ui.setElementVisibility("error-toast", true);
@@ -52,7 +53,7 @@ public class LoginPage extends UIPage<AppState> {
         }
     }
 
-    @UIEventListener(type="click", id="signup-link")
+    @UIEventListener(type = "click", id = "signup-link")
     public void onSignupLinkClick(UI<AppState> ui) {
         ui.loadPage(new SignupPage(this.playerType, this.nextPage));
     }

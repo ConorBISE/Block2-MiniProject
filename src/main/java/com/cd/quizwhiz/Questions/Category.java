@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.Questions;
+package com.cd.quizwhiz.questions;
 
 /**
  * The `Category` enum represents different categories of quiz questions.

@@ -6,11 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * An annotation to be applied to methods of subclasses of UIPage to register them as listeners for UI events.
+ * An annotation to be applied to methods of subclasses of UIPage to register
+ * them as listeners for UI events.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface UIEventListener {
     String type();
+
     String id();
 }
