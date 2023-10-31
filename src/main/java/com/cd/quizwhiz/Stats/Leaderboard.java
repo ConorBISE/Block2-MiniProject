@@ -163,8 +163,8 @@ public class Leaderboard {
         List<String[]> leaderboardList = new ArrayList<>();
 
         // Add the current user's score to the leaderboardList
-        leaderboardList.add(new String[]{"*"+currentUsername , String.valueOf(currentScore)});
-        leaderboardList.add(new String[]{"*"+currentUsername2 , String.valueOf(currentScore2)});
+        leaderboardList.add(new String[]{"1: "+currentUsername , String.valueOf(currentScore)});
+        leaderboardList.add(new String[]{"2: "+currentUsername2 , String.valueOf(currentScore2)});
 
         // Walk through the directory and process each file
         Files.walk(Paths.get(dir))
