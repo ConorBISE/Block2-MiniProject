@@ -33,7 +33,7 @@ public class QuizPage extends UIPage<AppState> {
         }
     }
 
-    private void loadQuestion(UI<AppState> ui, Question question) {
+    protected void loadQuestion(UI<AppState> ui, Question question) {
         this.answerLocked = false;
         ui.setElementText("question-text", question.getQuestion());
 

@@ -44,6 +44,17 @@ public class HeadToHeadStatsPage extends StatsPage {
             logger.error("Error while creating leaderboard: {}", e);
         }
 
+        String scoreMessage;
+        if (primaryUserFinalScore > secondaryUserFinalScore) {
+            scoreMessage = primaryUser.getUsername() + " takes it!";
+        } else if (primaryUserFinalScore < secondaryUserFinalScore) {
+            scoreMessage = secondaryUser.getUsername() + " takes it!";
+        } else {
+            scoreMessage = "it's a draw";
+        }
+
+        context.setVariable("scoreMessage", scoreMessage);
+
         return true;
     }
 
