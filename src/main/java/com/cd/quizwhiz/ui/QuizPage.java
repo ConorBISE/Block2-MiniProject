@@ -22,6 +22,7 @@ public class QuizPage extends UIPage<AppState> {
     public void onStart(UI<AppState> ui) {
         this.loadQuestion(ui, this.questionsToAsk[0]);
 
+        // Wire up the answer buttons to onAnsweredClick
         for (int i = 0; i < 4; i++) {
             // Java has strict rules about lambdas capturing variables from another scope.
             // Technically, we define i in another scope, so we can't use it in the click
@@ -47,6 +48,8 @@ public class QuizPage extends UIPage<AppState> {
     }
 
     protected void onAnswerClicked(UI<AppState> ui, int id) {
+        // If the user's already attempted this question (and we've shown the answer!)
+        // we shouldn't let them submit any more answers
         if (this.answerLocked)
             return;
 
@@ -68,17 +71,22 @@ public class QuizPage extends UIPage<AppState> {
     }
 
     protected void incrementScore(UI<AppState> ui) {
+        // The existance of incrementScore is more than a little redundant here.
+        // However: subclasses of QuizPage can override this to provide different
+        // behaviour when an answer is correct
+        // (adding a point to a specific user, etc.)
         ui.getState().user.addScore();
     }
 
     @UIEventListener(type = "click", id = "next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
-            // We're done here!
+            // We're done here! Time to show the user's stats.
             ui.loadPage(this.statsPage);
             return;
         }
 
+        // On to the next question
         this.loadQuestion(ui, this.questionsToAsk[++this.currentQuestionIndex]);
     }
 }

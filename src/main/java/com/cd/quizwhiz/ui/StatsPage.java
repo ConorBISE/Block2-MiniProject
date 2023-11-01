@@ -50,9 +50,13 @@ public class StatsPage extends UIPage<AppState> {
             context.setVariable("score", finalScore);
             context.setVariable("scoreMessage", scoreMessages[finalScore]);
         }
+
         // Leaderboard
         try {
             String[][] leaderboard;
+
+            // If we've just finished a quiz: we want to show the user not only their maximum score
+            // but also the score of the game they've just finished
             if (this.justFinishedQuiz) {
                 leaderboard = Leaderboard.getLeaderboard(user.getUsername(), user.finalScore());
             } else {

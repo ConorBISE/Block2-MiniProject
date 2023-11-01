@@ -25,6 +25,8 @@ public class SignupPage extends UIPage<AppState> {
 
         String registrationStatus = Auth.register(username, password);
 
+        // Auth.register returns the user's username on success
+        // and a failure message otherwise.
         if (registrationStatus.equals(username)) {
             User user = new User(username);
 

@@ -17,6 +17,8 @@ public class HomePage extends UIPage<AppState> {
         ui.setTitle("quizwhiz");
         ui.setIcon("/images/logo.jpg");
 
+        // If we don't have a user object, we musn't be logged in yet.
+        // Log in, then come back here.
         if (ui.getState().user == null) {
             ui.loadPage(new LoginPage(Player.Player1, this));
             return false;
