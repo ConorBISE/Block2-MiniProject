@@ -81,12 +81,16 @@ public class QuizPage extends UIPage<AppState> {
     @UIEventListener(type = "click", id = "next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
-            // We're done here! Time to show the user's stats.
-            ui.loadPage(this.statsPage);
+            // We're done here!
+            this.endGame(ui);
             return;
         }
 
         // On to the next question
         this.loadQuestion(ui, this.questionsToAsk[++this.currentQuestionIndex]);
+    }
+
+    protected void endGame(UI<AppState> ui) {
+        ui.loadPage(this.statsPage);
     }
 }

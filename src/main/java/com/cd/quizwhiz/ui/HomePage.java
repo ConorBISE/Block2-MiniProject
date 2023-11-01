@@ -34,7 +34,6 @@ public class HomePage extends UIPage<AppState> {
 
     @UIEventListener(type = "change", id = "quiz-mode")
     public void onQuizModeChange(UI<AppState> ui) {
-        System.out.println("change!");
         String modeString = ui.getInputValueById("quiz-mode");
         ui.setElementVisibility("quiz-category", !modeString.equals("head-to-head"));
     }

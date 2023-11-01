@@ -11,12 +11,24 @@ public class LoginPage extends UIPage<AppState> {
 
     private Player playerType;
     private UIPage<AppState> nextPage;
+    private String purpose;
 
-    public LoginPage(Player loginType, UIPage<AppState> nextPage) {
+    public LoginPage(Player loginType, UIPage<AppState> nextPage, String purpose) {
         super("login");
 
         this.playerType = loginType;
         this.nextPage = nextPage;
+        this.purpose = purpose;
+    }
+
+    public LoginPage(Player loginType, UIPage<AppState> nextPage) {
+        this(loginType, nextPage, "");
+    }
+
+    @Override
+    public boolean onPreload(UI<AppState> ui) {
+        ui.getContext().setVariable("purpose", this.purpose);
+        return true;
     }
 
     @UIEventListener(type = "click", id = "login-button")
@@ -55,6 +67,6 @@ public class LoginPage extends UIPage<AppState> {
 
     @UIEventListener(type = "click", id = "signup-link")
     public void onSignupLinkClick(UI<AppState> ui) {
-        ui.loadPage(new SignupPage(this.playerType, this.nextPage));
+        ui.loadPage(new SignupPage(this.playerType, this.nextPage, this.purpose));
     }
 }

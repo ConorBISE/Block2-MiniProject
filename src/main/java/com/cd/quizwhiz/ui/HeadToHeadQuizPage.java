@@ -24,7 +24,7 @@ public class HeadToHeadQuizPage extends QuizPage {
         // If we don't have a second user: go have one log in
         // then come back here!
         if (ui.getState().multiplayerUserTwo == null) {
-            ui.loadPage(new LoginPage(Player.Player2, this));
+            ui.loadPage(new LoginPage(Player.Player2, this, "to continue to Head-To-Head"));
             return false;
         }
 
@@ -59,5 +59,11 @@ public class HeadToHeadQuizPage extends QuizPage {
         } else {
             ui.getState().multiplayerUserTwo.addScore();
         }
+    }
+
+    @Override
+    protected void endGame(UI<AppState> ui) {
+        super.endGame(ui);
+        ui.getState().multiplayerUserTwo = null;
     }
 }

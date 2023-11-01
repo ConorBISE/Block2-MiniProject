@@ -9,7 +9,7 @@
     </head>
     <body>
         <main class="container-fluid">
-            <article data-th-switch="${user.ReturnScores().length != 0}">
+            <article data-th-switch="${user.returnScores().length != 0}">
                 <div data-th-case="true">
                     <div class="text-align-center" data-th-if="${justFinishedQuiz}">
                         <hgroup data-th-if="${!multiplayer}">
@@ -28,15 +28,15 @@
                         <h3>Your stats:</h3>
                         <ul>
                             <li>
-                                Lifetime mean: <span data-th-text="${#numbers.formatDecimal(user.GetMean(), 1, 2)}"></span>
+                                Lifetime mean: <span data-th-text="${#numbers.formatDecimal(user.getMean(), 1, 2)}"></span>
                             </li>
 
                             <li>
-                                Lifetime median: <span data-th-text="${#numbers.formatDecimal(user.GetMedian(), 1, 2)}"></span>
+                                Lifetime median: <span data-th-text="${#numbers.formatDecimal(user.getMedian(), 1, 2)}"></span>
                             </li>
                             
                              <li>
-                                Lifetime standard deviation: <span data-th-text="${#numbers.formatDecimal(user.GetDeviation(), 1, 2)}"></span>
+                                Lifetime standard deviation: <span data-th-text="${#numbers.formatDecimal(user.getDeviation(), 1, 2)}"></span>
                             </li>
                         </ul>
                     </div>

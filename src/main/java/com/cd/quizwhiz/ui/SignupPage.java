@@ -10,12 +10,24 @@ import com.cd.quizwhiz.userstuff.User;
 public class SignupPage extends UIPage<AppState> {
     private Player playerType;
     private UIPage<AppState> nextPage;
+    private String purpose;
 
-    public SignupPage(Player playerType, UIPage<AppState> nextPage) {
+    public SignupPage(Player playerType, UIPage<AppState> nextPage, String purpose) {
         super("signup");
 
         this.playerType = playerType;
         this.nextPage = nextPage;
+        this.purpose = purpose;
+    }
+
+    public SignupPage(Player playerType, UIPage<AppState> nextPage) {
+        this(playerType, nextPage, "");
+    }
+
+    @Override
+    public boolean onPreload(UI<AppState> ui) { 
+        ui.getContext().setVariable("purpose", this.purpose);
+        return true;
     }
 
     @UIEventListener(type = "click", id = "signup-button")
@@ -50,7 +62,7 @@ public class SignupPage extends UIPage<AppState> {
 
     @UIEventListener(type = "click", id = "signin-link")
     public void onSignupLinkClick(UI<AppState> ui) {
-        ui.loadPage(new LoginPage(this.playerType, this.nextPage));
+        ui.loadPage(new LoginPage(this.playerType, this.nextPage, this.purpose));
     }
 
 }
