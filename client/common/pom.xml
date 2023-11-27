@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.cd.quizwhiz</groupId>
-    <artifactId>common</artifactId>
+    <artifactId>client-common</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
     

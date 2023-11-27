@@ -1,13 +1,10 @@
 package com.cd.quizwhiz.uiframework;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.w3c.dom.events.EventListener;
 
@@ -20,6 +17,7 @@ import com.floreysoft.jmte.Engine;
  */
 public abstract class UI<T> {
     private final T state;
+    private ResourceLoader resourceLoader;
 
     private Engine engine;
     private HashMap<String, Object> currentPageContext;
@@ -29,8 +27,9 @@ public abstract class UI<T> {
         void onPageLoad();
     }
 
-    public UI(T initialState) {
+    public UI(T initialState, ResourceLoader resourceLoader) {
         this.state = initialState;
+        this.resourceLoader = resourceLoader;
 
         this.engine = new Engine();
     }
@@ -47,8 +46,8 @@ public abstract class UI<T> {
         // Putting the value of base inside a <base> element will let our renderer know where
         // to
         // load resources from.
-        String pageURL = "/" + page.getPageName() + ".html";
-        currentPageContext.put("base", UI.class.getResource(pageURL).toExternalForm());
+        String templateURL = "/" + page.getPageName() + ".html";
+        currentPageContext.put("base", this.resourceLoader.getResourceExternalForm(templateURL));
 
         // Stage one of page loading: preloading.
         // Pages can get all the information they want to have available to the template
@@ -95,13 +94,10 @@ public abstract class UI<T> {
         });
 
         // Finally: render out the page template, and have our WebView show it!
-        String template = new BufferedReader(new InputStreamReader(UI.class.getResourceAsStream(pageURL)))
-            .lines()
-            .collect(Collectors.joining("\n"));
-        
-            String html = engine.transform(template, currentPageContext);
-            
-        this.loadPageContent(html);
+        this.resourceLoader.getResourceContent(templateURL, (content) -> {
+            String html = engine.transform(content, currentPageContext);
+            this.loadPageContent(html);
+        });
     }
 
     protected abstract void loadPageContent(String html);
@@ -122,5 +118,9 @@ public abstract class UI<T> {
 
     public Map<String, Object> getContext() {
         return currentPageContext;
+    }
+
+    public ResourceLoader getResourceLoader() {
+        return resourceLoader;
     }
 }

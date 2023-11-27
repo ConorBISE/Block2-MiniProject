@@ -12,7 +12,7 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) {
-        new JavaFXUI<AppState>(new AppState(), primaryStage)
+        new JavaFXUI<AppState>(new AppState(), new DesktopResourceLoader(), primaryStage)
                 .loadPage(new HomePage());
     }
 }

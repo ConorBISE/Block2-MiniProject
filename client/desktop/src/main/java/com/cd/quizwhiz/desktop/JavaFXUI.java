@@ -7,6 +7,7 @@ import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLInputElement;
 import org.w3c.dom.html.HTMLSelectElement;
 
+import com.cd.quizwhiz.uiframework.ResourceLoader;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 
@@ -28,8 +29,8 @@ public class JavaFXUI<T> extends UI<T> {
     // we need to keep a reference to change listener currently active
     private ChangeListener<? super State> activeChangeListener;
 
-    public JavaFXUI(T initialState, Stage primaryStage) {
-        super(initialState);
+    public JavaFXUI(T initialState, ResourceLoader resourceLoader, Stage primaryStage) {
+        super(initialState, resourceLoader);
 
         this.primaryStage = primaryStage;
 
