@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.questions;
+package com.cd.quizwhiz.common.questions;
 
 /**
  * The `Category` enum represents different categories of quiz questions.
@@ -7,15 +7,15 @@ public enum Category {
     /**
      * Represents the category of Computer Organization and Architecture.
      */
-    ComputerOrg,
+    COMPUTER_ORG,
 
     /**
      * Represents the category of Discrete Mathematics.
      */
-    DiscreteMaths,
+    DISCRETE_MATHS,
 
     /**
      * Represents the category of Computer Science.
      */
-    ComputerSci
+    COMPUTER_SCIENCE
 }

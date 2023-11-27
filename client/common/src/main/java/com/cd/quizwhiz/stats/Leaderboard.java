@@ -1,10 +1,10 @@
 package com.cd.quizwhiz.stats;
 
-import com.cd.quizwhiz.userstuff.Auth;
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+
+import com.cd.quizwhiz.user.Auth;
 
 /**
  * The `Leaderboard` class provides methods for retrieving and managing user

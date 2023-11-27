@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.cd.quizwhiz.stats.Leaderboard;
 import com.cd.quizwhiz.uiframework.UI;
-import com.cd.quizwhiz.userstuff.User;
+import com.cd.quizwhiz.user.User;
 
 public class HeadToHeadStatsPage extends StatsPage {
     public HeadToHeadStatsPage() {

@@ -4,8 +4,8 @@ import com.cd.quizwhiz.questions.Player;
 import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
-import com.cd.quizwhiz.userstuff.Auth;
-import com.cd.quizwhiz.userstuff.User;
+import com.cd.quizwhiz.user.Auth;
+import com.cd.quizwhiz.user.User;
 
 public class LoginPage extends UIPage<AppState> {
 

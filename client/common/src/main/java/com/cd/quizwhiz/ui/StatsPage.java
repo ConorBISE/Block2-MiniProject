@@ -7,7 +7,7 @@ import com.cd.quizwhiz.stats.Leaderboard;
 import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
-import com.cd.quizwhiz.userstuff.User;
+import com.cd.quizwhiz.user.User;
 
 public class StatsPage extends UIPage<AppState> {
     private final boolean justFinishedQuiz;

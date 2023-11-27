@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.userstuff;
+package com.cd.quizwhiz.user;
 
 import java.security.Key;
 import java.util.Base64;

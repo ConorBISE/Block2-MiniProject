@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.userstuff;
+package com.cd.quizwhiz.user;
 
 import java.io.*;
 

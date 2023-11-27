@@ -1,6 +1,6 @@
 package com.cd.quizwhiz.ui;
 
-import com.cd.quizwhiz.userstuff.User;
+import com.cd.quizwhiz.user.User;
 
 /**
  * Quizwhiz-specific application state.

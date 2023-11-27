@@ -19,5 +19,11 @@
             <artifactId>jmte</artifactId>
             <version>7.0.1</version>
           </dependency>
-    </dependencies>
+
+          <dependency>
+            <groupId>com.cd.quizwhiz</groupId>
+            <artifactId>common</artifactId>
+            <version>${revision}</version>
+          </dependency>
+        </dependencies>
   </project>

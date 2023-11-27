@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.questions;
+package com.cd.quizwhiz.common.questions;
 
 /**
  * The `Difficulty` enum represents the different difficulty levels of quiz
@@ -8,15 +8,15 @@ public enum Difficulty {
     /**
      * Represents the novice difficulty level for quiz questions.
      */
-    novice,
+    NOVICE,
 
     /**
      * Represents the intermediate difficulty level for quiz questions.
      */
-    intermediate,
+    INTERMEDIATE,
 
     /**
      * Represents the expert difficulty level for quiz questions.
      */
-    expert
+    EXPERT
 }

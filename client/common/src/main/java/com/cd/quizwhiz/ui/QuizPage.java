@@ -1,7 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.uiframework.UIEventListener;
-import com.cd.quizwhiz.questions.Question;
+import com.cd.quizwhiz.common.questions.Question;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.uiframework.UIPage;
 

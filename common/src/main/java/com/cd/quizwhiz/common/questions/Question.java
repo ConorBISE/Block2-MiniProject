@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.questions;
+package com.cd.quizwhiz.common.questions;
 
 /**
  * The `Question` class represents a quiz question with the text of the
@@ -8,11 +8,11 @@ package com.cd.quizwhiz.questions;
 public class Question {
     // Declare instance variables for the question, answer options, actual answer,
     // and category.
-    String Question; // The text of the question
-    String[] Answers; // An array of answer options
-    int ActualAnswer; // The index of the correct answer
-    Category category; // The category of the question
-    Difficulty difficulty; // The Difficulty of the question
+    public String Question; // The text of the question
+    public String[] Answers; // An array of answer options
+    public int ActualAnswer; // The index of the correct answer
+    public Category category; // The category of the question
+    public Difficulty difficulty; // The Difficulty of the question
 
     /**
      * Initializes a new question with the provided details.

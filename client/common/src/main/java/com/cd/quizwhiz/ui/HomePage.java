@@ -1,7 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import com.cd.quizwhiz.uiframework.UIEventListener;
-import com.cd.quizwhiz.questions.Category;
+import com.cd.quizwhiz.common.questions.Category;
 import com.cd.quizwhiz.questions.Player;
 import com.cd.quizwhiz.questions.QuestionBank;
 import com.cd.quizwhiz.uiframework.UI;
@@ -48,15 +48,15 @@ public class HomePage extends UIPage<AppState> {
 
         switch (categoryString) {
             case "comp-org":
-                category = Category.ComputerOrg;
+                category = Category.COMPUTER_ORG;
                 break;
 
             case "discrete-maths":
-                category = Category.DiscreteMaths;
+                category = Category.DISCRETE_MATHS;
                 break;
 
             case "comp-sci":
-                category = Category.ComputerSci;
+                category = Category.COMPUTER_SCIENCE;
                 break;
         }
 
