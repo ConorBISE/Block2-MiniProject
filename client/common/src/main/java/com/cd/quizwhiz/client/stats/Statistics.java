@@ -1,7 +1,7 @@
 /**
  * The Stats package contains classes for calculating statistical measures.
  */
-package com.cd.quizwhiz.stats;
+package com.cd.quizwhiz.client.stats;
 
 import static java.util.Arrays.sort;
 

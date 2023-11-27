@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.uiframework;
+package com.cd.quizwhiz.client.uiframework;
 
 public abstract class ResourceLoader {
     @FunctionalInterface

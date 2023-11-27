@@ -1,13 +1,13 @@
-package com.cd.quizwhiz.ui;
+package com.cd.quizwhiz.client.ui;
 
 import java.io.IOException;
 import java.util.Map;
 
-import com.cd.quizwhiz.stats.Leaderboard;
-import com.cd.quizwhiz.uiframework.UIEventListener;
-import com.cd.quizwhiz.uiframework.UI;
-import com.cd.quizwhiz.uiframework.UIPage;
-import com.cd.quizwhiz.user.User;
+import com.cd.quizwhiz.client.stats.Leaderboard;
+import com.cd.quizwhiz.client.uiframework.UIEventListener;
+import com.cd.quizwhiz.client.uiframework.UI;
+import com.cd.quizwhiz.client.uiframework.UIPage;
+import com.cd.quizwhiz.client.user.User;
 
 public class StatsPage extends UIPage<AppState> {
     private final boolean justFinishedQuiz;

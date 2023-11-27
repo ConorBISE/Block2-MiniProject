@@ -1,16 +1,16 @@
-package com.cd.quizwhiz.user;
+package com.cd.quizwhiz.client.user;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cd.quizwhiz.stats.Statistics;
+import com.cd.quizwhiz.client.stats.Statistics;
 
 /**
  * The `User` class represents a user in the QuizWhiz application and provides
  * methods
  * for managing user data and statistics.
- */
+ */ 
 public class User {
     // declare variables to store user data
     String username;

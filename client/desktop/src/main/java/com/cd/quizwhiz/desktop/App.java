@@ -1,7 +1,7 @@
 package com.cd.quizwhiz.desktop;
 
-import com.cd.quizwhiz.ui.AppState;
-import com.cd.quizwhiz.ui.HomePage;
+import com.cd.quizwhiz.client.ui.AppState;
+import com.cd.quizwhiz.client.ui.HomePage;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

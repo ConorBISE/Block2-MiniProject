@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.uiframework;
+package com.cd.quizwhiz.client.uiframework;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

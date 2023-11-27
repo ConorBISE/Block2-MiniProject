@@ -6,7 +6,7 @@ import org.teavm.classlib.ReflectionContext;
 import org.teavm.classlib.ReflectionSupplier;
 import org.teavm.model.MethodDescriptor;
 
-import com.cd.quizwhiz.uiframework.UIEventListener;
+import com.cd.quizwhiz.client.uiframework.UIEventListener;
 
 public class ReflectionSupplierImpl implements ReflectionSupplier {
     @Override

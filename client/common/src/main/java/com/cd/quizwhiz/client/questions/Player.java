@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.questions;
+package com.cd.quizwhiz.client.questions;
 
 /**
  * The `Player` enum represents different players in a quiz game.

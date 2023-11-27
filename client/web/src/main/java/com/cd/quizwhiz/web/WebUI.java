@@ -1,15 +1,12 @@
 package com.cd.quizwhiz.web;
 
-import javax.swing.text.html.HTML;
-
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 import org.w3c.dom.events.EventListener;
-import org.w3c.dom.html.HTMLDOMImplementation;
 
-import com.cd.quizwhiz.uiframework.ResourceLoader;
-import com.cd.quizwhiz.uiframework.UI;
-import com.cd.quizwhiz.uiframework.UIPage;
+import com.cd.quizwhiz.client.uiframework.ResourceLoader;
+import com.cd.quizwhiz.client.uiframework.UI;
+import com.cd.quizwhiz.client.uiframework.UIPage;
 
 public class WebUI<T> extends UI<T> {
     private OnPageLoadCallback pageLoadCallback;

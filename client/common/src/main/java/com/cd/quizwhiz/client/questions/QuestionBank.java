@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.questions;
+package com.cd.quizwhiz.client.questions;
 
 import java.util.ArrayList;
 import java.util.Collections;

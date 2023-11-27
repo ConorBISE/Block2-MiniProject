@@ -2,7 +2,7 @@ package com.cd.quizwhiz.web;
 
 import org.teavm.jso.ajax.XMLHttpRequest;
 
-import com.cd.quizwhiz.uiframework.ResourceLoader;
+import com.cd.quizwhiz.client.uiframework.ResourceLoader;
 
 public class WebResourceLoader extends ResourceLoader {
 

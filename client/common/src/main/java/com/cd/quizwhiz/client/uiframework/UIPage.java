@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.uiframework;
+package com.cd.quizwhiz.client.uiframework;
 
 /**
  * The template all UI pages within the framework must follow.

@@ -7,9 +7,9 @@ import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLInputElement;
 import org.w3c.dom.html.HTMLSelectElement;
 
-import com.cd.quizwhiz.uiframework.ResourceLoader;
-import com.cd.quizwhiz.uiframework.UI;
-import com.cd.quizwhiz.uiframework.UIPage;
+import com.cd.quizwhiz.client.uiframework.ResourceLoader;
+import com.cd.quizwhiz.client.uiframework.UI;
+import com.cd.quizwhiz.client.uiframework.UIPage;
 
 import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Worker;

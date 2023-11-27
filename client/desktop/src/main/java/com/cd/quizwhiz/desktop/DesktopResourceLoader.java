@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-import com.cd.quizwhiz.uiframework.ResourceLoader;
+import com.cd.quizwhiz.client.uiframework.ResourceLoader;
 
 public class DesktopResourceLoader extends ResourceLoader {
     @Override

@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.questions;
+package com.cd.quizwhiz.client.questions;
 
 /**
  * The `Switcher` class is responsible for switching between players in a quiz

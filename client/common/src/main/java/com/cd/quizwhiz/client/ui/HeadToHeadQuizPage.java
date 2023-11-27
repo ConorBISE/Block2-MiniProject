@@ -1,9 +1,9 @@
-package com.cd.quizwhiz.ui;
+package com.cd.quizwhiz.client.ui;
 
-import com.cd.quizwhiz.questions.Player;
 import com.cd.quizwhiz.common.questions.Question;
-import com.cd.quizwhiz.questions.Switcher;
-import com.cd.quizwhiz.uiframework.UI;
+import com.cd.quizwhiz.client.questions.Player;
+import com.cd.quizwhiz.client.questions.Switcher;
+import com.cd.quizwhiz.client.uiframework.UI;
 
 public class HeadToHeadQuizPage extends QuizPage {
     private Switcher currentPlayer;

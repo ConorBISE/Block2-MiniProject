@@ -1,11 +1,11 @@
-package com.cd.quizwhiz.ui;
+package com.cd.quizwhiz.client.ui;
 
-import com.cd.quizwhiz.uiframework.UIEventListener;
 import com.cd.quizwhiz.common.questions.Category;
-import com.cd.quizwhiz.questions.Player;
-import com.cd.quizwhiz.questions.QuestionBank;
-import com.cd.quizwhiz.uiframework.UI;
-import com.cd.quizwhiz.uiframework.UIPage;
+import com.cd.quizwhiz.client.uiframework.UIEventListener;
+import com.cd.quizwhiz.client.questions.Player;
+import com.cd.quizwhiz.client.questions.QuestionBank;
+import com.cd.quizwhiz.client.uiframework.UI;
+import com.cd.quizwhiz.client.uiframework.UIPage;
 
 public class HomePage extends UIPage<AppState> {
     public HomePage() {
