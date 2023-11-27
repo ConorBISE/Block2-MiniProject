@@ -11,29 +11,13 @@
     <groupId>com.cd.quizwhiz</groupId>
     <artifactId>common</artifactId>
     <version>${revision}</version>
+    <packaging>jar</packaging>
+    
     <dependencies>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>13</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>13</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.1.2.RELEASE</version>
-        </dependency>
-
-        <dependency> 
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.9</version>
-        </dependency>
+            <groupId>com.floreysoft</groupId>
+            <artifactId>jmte</artifactId>
+            <version>7.0.1</version>
+          </dependency>
     </dependencies>
   </project>

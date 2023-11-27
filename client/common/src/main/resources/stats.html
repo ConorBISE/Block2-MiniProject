@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-theme="dark">
     <head>
-        <base data-th-href="${base}" />
+        <base href="${base}" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/pico.min.css" />
@@ -9,66 +9,71 @@
     </head>
     <body>
         <main class="container-fluid">
-            <article data-th-switch="${user.returnScores().length != 0}">
-                <div data-th-case="true">
-                    <div class="text-align-center" data-th-if="${justFinishedQuiz}">
-                        <hgroup data-th-if="${!multiplayer}">
-                            <h2>You got: <span data-th-text="${score}"></span> / 6</h2>
-                            <h3 data-th-text="${scoreMessage}"></h3>
-                        </hgroup>
+            <article>
+                ${if userHasScores}
+                    <div>
+                        ${if justFinishedQuiz}
+                            <div class="text-align-center">
+                                <hgroup data-th-if="">
+                                    ${if !multiplayer}
+                                        <h2>You got: ${score} / 6</h2>
+                                        <h3>${scoreMessage}</h3>
+                                    ${else}
+                                        <h2>${userName} got: ${score} / 6</h2>        
+                                        <h2>${multiplayerUserName} got: ${multiplayerUserTwoScore} / 6</h2>
+                                        <h3>${scoreMessage}</h3>
+                                    ${end}
+                                </hgroup>
+                            </div>
+                        ${end}
 
-                        <hgroup data-th-if="${multiplayer}">
-                            <h2><span data-th-text="${user.getUsername()}"></span> got: <span data-th-text="${score}"></span> / 6</h2>
-                            <h2><span data-th-text="${multiplayerUserTwo.getUsername()}"></span> got: <span data-th-text="${multiplayerUserTwoScore}"></span> / 6</h2>
-                            <h3 data-th-text="${scoreMessage}"></h3>
-                        </hgroup>
+                        <div class="grid">
+                            <h3>Your stats:</h3>
+                            <ul>
+                                <li>
+                                    Lifetime mean: ${userMean}
+                                </li>
+
+                                <li>
+                                    Lifetime median: ${userMedian}
+                                </li>
+                                
+                                <li>
+                                    Lifetime standard deviation: ${userDeviation}
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="grid">
+                            <h3>Leaderboard:</h3>
+                            <center>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Max score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${foreach leaderboard user}
+                                            <tr>
+                                                <td>${user[0]}</th>
+                                                <td>${user[1]}</td>
+                                            </tr>
+                                        ${end}
+                                    </tbody>
+                                </table>
+                            </center>
+                        </div>
                     </div>
-
-                    <div class="grid">
-                        <h3>Your stats:</h3>
-                        <ul>
-                            <li>
-                                Lifetime mean: <span data-th-text="${#numbers.formatDecimal(user.getMean(), 1, 2)}"></span>
-                            </li>
-
-                            <li>
-                                Lifetime median: <span data-th-text="${#numbers.formatDecimal(user.getMedian(), 1, 2)}"></span>
-                            </li>
-                            
-                             <li>
-                                Lifetime standard deviation: <span data-th-text="${#numbers.formatDecimal(user.getDeviation(), 1, 2)}"></span>
-                            </li>
-                        </ul>
+                ${else}
+                    <div>
+                        <div class="grid text-align-center">
+                            <span class="margin-y">You don't have any stats at the moment! Try taking a quiz, and checking back later.</span>
+                        </div>
                     </div>
-
-
-                    <div class="grid">
-                        <h3>Leaderboard:</h3>
-                        <center>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Max score</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr data-th-each="user: ${leaderboard}">
-                                        <td data-th-text="${user[0]}">User1</th>
-                                        <td data-th-text="${user[1]}">9</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </center>
-                    </div>
-                </div>
-            
-                <div data-th-case="false">
-                    <div class="grid text-align-center">
-                        <span class="margin-y">You don't have any stats at the moment! Try taking a quiz, and checking back later.</span>
-                    </div>
-                </div>
-
+                ${end}
                 <a id="back-link">← back to home</a>
             </article>
         </main>

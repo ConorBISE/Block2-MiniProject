@@ -1,18 +1,13 @@
 package com.cd.quizwhiz.ui;
 
 import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.thymeleaf.context.Context;
+import java.util.Map;
 
 import com.cd.quizwhiz.stats.Leaderboard;
 import com.cd.quizwhiz.uiframework.UI;
 import com.cd.quizwhiz.userstuff.User;
 
 public class HeadToHeadStatsPage extends StatsPage {
-    private static final Logger logger = LoggerFactory.getLogger(StatsPage.class);
-
     public HeadToHeadStatsPage() {
         super(true);
     }
@@ -24,20 +19,20 @@ public class HeadToHeadStatsPage extends StatsPage {
         User primaryUser = ui.getState().user;
         User secondaryUser = ui.getState().multiplayerUserTwo;
 
-        Context context = ui.getContext();
+        Map<String, Object> context = ui.getContext();
         
         // The stats template uses the multiplayer variable to toggle the top portion
         // of the stats page between showing a single user score, and multiple user scores
-        context.setVariable("multiplayer", true);
-        context.setVariable("multiplayerUserTwo", secondaryUser);
+        context.put("multiplayer", true);
+        context.put("multiplayerUserName", secondaryUser.getUsername());
 
         // Our superclass will already have called FinalScore on our primary user, and
         // stored it in context. To get their score for the purpose of leaderboarding,
         // we'll have to extract it back out.
-        int primaryUserFinalScore = (int) context.getVariable("score");
+        int primaryUserFinalScore = (int) context.get("score");
         int secondaryUserFinalScore = ui.getState().multiplayerUserTwo.finalScore();
 
-        context.setVariable("multiplayerUserTwoScore", secondaryUserFinalScore);
+        context.put("multiplayerUserTwoScore", secondaryUserFinalScore);
 
         try {
             // This leaderboard has every player's maximum score, along with the scores
@@ -45,9 +40,9 @@ public class HeadToHeadStatsPage extends StatsPage {
             String[][] leaderboard = Leaderboard.getLeaderboard(primaryUser.getUsername(), primaryUserFinalScore,
                     secondaryUser.getUsername(), secondaryUserFinalScore);
 
-            context.setVariable("leaderboard", leaderboard);
+            context.put("leaderboard", leaderboard);
         } catch (IOException e) {
-            logger.error("Error while creating leaderboard: {}", e);
+            e.printStackTrace();
         }
 
         // Override the score message to congratulate the victor
@@ -60,7 +55,7 @@ public class HeadToHeadStatsPage extends StatsPage {
             scoreMessage = "it's a draw";
         }
 
-        context.setVariable("scoreMessage", scoreMessage);
+        context.put("scoreMessage", scoreMessage);
 
         return true;
     }

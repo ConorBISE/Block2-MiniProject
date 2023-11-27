@@ -28,7 +28,7 @@ public class HeadToHeadQuizPage extends QuizPage {
             return false;
         }
 
-        ui.getContext().setVariable("multiplayer", true);
+        ui.getContext().put("multiplayer", true);
 
         return true;
     }

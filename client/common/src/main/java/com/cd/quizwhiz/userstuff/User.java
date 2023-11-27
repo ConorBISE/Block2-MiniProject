@@ -4,9 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cd.quizwhiz.stats.Statistics;
 
 /**
@@ -18,8 +15,6 @@ public class User {
     // declare variables to store user data
     String username;
     int currentScore;
-
-    private final Logger logger = LoggerFactory.getLogger(User.class);
 
     // intizilization method takes in an String argument username
     public User(String username)
@@ -71,8 +66,7 @@ public class User {
                 finalScore = currentScore;
                 currentScore += 0;// reset user score
             } catch (IOException e) {
-                // print out error
-                logger.error("", e);
+                e.printStackTrace();
             }
         }
         // return the current

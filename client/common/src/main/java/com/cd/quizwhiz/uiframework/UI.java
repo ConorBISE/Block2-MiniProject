@@ -1,15 +1,17 @@
 package com.cd.quizwhiz.uiframework;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.w3c.dom.events.EventListener;
+
+import com.floreysoft.jmte.Engine;
 
 /**
  * A very simple MVC app framework built around a generic HTML-rendering component.
@@ -19,10 +21,8 @@ import org.w3c.dom.events.EventListener;
 public abstract class UI<T> {
     private final T state;
 
-    private final TemplateEngine templateEngine;
-    private Context currentPageContext;
-
-    private final Logger logger = LoggerFactory.getLogger(UI.class);
+    private Engine engine;
+    private HashMap<String, Object> currentPageContext;
 
     @FunctionalInterface
     public interface OnPageLoadCallback {
@@ -32,23 +32,13 @@ public abstract class UI<T> {
     public UI(T initialState) {
         this.state = initialState;
 
-        // Set up thymeleaf, our templating engine
-        // We want it to load from the classpath, which will allow it to locate our
-        // template even
-        // when it's bundled up inside a jar file.
-        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML");
-        templateResolver.setCacheable(false);
-
-        this.templateEngine = new TemplateEngine();
-        this.templateEngine.setTemplateResolver(templateResolver);
+        this.engine = new Engine();
     }
 
     public void loadPage(UIPage<T> page) {
         // Every time we load a new page, reset our context.
         // (the set of variables the page template has access to)
-        currentPageContext = new Context();
+        currentPageContext = new HashMap<>();
 
         // Because we're routing all our pages through thymeleaf,
         // our renderer won't assign it a concrete URL. This messes relative resource
@@ -57,8 +47,8 @@ public abstract class UI<T> {
         // Putting the value of base inside a <base> element will let our renderer know where
         // to
         // load resources from.
-        currentPageContext.setVariable("base",
-                UI.class.getResource("/" + page.getPageName() + ".html").toExternalForm());
+        String pageURL = "/" + page.getPageName() + ".html";
+        currentPageContext.put("base", UI.class.getResource(pageURL).toExternalForm());
 
         // Stage one of page loading: preloading.
         // Pages can get all the information they want to have available to the template
@@ -88,10 +78,11 @@ public abstract class UI<T> {
                             try {
                                 method.invoke(page, this);
                             } catch (IllegalAccessException e) {
-                                logger.error("Failed to invoke event listener for element {}:", l.id(), e);
+                                System.err.println("Failed to invoke event listener for element " + l.id());
+                                e.printStackTrace();
                             } catch (InvocationTargetException e) {
-                                logger.error("Failure while invoking event listener for element {}:", l.id(),
-                                        e.getTargetException());
+                                System.err.println("Failure while invoking event listener for element " + l.id());
+                                e.printStackTrace();
                             }
                         });
                     }
@@ -104,7 +95,12 @@ public abstract class UI<T> {
         });
 
         // Finally: render out the page template, and have our WebView show it!
-        String html = this.templateEngine.process(page.getPageName(), currentPageContext);
+        String template = new BufferedReader(new InputStreamReader(UI.class.getResourceAsStream(pageURL)))
+            .lines()
+            .collect(Collectors.joining("\n"));
+        
+            String html = engine.transform(template, currentPageContext);
+            
         this.loadPageContent(html);
     }
 
@@ -124,7 +120,7 @@ public abstract class UI<T> {
         return state;
     }
 
-    public Context getContext() {
+    public Map<String, Object> getContext() {
         return currentPageContext;
     }
 }

@@ -27,7 +27,7 @@ public class LoginPage extends UIPage<AppState> {
 
     @Override
     public boolean onPreload(UI<AppState> ui) {
-        ui.getContext().setVariable("purpose", this.purpose);
+        ui.getContext().put("purpose", this.purpose);
         return true;
     }
 

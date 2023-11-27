@@ -1,8 +1,5 @@
 package com.cd.quizwhiz.stats;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cd.quizwhiz.userstuff.Auth;
 
 import java.io.*;
@@ -16,8 +13,6 @@ import java.util.*;
  * score.
  */
 public class Leaderboard {
-    private static final Logger logger = LoggerFactory.getLogger(Auth.class);
-
     /**
      * Returns a 2D array of usernames and their top scores from user data files in
      * a directory.
@@ -53,7 +48,7 @@ public class Leaderboard {
                 // Add the username and their top score to the leaderboardList
                 leaderboardList.add(new String[] { username, String.valueOf(maxScore) });
             } catch (IOException e) {
-                logger.error("leaderboardError", e);
+                e.printStackTrace();
             }
         });
 
@@ -132,7 +127,7 @@ public class Leaderboard {
                         }
 
                     } catch (IOException e) {
-                        logger.error("leaderboardError", e);
+                        e.printStackTrace();
                     }
                 });
 
@@ -213,7 +208,7 @@ public class Leaderboard {
                         }
 
                     } catch (IOException e) {
-                        logger.error("leaderboardError", e);
+                        e.printStackTrace();
                     }
                 });
 

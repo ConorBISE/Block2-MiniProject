@@ -2,9 +2,6 @@ package com.cd.quizwhiz.userstuff;
 
 import java.io.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * The Auth class handles user registration and login
  * for a quiz application. It allows users to register
@@ -18,8 +15,6 @@ public class Auth {
      * are stored. By default, it is set to "users."
      */
     public static String userFolder = "users";
-
-    private static final Logger logger = LoggerFactory.getLogger(Auth.class);
 
     public static String register(String username, String password) {
         /**
@@ -54,7 +49,7 @@ public class Auth {
                 writer.close();
                 return username; // Registration successful.
             } catch (IOException e) {
-                logger.error("", e);
+                e.printStackTrace();
                 return "Error creating user file."; // Handle file creation error.
             } catch (Exception e) {
                 throw new RuntimeException(e);// catch errors for password Encryption

@@ -1,10 +1,7 @@
 package com.cd.quizwhiz.ui;
 
 import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.thymeleaf.context.Context;
+import java.util.Map;
 
 import com.cd.quizwhiz.stats.Leaderboard;
 import com.cd.quizwhiz.uiframework.UIEventListener;
@@ -13,8 +10,6 @@ import com.cd.quizwhiz.uiframework.UIPage;
 import com.cd.quizwhiz.userstuff.User;
 
 public class StatsPage extends UIPage<AppState> {
-    private static final Logger logger = LoggerFactory.getLogger(StatsPage.class);
-
     private final boolean justFinishedQuiz;
 
     private static final String[] scoreMessages = new String[] {
@@ -38,17 +33,26 @@ public class StatsPage extends UIPage<AppState> {
 
     @Override
     public boolean onPreload(UI<AppState> ui) {
-        Context context = ui.getContext();
+        Map<String, Object> context = ui.getContext();
         User user = ui.getState().user;
 
-        context.setVariable("justFinishedQuiz", this.justFinishedQuiz);
-        context.setVariable("user", user);
+        context.put("justFinishedQuiz", this.justFinishedQuiz);
+        
+        if (user.returnScores().length != 0) {
+            context.put("userHasScores", true);
+            context.put("userName", user.getUsername());
+            context.put("userMean", String.format("%.2f", user.getMean()));
+            context.put("userMedian", String.format("%.2f", user.getMedian()));
+            context.put("userDeviation", String.format("%.2f", user.getDeviation()));
+        } else {
+            context.put("userHasScores", false);
+        }
 
         if (justFinishedQuiz) {
             int finalScore = user.finalScore();
 
-            context.setVariable("score", finalScore);
-            context.setVariable("scoreMessage", scoreMessages[finalScore]);
+            context.put("score", finalScore);
+            context.put("scoreMessage", scoreMessages[finalScore]);
         }
 
         // Leaderboard
@@ -63,9 +67,9 @@ public class StatsPage extends UIPage<AppState> {
                 leaderboard = Leaderboard.getLeaderboard();
             }
 
-            context.setVariable("leaderboard", leaderboard);
+            context.put("leaderboard", leaderboard);
         } catch (IOException e) {
-            logger.error("Error while creating leaderboard: {}", e);
+            e.printStackTrace();
         }
 
         return true;
