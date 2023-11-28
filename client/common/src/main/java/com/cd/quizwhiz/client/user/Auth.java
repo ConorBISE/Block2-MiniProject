@@ -1,7 +1,5 @@
 package com.cd.quizwhiz.client.user;
 
-import java.util.function.Consumer;
-
 import org.json.JSONObject;
 
 import com.cd.quizwhiz.client.net.NetClient;

@@ -19,8 +19,6 @@ public class ReflectionSupplierImpl implements ReflectionSupplier {
         var cls = context.getClassSource().get(className);
         if (cls == null)
             return new HashSet<>();
-        
-        System.out.println(className);
             
         var methods = new HashSet<MethodDescriptor>();
         for (var method : cls.getMethods()) {

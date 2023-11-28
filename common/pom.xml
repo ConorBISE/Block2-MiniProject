@@ -13,4 +13,18 @@
     <groupId>com.cd.quizwhiz</groupId>
     <artifactId>common</artifactId>
     <version>${revision}</version>
+
+    <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+          </resource>
+          <resource>
+            <directory>src/main/java</directory>
+            <includes>
+              <include>**/*.java</include>
+            </includes>
+          </resource>
+        </resources>
+      </build>
 </project>
