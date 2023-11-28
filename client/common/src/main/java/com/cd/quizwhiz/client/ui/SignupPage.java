@@ -1,11 +1,13 @@
 package com.cd.quizwhiz.client.ui;
 
+import java.util.function.Consumer;
+
 import com.cd.quizwhiz.client.questions.Player;
 import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 import com.cd.quizwhiz.client.user.Auth;
-import com.cd.quizwhiz.client.user.User;
+import com.cd.quizwhiz.client.user.UserSession;
 
 public class SignupPage extends UIPage<AppState> {
     private Player playerType;
@@ -25,9 +27,9 @@ public class SignupPage extends UIPage<AppState> {
     }
 
     @Override
-    public boolean onPreload(UI<AppState> ui) { 
+    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) { 
         ui.getContext().put("purpose", this.purpose);
-        return true;
+        callback.accept(true);
     }
 
     @UIEventListener(type = "click", id = "signup-button")
@@ -35,29 +37,29 @@ public class SignupPage extends UIPage<AppState> {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
 
-        String registrationStatus = Auth.register(username, password);
+        Auth.register(ui.getNetClient(), username, password, (registrationStatus, token) -> {
+            // Auth.register returns the user's username on success
+            // and a failure message otherwise.
+            if (registrationStatus.equals(username)) {
+                UserSession user = new UserSession(username, token);
+                
+                switch (this.playerType) {
+                    case Player1:
+                        ui.getState().user = user;
+                        break;
+                    case Player2:
+                        ui.getState().multiplayerUserTwo = user;
+                        break;
+                }
 
-        // Auth.register returns the user's username on success
-        // and a failure message otherwise.
-        if (registrationStatus.equals(username)) {
-            User user = new User(username);
-
-            switch (this.playerType) {
-                case Player1:
-                    ui.getState().user = user;
-                    break;
-                case Player2:
-                    ui.getState().multiplayerUserTwo = user;
-                    break;
+                ui.loadPage(nextPage);
+                return;
             }
-
-            ui.loadPage(nextPage);
-            return;
-        }
-
-        // error :(
-        ui.setElementText("error-toast", registrationStatus);
-        ui.setElementVisibility("error-toast", true);
+            
+            // error :(
+            ui.setElementText("error-toast", registrationStatus);
+            ui.setElementVisibility("error-toast", true);
+        });
     }
 
     @UIEventListener(type = "click", id = "signin-link")

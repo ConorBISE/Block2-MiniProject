@@ -1,4 +1,4 @@
-package com.cd.quizwhiz.desktop;
+package com.cd.quizwhiz.desktop.ui;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -7,6 +7,7 @@ import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLInputElement;
 import org.w3c.dom.html.HTMLSelectElement;
 
+import com.cd.quizwhiz.client.net.NetClient;
 import com.cd.quizwhiz.client.uiframework.ResourceLoader;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
@@ -29,8 +30,8 @@ public class JavaFXUI<T> extends UI<T> {
     // we need to keep a reference to change listener currently active
     private ChangeListener<? super State> activeChangeListener;
 
-    public JavaFXUI(T initialState, ResourceLoader resourceLoader, Stage primaryStage) {
-        super(initialState, resourceLoader);
+    public JavaFXUI(T initialState, ResourceLoader resourceLoader, NetClient netClient, Stage primaryStage) {
+        super(initialState, resourceLoader, netClient);
 
         this.primaryStage = primaryStage;
 
@@ -55,7 +56,7 @@ public class JavaFXUI<T> extends UI<T> {
     }
 
     @Override
-    protected void onPageLoad(UIPage<T> page, OnPageLoadCallback pageLoadCallback) {
+    protected void onPageLoad(UIPage<T> page, Runnable pageLoadCallback) {
         WebEngine engine = webView.getEngine();
         Worker<?> worker = engine.getLoadWorker();
 
@@ -69,7 +70,7 @@ public class JavaFXUI<T> extends UI<T> {
                 return;
             }
 
-            pageLoadCallback.onPageLoad();
+            pageLoadCallback.run();
         };
 
         // Have our listener fire any time the page changes state

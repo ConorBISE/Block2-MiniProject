@@ -1,10 +1,10 @@
-package com.cd.quizwhiz.client.user;
+package com.cd.quizwhiz.server.auth;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cd.quizwhiz.client.stats.Statistics;
+import com.cd.quizwhiz.server.stats.Statistics;
 
 /**
  * The `User` class represents a user in the QuizWhiz application and provides
@@ -14,7 +14,6 @@ import com.cd.quizwhiz.client.stats.Statistics;
 public class User {
     // declare variables to store user data
     String username;
-    int currentScore;
 
     // intizilization method takes in an String argument username
     public User(String username)
@@ -27,33 +26,14 @@ public class User {
         this.username = username;
     }
 
-    public void addScore()
+    public void finalScore(int score)
     /**
-     * Increases the user's current score by 1, typically used when a user gets an
-     * answer correct.
+     * Saves a player's final score to their user file
      */
-    {
-        currentScore++;
-    }
-
-    // Used at the end of a quiz this method Gets the players current and final
-    // score for the game and saves it to there user file , it the resets the score
-    // back to zero for the next game
-
-    public int finalScore()
-    /**
-     * Gets the player's current and final score for the game, saves it to their
-     * user file,
-     * and resets the score back to zero for the next game.
-     *
-     * @return The final score for the game.
-     */
-
     {
         // Construct the filename based on the username.
         String userDataFileName = username + ".txt";
         File userFile = new File(Auth.userFolder, userDataFileName);
-        int finalScore = 0;
         // If there is a file in the "users" folder with the given username.
         if (userFile.exists()) {
             // Try to write a new file with the user's data.
@@ -61,16 +41,12 @@ public class User {
                 // make a file writer
                 FileWriter writer = new FileWriter(userFile, true);// --since i want to append to the file i
                 // add a second parameter "true" to allow for appending instead of overwriting
-                writer.write("\n" + currentScore);// append the users score to their userfile
+                writer.write("\n" + score);// append the users score to their userfile
                 writer.close();// close my writier
-                finalScore = currentScore;
-                currentScore += 0;// reset user score
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        // return the current
-        return finalScore;
     }
 
     public double[] returnScores()

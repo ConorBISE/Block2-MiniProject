@@ -1,5 +1,7 @@
 package com.cd.quizwhiz.client.uiframework;
 
+import java.util.function.Consumer;
+
 /**
  * The template all UI pages within the framework must follow.
  */
@@ -15,11 +17,12 @@ public abstract class UIPage<T> {
      * Useful for setting context required for the UI render.
      * 
      * @param ui a reference to the UI
+     * @param callback a callback function to continue execution with. Useful for making network requests within 
      * @return Whether or not to finish the page load. Useful in the case onLoad is
      *         called within onPreload.
      */
-    public boolean onPreload(UI<T> ui) {
-        return true;
+    public void onPreload(UI<T> ui, Consumer<Boolean> callback) {
+        callback.accept(true);
     }
 
     /**

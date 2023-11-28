@@ -2,6 +2,9 @@ package com.cd.quizwhiz.client.ui;
 
 import com.cd.quizwhiz.common.questions.Category;
 import com.cd.quizwhiz.client.uiframework.UIEventListener;
+
+import java.util.function.Consumer;
+
 import com.cd.quizwhiz.client.questions.Player;
 import com.cd.quizwhiz.client.questions.QuestionBank;
 import com.cd.quizwhiz.client.uiframework.UI;
@@ -13,7 +16,7 @@ public class HomePage extends UIPage<AppState> {
     }
 
     @Override
-    public boolean onPreload(UI<AppState> ui) {
+    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) {
         ui.setTitle("quizwhiz");
         ui.setIcon("/images/logo.jpg");
 
@@ -21,10 +24,11 @@ public class HomePage extends UIPage<AppState> {
         // Log in, then come back here.
         if (ui.getState().user == null) {
             ui.loadPage(new LoginPage(Player.Player1, this));
-            return false;
+            callback.accept(false);
+            return;
         }
 
-        return true;
+        callback.accept(true);
     }
 
     @Override

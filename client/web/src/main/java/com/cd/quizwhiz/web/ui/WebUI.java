@@ -1,28 +1,29 @@
-package com.cd.quizwhiz.web;
+package com.cd.quizwhiz.web.ui;
 
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 import org.w3c.dom.events.EventListener;
 
+import com.cd.quizwhiz.client.net.NetClient;
 import com.cd.quizwhiz.client.uiframework.ResourceLoader;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 
 public class WebUI<T> extends UI<T> {
-    private OnPageLoadCallback pageLoadCallback;
+    private Runnable pageLoadCallback;
 
-    public WebUI(T initialState, ResourceLoader resourceLoader) {
-        super(initialState, resourceLoader);
+    public WebUI(T initialState, ResourceLoader resourceLoader, NetClient netClient) {
+        super(initialState, resourceLoader, netClient);
     }
 
     @Override
     protected void loadPageContent(String html) {
         HTMLDocument.current().getDocumentElement().setInnerHTML(html);
-        this.pageLoadCallback.onPageLoad();
+        this.pageLoadCallback.run();
     }
 
     @Override
-    protected void onPageLoad(UIPage<T> page, OnPageLoadCallback pageLoadCallback) {
+    protected void onPageLoad(UIPage<T> page, Runnable pageLoadCallback) {
         this.pageLoadCallback = pageLoadCallback;
     }
 

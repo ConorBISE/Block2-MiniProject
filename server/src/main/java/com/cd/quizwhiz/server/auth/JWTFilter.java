@@ -9,7 +9,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import com.cd.quizwhiz.server.KeyManagement;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -55,6 +54,7 @@ public class JWTFilter extends OncePerRequestFilter {
         switch (request.getServletPath()) {
             case "/login":
             case "/register":
+            case "/leaderboard":
                 return true;
 
             default:

@@ -1,11 +1,13 @@
 package com.cd.quizwhiz.client.ui;
 
+import java.util.function.Consumer;
+
 import com.cd.quizwhiz.client.questions.Player;
 import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 import com.cd.quizwhiz.client.user.Auth;
-import com.cd.quizwhiz.client.user.User;
+import com.cd.quizwhiz.client.user.UserSession;
 
 public class LoginPage extends UIPage<AppState> {
 
@@ -26,9 +28,9 @@ public class LoginPage extends UIPage<AppState> {
     }
 
     @Override
-    public boolean onPreload(UI<AppState> ui) {
+    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) {
         ui.getContext().put("purpose", this.purpose);
-        return true;
+        callback.accept(true);
     }
 
     @UIEventListener(type = "click", id = "login-button")
@@ -37,16 +39,17 @@ public class LoginPage extends UIPage<AppState> {
         String password = ui.getInputValueById("password");
 
         // Attempt to authenticate the user
-        if (Auth.login(username, password)) {
-            // Success!
-            User user = new User(username);
-
-            switch (this.playerType) {
-                case Player1:
+        Auth.login(ui.getNetClient(), username, password, (success, token) -> {
+            if (success) {
+                // Success!
+                UserSession user = new UserSession(username, token);
+                
+                switch (this.playerType) {
+                    case Player1:
                     ui.getState().user = user;
                     break;
-
-                case Player2:
+                    
+                    case Player2:
                     // Check if the same user's just tried to log in twice - we don't want someone
                     // playing themself
                     if (ui.getState().user.getUsername().equals(username)) {
@@ -54,15 +57,16 @@ public class LoginPage extends UIPage<AppState> {
                         ui.setElementVisibility("error-toast", true);
                         return;
                     }
-
+                    
                     ui.getState().multiplayerUserTwo = user;
                     break;
+                }
+            
+                ui.loadPage(nextPage);
+            } else {
+                ui.setElementVisibility("error-toast", true);
             }
-
-            ui.loadPage(nextPage);
-        } else {
-            ui.setElementVisibility("error-toast", true);
-        }
+        });
     }
 
     @UIEventListener(type = "click", id = "signup-link")

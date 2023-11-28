@@ -75,7 +75,7 @@ public class QuizPage extends UIPage<AppState> {
         // However: subclasses of QuizPage can override this to provide different
         // behaviour when an answer is correct
         // (adding a point to a specific user, etc.)
-        ui.getState().user.addScore();
+        ui.getState().user.incrementScore();
     }
 
     @UIEventListener(type = "click", id = "next-button")

@@ -41,21 +41,12 @@
       <version>${teavm.version}</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- Servlet specification -->
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.0.0</version>
-      <scope>provided</scope>
-    </dependency>
-
+    
     <dependency>
       <groupId>com.cd.quizwhiz</groupId>
       <artifactId>client-common</artifactId>
       <version>${project.version}</version>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -129,13 +120,13 @@
             </goals>
             <configuration>
               <outputDirectory>${project.build.directory}</outputDirectory>
-              <resources>          
+              <resources>
                 <resource>
                   <directory>src/main/resources</directory>
                   <filtering>true</filtering>
                 </resource>
-              </resources>              
-            </configuration>            
+              </resources>
+            </configuration>
           </execution>
         </executions>
       </plugin>

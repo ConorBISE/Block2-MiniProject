@@ -1,6 +1,6 @@
 package com.cd.quizwhiz.client.ui;
 
-import com.cd.quizwhiz.client.user.User;
+import com.cd.quizwhiz.client.user.UserSession;
 
 /**
  * Quizwhiz-specific application state.
@@ -13,12 +13,12 @@ public class AppState {
      * act
      * as player one in any multiplayer quizzes
      */
-    public User user;
+    public UserSession user;
 
     /**
      * The secondary user that may be authenticated.
      * Whenever the primary user wants to play a multiplayer game, this is who
      * they're doing it with.
      */
-    public User multiplayerUserTwo;
+    public UserSession multiplayerUserTwo;
 }

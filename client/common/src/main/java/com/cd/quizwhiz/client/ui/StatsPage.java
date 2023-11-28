@@ -1,13 +1,13 @@
 package com.cd.quizwhiz.client.ui;
 
-import java.io.IOException;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import com.cd.quizwhiz.client.stats.Leaderboard;
 import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
-import com.cd.quizwhiz.client.user.User;
+import com.cd.quizwhiz.client.user.UserSession;
 
 public class StatsPage extends UIPage<AppState> {
     private final boolean justFinishedQuiz;
@@ -32,47 +32,49 @@ public class StatsPage extends UIPage<AppState> {
     }
 
     @Override
-    public boolean onPreload(UI<AppState> ui) {
+    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) {
         Map<String, Object> context = ui.getContext();
-        User user = ui.getState().user;
+        UserSession user = ui.getState().user;
 
         context.put("justFinishedQuiz", this.justFinishedQuiz);
-        
-        if (user.returnScores().length != 0) {
-            context.put("userHasScores", true);
-            context.put("userName", user.getUsername());
-            context.put("userMean", String.format("%.2f", user.getMean()));
-            context.put("userMedian", String.format("%.2f", user.getMedian()));
-            context.put("userDeviation", String.format("%.2f", user.getDeviation()));
-        } else {
-            context.put("userHasScores", false);
-        }
 
-        if (justFinishedQuiz) {
-            int finalScore = user.finalScore();
-
-            context.put("score", finalScore);
-            context.put("scoreMessage", scoreMessages[finalScore]);
-        }
-
-        // Leaderboard
-        try {
-            String[][] leaderboard;
-
-            // If we've just finished a quiz: we want to show the user not only their maximum score
-            // but also the score of the game they've just finished
-            if (this.justFinishedQuiz) {
-                leaderboard = Leaderboard.getLeaderboard(user.getUsername(), user.finalScore());
+        user.getStats(ui.getNetClient(), (stats) -> {
+            if (stats.hasStats) {
+                context.put("userHasScores", true);
+                context.put("userName", user.getUsername());
+                context.put("userMean", String.format("%.2f", stats.mean));
+                context.put("userMedian", String.format("%.2f", stats.median));
+                context.put("userDeviation", String.format("%.2f", stats.deviation));
             } else {
-                leaderboard = Leaderboard.getLeaderboard();
+                context.put("userHasScores", false);
             }
 
-            context.put("leaderboard", leaderboard);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            if (justFinishedQuiz) {
+                context.put("score", user.getCurrentScore());
+                context.put("scoreMessage", scoreMessages[user.getCurrentScore()]);
+            }
 
-        return true;
+            // Leaderboard
+            // If we've just finished a quiz: we want to show the user not only their
+            // maximum score
+            // but also the score of the game they've just finished
+            // if (this.justFinishedQuiz) {
+            // leaderboard = Leaderboard.getLeaderboard(user.getUsername(),
+            // user.saveScore());
+            // } else {
+
+            Leaderboard.getLeaderboard(ui.getNetClient(), (leaderboard) -> {
+                context.put("leaderboard", leaderboard);
+
+                if (justFinishedQuiz) {
+                    user.saveScore(ui.getNetClient(), () -> {
+                        callback.accept(true);
+                    });
+                } else {
+                    callback.accept(true);
+                }
+            });
+        });
     }
 
     @UIEventListener(type = "click", id = "back-link")

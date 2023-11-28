@@ -1,6 +1,9 @@
 package com.cd.quizwhiz.client.ui;
 
 import com.cd.quizwhiz.common.questions.Question;
+
+import java.util.function.Consumer;
+
 import com.cd.quizwhiz.client.questions.Player;
 import com.cd.quizwhiz.client.questions.Switcher;
 import com.cd.quizwhiz.client.uiframework.UI;
@@ -18,19 +21,18 @@ public class HeadToHeadQuizPage extends QuizPage {
     }
 
     @Override
-    public boolean onPreload(UI<AppState> ui) {
-        super.onPreload(ui);
-
+    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) {
         // If we don't have a second user: go have one log in
         // then come back here!
         if (ui.getState().multiplayerUserTwo == null) {
             ui.loadPage(new LoginPage(Player.Player2, this, "to continue to Head-To-Head"));
-            return false;
+            callback.accept(false);
+            return;
         }
 
         ui.getContext().put("multiplayer", true);
 
-        return true;
+        callback.accept(true);
     }
 
     @Override
@@ -55,9 +57,9 @@ public class HeadToHeadQuizPage extends QuizPage {
     @Override
     protected void incrementScore(UI<AppState> ui) {
         if (this.currentPlayer.getPlayer() == Player.Player1) {
-            ui.getState().user.addScore();
+            ui.getState().user.incrementScore();
         } else {
-            ui.getState().multiplayerUserTwo.addScore();
+            ui.getState().multiplayerUserTwo.incrementScore();
         }
     }
 

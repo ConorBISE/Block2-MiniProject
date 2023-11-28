@@ -1,5 +1,6 @@
 package com.cd.quizwhiz.server;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTCreationException;
+
 import com.cd.quizwhiz.server.auth.Auth;
+import com.cd.quizwhiz.server.auth.KeyManagement;
+import com.cd.quizwhiz.server.auth.User;
+import com.cd.quizwhiz.server.stats.Leaderboard;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -27,16 +32,16 @@ public class ServerApplication {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRegisterAttempt loginAttempt) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRegisterRequest loginRequest) {
         Map<String, Object> ret = new HashMap<>();
         ret.put("message", null);
         ret.put("token", null);
 
-        if (Auth.login(loginAttempt.username, loginAttempt.password)) {
+        if (Auth.login(loginRequest.username, loginRequest.password)) {
             // Yay! All good!
             try {
                 Map<String, String> payload = new HashMap<>();
-                payload.put("name", loginAttempt.username);
+                payload.put("name", loginRequest.username);
 
                 String token = JWT.create()
                         .withIssuer("quizwhiz")
@@ -45,7 +50,7 @@ public class ServerApplication {
 
                 ret.put("token", token);
 
-               return ResponseEntity.status(200).body(ret);
+                return ResponseEntity.status(200).body(ret);
 
             } catch (JWTCreationException e) {
                 e.printStackTrace();
@@ -58,17 +63,17 @@ public class ServerApplication {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestBody LoginRegisterAttempt loginAttempt) {
+    public ResponseEntity<Map<String, Object>> register(@RequestBody LoginRegisterRequest registerRequest) {
         Map<String, Object> ret = new HashMap<>();
         ret.put("message", null);
         ret.put("token", null);
 
-        String registrationMessage = Auth.register(loginAttempt.username, loginAttempt.password);
-        if (registrationMessage.equals(loginAttempt.username)) {
+        String registrationMessage = Auth.register(registerRequest.username, registerRequest.password);
+        if (registrationMessage.equals(registerRequest.username)) {
             // Yay! All good!
             try {
                 Map<String, String> payload = new HashMap<>();
-                payload.put("name", loginAttempt.username);
+                payload.put("name", registerRequest.username);
 
                 String token = JWT.create()
                         .withIssuer("quizwhiz")
@@ -77,7 +82,7 @@ public class ServerApplication {
 
                 ret.put("token", token);
 
-               return ResponseEntity.status(200).body(ret);
+                return ResponseEntity.status(200).body(ret);
 
             } catch (JWTCreationException e) {
                 e.printStackTrace();
@@ -89,8 +94,29 @@ public class ServerApplication {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ret);
     }
 
-    @GetMapping("/username")
-    public String username(HttpServletRequest request) {
-        return (String) request.getAttribute("username");
+    @PostMapping("/score/new")
+    public String newScore(HttpServletRequest request, @RequestBody NewScoreRequest newScoreRequest) {
+        User user = new User((String) request.getAttribute("username"));
+        user.finalScore(newScoreRequest.score);
+        return "{}";
+    }
+
+    @GetMapping("/stats")
+    public Map<String, Object> stats(HttpServletRequest request) {
+        Map<String, Object> ret = new HashMap<>();
+        
+        User user = new User((String) request.getAttribute("username"));
+        ret.put("mean", user.getMean());
+        ret.put("median", user.getMedian());
+        ret.put("deviation", user.getDeviation());
+        
+        return ret;
+    }
+
+    @GetMapping("/leaderboard")
+    public Map<String, Object> leaderboard() throws IOException {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("leaderboard", Leaderboard.getLeaderboard());
+        return ret;
     }
 }

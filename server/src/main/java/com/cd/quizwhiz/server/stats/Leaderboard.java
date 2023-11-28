@@ -1,13 +1,10 @@
-package com.cd.quizwhiz.client.stats;
+package com.cd.quizwhiz.server.stats;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
-import java.util.function.Consumer;
 
-import org.json.JSONArray;
-
-import com.cd.quizwhiz.client.net.NetClient;
+import com.cd.quizwhiz.server.auth.Auth;
 
 /**
  * The `Leaderboard` class provides methods for retrieving and managing user
@@ -24,27 +21,52 @@ public class Leaderboard {
      *         top score in descending order of score.
      * @throws IOException If an I/O error occurs when opening or reading a file.
      */
-    public static void getLeaderboard(NetClient netClient, Consumer<String[][]> callback) {
-        netClient.getRequest("/leaderboard", (res) -> {
-            JSONArray leaderboard = res.getJSONArray("leaderboard");
+    public static String[][] getLeaderboard() throws IOException {
+        // Define the directory path
+        String dir = Auth.userFolder;
 
-            List<List<String>> l = new ArrayList<>();
+        // Initialize an ArrayList to store the leaderboard data
+        List<String[]> leaderboardList = new ArrayList<>();
 
-            for (Object o : leaderboard) {
-                JSONArray inner = (JSONArray) o;
-                List<String> ll = new ArrayList<>();
+        // Walk through the directory and process each file
+        Files.walk(Paths.get(dir)).filter(Files::isRegularFile).forEach(path -> {
 
-                for (Object p : inner) {
-                    ll.add((String) p);
+            // Extract the username from the filename
+            String username = path.getFileName().toString().replace(".txt", "");
+
+            // Open the file and read its contents
+            try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+                reader.readLine();
+                String line;
+                int maxScore = 0;
+
+                // Read each line in the file and update maxScore with the highest score found
+                while ((line = reader.readLine()) != null) {
+                    maxScore = Math.max(maxScore, Integer.parseInt(line));
                 }
 
-                l.add(ll);
+                // Add the username and their top score to the leaderboardList
+                leaderboardList.add(new String[] { username, String.valueOf(maxScore) });
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            callback.accept(l.stream()
-                    .map(a -> a.stream().toArray(String[]::new))
-                    .toArray(String[][]::new));
         });
+
+        // Sort the leaderboardList in descending order of scores
+        leaderboardList.sort((a, b) -> Integer.compare(Integer.parseInt(b[1]), Integer.parseInt(a[1])));
+
+        // Convert the leaderboardList to a 2D array
+
+        // creates string array with a row for each pair in leaderboard and 2 columns
+        String[][] leaderboard = new String[leaderboardList.size()][2];
+
+        // for each item in leaderboard add it to our 2D array
+        for (int i = 0; i < leaderboardList.size(); i++) {
+            leaderboard[i] = leaderboardList.get(i);
+        }
+
+        // Return the sorted leaderboard
+        return leaderboard;
     }
 
     /**
@@ -61,7 +83,7 @@ public class Leaderboard {
     public static String[][] getLeaderboard(String currentUsername, int currentScore) throws IOException {
 
         // Define the directory path
-        String dir = "";
+        String dir = Auth.userFolder;
 
         // Initialize an ArrayList to store the leaderboard data
         List<String[]> leaderboardList = new ArrayList<>();
@@ -140,7 +162,7 @@ public class Leaderboard {
             int currentScore2) throws IOException {
 
         // Define the directory path
-        String dir = "";
+        String dir = Auth.userFolder;
 
         // Initialize an ArrayList to store the leaderboard data
         List<String[]> leaderboardList = new ArrayList<>();

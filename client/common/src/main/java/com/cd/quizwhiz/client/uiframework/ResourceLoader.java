@@ -1,11 +1,8 @@
 package com.cd.quizwhiz.client.uiframework;
 
-public abstract class ResourceLoader {
-    @FunctionalInterface
-    public interface ResourceContentCallback {
-        void callback(String content);
-    }
+import java.util.function.Consumer;
 
+public abstract class ResourceLoader {
     public abstract String getResourceExternalForm(String resourcePath);
-    public abstract void getResourceContent(String resourcePath, ResourceContentCallback callback);
+    public abstract void getResourceContent(String resourcePath, Consumer<String> callback);
 }

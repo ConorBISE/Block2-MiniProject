@@ -1,4 +1,6 @@
-package com.cd.quizwhiz.web;
+package com.cd.quizwhiz.web.ui;
+
+import java.util.function.Consumer;
 
 import org.teavm.jso.ajax.XMLHttpRequest;
 
@@ -12,12 +14,12 @@ public class WebResourceLoader extends ResourceLoader {
     }
 
     @Override
-    public void getResourceContent(String resourcePath, ResourceContentCallback callback) {
+    public void getResourceContent(String resourcePath, Consumer<String> callback) {
         XMLHttpRequest xhr = XMLHttpRequest.create();
         xhr.open("GET", this.getResourceExternalForm(resourcePath));
 
         xhr.onComplete(() -> {
-            callback.callback(xhr.getResponseText());
+            callback.accept(xhr.getResponseText());
         });
 
         xhr.send();
