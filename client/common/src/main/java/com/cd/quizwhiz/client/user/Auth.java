@@ -27,6 +27,7 @@ public class Auth {
 
     public static void login(NetClient netClient, String username, String password, LoginCallback callback) {
         JSONObject body = new JSONObject();
+        
         body.put("username", username);
         body.put("password", password);
         

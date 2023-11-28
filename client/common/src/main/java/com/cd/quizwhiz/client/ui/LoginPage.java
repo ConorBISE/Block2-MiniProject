@@ -33,7 +33,13 @@ public class LoginPage extends UIPage<AppState> {
         callback.accept(true);
     }
 
-    @UIEventListener(type = "click", id = "login-button")
+    @Override
+    public void onStart(UI<AppState> ui) {
+        ui.addListener("login-button", "click", (e) -> this.onLoginButtonClick(ui));
+        ui.addListener("signup-link", "click", (e) -> this.onSignupLinkClick(ui));
+    }
+
+    //@UIEventListener(type = "click", id = "login-button")
     public void onLoginButtonClick(UI<AppState> ui) {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
@@ -69,7 +75,7 @@ public class LoginPage extends UIPage<AppState> {
         });
     }
 
-    @UIEventListener(type = "click", id = "signup-link")
+    //@UIEventListener(type = "click", id = "signup-link")
     public void onSignupLinkClick(UI<AppState> ui) {
         ui.loadPage(new SignupPage(this.playerType, this.nextPage, this.purpose));
     }

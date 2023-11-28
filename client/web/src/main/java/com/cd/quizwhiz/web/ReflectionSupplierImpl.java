@@ -23,7 +23,7 @@ public class ReflectionSupplierImpl implements ReflectionSupplier {
         var methods = new HashSet<MethodDescriptor>();
         for (var method : cls.getMethods()) {
             if (method.getAnnotations().get(UIEventListener.class.getName()) != null) {
-                methods.add(method.getDescriptor());
+                //methods.add(method.getDescriptor());
             }
         }
         return methods;

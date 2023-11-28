@@ -34,15 +34,19 @@ public class HomePage extends UIPage<AppState> {
     @Override
     public void onStart(UI<AppState> ui) {
         ui.setElementText("username", ui.getState().user.getUsername());
+
+        ui.addListener("quiz-mode", "change", (e) -> this.onQuizModeChange(ui));
+        ui.addListener("go-button", "click", (e) -> this.onQuizButtonClick(ui));
+        ui.addListener("stats-link", "click", (e) -> this.onStatsLinkClicked(ui));
     }
 
-    @UIEventListener(type = "change", id = "quiz-mode")
+    //@UIEventListener(type = "change", id = "quiz-mode")
     public void onQuizModeChange(UI<AppState> ui) {
         String modeString = ui.getInputValueById("quiz-mode");
         ui.setElementVisibility("quiz-category", !modeString.equals("head-to-head"));
     }
 
-    @UIEventListener(type = "click", id = "go-button")
+    //@UIEventListener(type = "click", id = "go-button")
     public void onQuizButtonClick(UI<AppState> ui) {
         // What kind of quiz does the user want to do?
         String categoryString = ui.getInputValueById("quiz-category");
@@ -83,12 +87,12 @@ public class HomePage extends UIPage<AppState> {
         ui.loadPage(nextPage);
     }
 
-    @UIEventListener(type = "click", id = "stats-link")
+    //@UIEventListener(type = "click", id = "stats-link")
     public void onStatsLinkClicked(UI<AppState> ui) {
         ui.loadPage(new StatsPage());
     }
 
-    @UIEventListener(type = "click", id = "about-link")
+    //@UIEventListener(type = "click", id = "about-link")
     public void onAboutPageClicked(UI<AppState> ui) {
         ui.loadPage(new AboutPage());
     }

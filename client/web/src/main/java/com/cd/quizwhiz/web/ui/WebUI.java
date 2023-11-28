@@ -2,6 +2,8 @@ package com.cd.quizwhiz.web.ui;
 
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
+import org.teavm.jso.dom.html.HTMLInputElement;
+import org.teavm.jso.dom.html.HTMLSelectElement;
 import org.w3c.dom.events.EventListener;
 
 import com.cd.quizwhiz.client.net.NetClient;
@@ -29,32 +31,44 @@ public class WebUI<T> extends UI<T> {
 
     @Override
     public void addListener(String id, String eventType, EventListener listener) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addListener'");
+        HTMLDocument.current().getElementById(id).addEventListener(eventType, (e) -> {
+            listener.handleEvent(null);
+        });
     }
 
     @Override
     public String getInputValueById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInputValueById'");
+        HTMLElement el = HTMLDocument.current().getElementById(id);
+
+        switch (el.getTagName().toLowerCase()) {
+            case "select":
+                HTMLSelectElement sel = (HTMLSelectElement) el;
+                return sel.getValue();
+            
+            case "input":
+                HTMLInputElement inp = (HTMLInputElement) el;
+                return inp.getValue();
+
+            default:
+                return null;
+        }
     }
 
     @Override
     public void setElementText(String id, String text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setElementText'");
+        HTMLDocument.current().getElementById(id).setInnerText(text);
     }
 
     @Override
     public void setElementVisibility(String id, boolean visible) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setElementVisibility'");
+        HTMLElement el = HTMLDocument.current().getElementById(id);
+        el.setAttribute("style", visible ? "display: block;" : "display: none;");
     }
 
     @Override
     public void setElementClasses(String id, String classes) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setElementClasses'");
+        HTMLElement el = HTMLDocument.current().getElementById(id);
+        el.setAttribute("class", classes);
     }
 
     @Override

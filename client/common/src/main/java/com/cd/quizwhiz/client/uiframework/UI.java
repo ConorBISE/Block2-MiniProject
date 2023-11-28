@@ -61,9 +61,9 @@ public abstract class UI<T> {
 
             this.onPageLoad(page, () -> {
                 // We need to tie any convienience event handler annotations
-                // (things like @ClickListener)
+                // (things like @UIEventListener)
                 // to the elements they're meant to be handling events for.
-                Class<?> pageClass = page.getClass();
+                /*Class<?> pageClass = page.getClass();
 
                 for (Method method : pageClass.getMethods()) {
                     for (Annotation annotation : method.getAnnotations()) {
@@ -83,7 +83,7 @@ public abstract class UI<T> {
                             });
                         }
                     }
-                }
+                }*/
 
                 // Once all our ducks are in a row - hand off to the page class to let
                 // it do its post-load setup
