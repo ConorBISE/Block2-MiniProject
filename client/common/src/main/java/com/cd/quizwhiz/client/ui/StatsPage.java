@@ -42,9 +42,9 @@ public class StatsPage extends UIPage<AppState> {
             if (stats.hasStats) {
                 context.put("userHasScores", true);
                 context.put("userName", user.getUsername());
-                context.put("userMean", String.format("%.2f", stats.mean));
-                context.put("userMedian", String.format("%.2f", stats.median));
-                context.put("userDeviation", String.format("%.2f", stats.deviation));
+                context.put("userMean", formatStat(stats.mean, 2));
+                context.put("userMedian", formatStat(stats.median, 2));
+                context.put("userDeviation", formatStat(stats.deviation, 2));
             } else {
                 context.put("userHasScores", false);
             }
@@ -77,8 +77,25 @@ public class StatsPage extends UIPage<AppState> {
         });
     }
 
-    @UIEventListener(type = "click", id = "back-link")
+    @Override
+    public void onStart(UI<AppState> ui) {
+        ui.addListener("back-link", "click", e -> this.onBackLinkClick(ui));
+    }
+
+    //@UIEventListener(type = "click", id = "back-link")
     public void onBackLinkClick(UI<AppState> ui) {
         ui.loadPage(new HomePage());
+    }
+
+    private static String formatStat(double stat, int maxDecimalPlaces) {
+        String val = String.valueOf(stat);
+        int dotPos = val.indexOf(".");
+        int numDecimalPlaces = val.length() - dotPos - 1;
+        
+        if (numDecimalPlaces > maxDecimalPlaces) {
+            return val.substring(0, dotPos + maxDecimalPlaces + 1);
+        }
+
+        return val;
     }
 }

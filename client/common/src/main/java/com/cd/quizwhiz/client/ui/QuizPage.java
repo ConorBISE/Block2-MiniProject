@@ -33,6 +33,8 @@ public class QuizPage extends UIPage<AppState> {
                 this.onAnswerClicked(ui, finalI);
             });
         }
+
+        ui.addListener("next-button", "click", e -> this.onNextButtonClicked(ui));
     }
 
     protected void loadQuestion(UI<AppState> ui, Question question) {
@@ -78,7 +80,7 @@ public class QuizPage extends UIPage<AppState> {
         ui.getState().user.incrementScore();
     }
 
-    @UIEventListener(type = "click", id = "next-button")
+    //@UIEventListener(type = "click", id = "next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
             // We're done here!

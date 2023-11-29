@@ -1,6 +1,5 @@
 package com.cd.quizwhiz.client.ui;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -36,34 +35,35 @@ public class HeadToHeadStatsPage extends StatsPage {
 
                 context.put("multiplayerUserTwoScore", secondaryUserFinalScore);
 
-                try {
-                    // This leaderboard has every player's maximum score, along with the scores
-                    // both users just got in this match
-                    String[][] leaderboard = Leaderboard.getLeaderboard(primaryUser.getUsername(),
-                            primaryUserFinalScore,
-                            secondaryUser.getUsername(), secondaryUserFinalScore);
+                // This leaderboard has every player's maximum score, along with the scores
+                // both users just got in this match
+                /*
+                 * String[][] leaderboard =
+                 * Leaderboard.getLeaderboard(primaryUser.getUsername(),
+                 * primaryUserFinalScore,
+                 * secondaryUser.getUsername(), secondaryUserFinalScore);
+                 */
 
+                Leaderboard.getLeaderboard(ui.getNetClient(), (leaderboard) -> {
                     context.put("leaderboard", leaderboard);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                // Override the score message to congratulate the victor
-                String scoreMessage;
-                if (primaryUserFinalScore > secondaryUserFinalScore) {
-                    scoreMessage = primaryUser.getUsername() + " takes it!";
-                } else if (primaryUserFinalScore < secondaryUserFinalScore) {
-                    scoreMessage = secondaryUser.getUsername() + " takes it!";
-                } else {
-                    scoreMessage = "it's a draw";
-                }
+                    // Override the score message to congratulate the victor
+                    String scoreMessage;
+                    if (primaryUserFinalScore > secondaryUserFinalScore) {
+                        scoreMessage = primaryUser.getUsername() + " takes it!";
+                    } else if (primaryUserFinalScore < secondaryUserFinalScore) {
+                        scoreMessage = secondaryUser.getUsername() + " takes it!";
+                    } else {
+                        scoreMessage = "it's a draw";
+                    }
 
-                context.put("scoreMessage", scoreMessage);
+                    context.put("scoreMessage", scoreMessage);
 
-                primaryUser.resetScore();
-                secondaryUser.resetScore();
+                    primaryUser.resetScore();
+                    secondaryUser.resetScore();
 
-                callback.accept(true);
+                    callback.accept(true);
+                });
             });
         });
     }

@@ -11,8 +11,17 @@ public class WebNetClient extends NetClient {
 
     @Override
     public void getRequest(String path, String token, Consumer<JSONObject> callback) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRequest'");
+        XMLHttpRequest xhr = XMLHttpRequest.create();
+        xhr.open("GET", NetClient.BASE_URL + path);
+
+        if (token != null)
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+
+        xhr.onComplete(() -> {
+            callback.accept(new JSONObject(xhr.getResponseText()));
+        });
+
+        xhr.send();
     }
 
     @Override
@@ -29,7 +38,6 @@ public class WebNetClient extends NetClient {
             callback.accept(new JSONObject(xhr.getResponseText()));
         });
 
-        System.out.println(body.toString());
         xhr.send(body.toString());
     }
     

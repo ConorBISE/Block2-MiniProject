@@ -32,7 +32,13 @@ public class SignupPage extends UIPage<AppState> {
         callback.accept(true);
     }
 
-    @UIEventListener(type = "click", id = "signup-button")
+    @Override
+    public void onStart(UI<AppState> ui) {
+        ui.addListener("signup-button", "click", e -> this.onSignupButtonClick(ui));
+        ui.addListener("signin-link", "click", e -> this.onSigninLinkClick(ui));
+    }
+
+    //@UIEventListener(type = "click", id = "signup-button")
     public void onSignupButtonClick(UI<AppState> ui) {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
@@ -62,8 +68,8 @@ public class SignupPage extends UIPage<AppState> {
         });
     }
 
-    @UIEventListener(type = "click", id = "signin-link")
-    public void onSignupLinkClick(UI<AppState> ui) {
+    //@UIEventListener(type = "click", id = "signin-link")
+    public void onSigninLinkClick(UI<AppState> ui) {
         ui.loadPage(new LoginPage(this.playerType, this.nextPage, this.purpose));
     }
 
