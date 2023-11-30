@@ -1,6 +1,7 @@
 package com.cd.quizwhiz.server.auth;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * The Auth class handles user registration and login
@@ -35,81 +36,33 @@ public class Auth {
          *           The registered username if registration is successful.
          */
         // Construct the filename based on the username.
-        String userDataFileName = username + ".txt";
-        File userFolder = new File(Auth.userFolder);
-        
-        if (!userFolder.exists())
-            userFolder.mkdir();
-
-        File userFile = new File(userFolder, userDataFileName);
-
-        // If there is no file in the "users" folder with the given username.
-        if (!userFile.exists()) {
-            // Try to write a new file with the user's data.
-            try {
-                FileWriter writer = new FileWriter(userFile);
-                String passwordEnc = PasswordEncryption.hashPassword(password);
-                // Write the user's password into the file.
-                writer.write(passwordEnc);
-                writer.close();
-                return username; // Registration successful.
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Error creating user file."; // Handle file creation error.
-            } catch (Exception e) {
-                throw new RuntimeException(e);// catch errors for password Encryption
-            }
-        } else {
-            return "Username already exists."; // Username is already taken.
+        File userFile = User.getUserFile(username);
+        if (userFile.exists()) {
+            return "Username already exists";
         }
+
+        User user = new User(username, PasswordEncryption.hashPassword(password), new ArrayList<>());
+        try {
+            user.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error creating user file";
+        }
+
+        return username;
     }
 
     public static boolean login(String username, String password) {
-        /**
-         * @Description:
-         *               Verifies if the entered credentials (username and password)
-         *               match a previously registered user's credentials.
-         *               If the credentials match, the user is considered logged in.
-         * 
-         * @Parameters:
-         *              username (String): The username to log in with.
-         *              password (String): The password to verify.
-         * 
-         * @Returns:
-         *           boolean: true if the credentials are correct, indicating successful
-         *           login; false otherwise.
-         */
-        boolean loggedIn = false; // Tracks whether the user is logged in or not.
+        User user;
 
-        // Construct the filename based on the username.
-        String userDataFileName = username + ".txt";
-        File userFolder = new File(Auth.userFolder);
-        
-        if (!userFolder.exists())
-            userFolder.mkdir();
-
-        File userFile = new File(userFolder, userDataFileName);
-
-        try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
-            String line = br.readLine();
-            if (line != null) {
-                String storedPassword = line;
-                // Check if the provided password matches the stored password.
-                if (PasswordEncryption.hashPassword(password).equals(storedPassword)) {
-                    loggedIn = true;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            // Handle the file not found exception.
-            loggedIn = false;
+        try {
+            user = User.readUserFromFile(username);
         } catch (IOException e) {
-            // Handle other I/O exceptions.
-            loggedIn = false;
-        } catch (Exception e) {
-            throw new RuntimeException(e);// catch errors for password decryption
+            e.printStackTrace();
+            return false;
         }
 
-        return loggedIn;
+        return PasswordEncryption.hashPassword(password).equals(user.getHashedPassword());
     }
 
     /**

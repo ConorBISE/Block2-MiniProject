@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.util.*;
 
 import com.cd.quizwhiz.server.auth.Auth;
+import com.cd.quizwhiz.server.auth.User;
 
 /**
  * The `Leaderboard` class provides methods for retrieving and managing user
@@ -32,21 +33,17 @@ public class Leaderboard {
         Files.walk(Paths.get(dir)).filter(Files::isRegularFile).forEach(path -> {
 
             // Extract the username from the filename
-            String username = path.getFileName().toString().replace(".txt", "");
-
-            // Open the file and read its contents
-            try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
-                reader.readLine();
-                String line;
-                int maxScore = 0;
-
-                // Read each line in the file and update maxScore with the highest score found
-                while ((line = reader.readLine()) != null) {
-                    maxScore = Math.max(maxScore, Integer.parseInt(line));
+            String username = path.getFileName().toString().replace(".json", "");
+            User user;
+            try {
+                user = User.readUserFromFile(username);
+            
+                if (user.returnScores().length == 0) {
+                    return;
                 }
 
                 // Add the username and their top score to the leaderboardList
-                leaderboardList.add(new String[] { username, String.valueOf(maxScore) });
+                leaderboardList.add(new String[] { username, String.valueOf(Arrays.stream(user.returnScores()).max().getAsDouble()) });
             } catch (IOException e) {
                 e.printStackTrace();
             }

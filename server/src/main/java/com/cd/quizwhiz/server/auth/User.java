@@ -1,22 +1,34 @@
 package com.cd.quizwhiz.server.auth;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cd.quizwhiz.server.stats.Statistics;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * The `User` class represents a user in the QuizWhiz application and provides
  * methods
  * for managing user data and statistics.
- */ 
+ */
 public class User {
     // declare variables to store user data
-    String username;
+    @JsonProperty
+    private String username;
+    
+    @JsonProperty 
+    private String hashedPassword;
+    
+    @JsonProperty
+    private List<Double> scores;
 
     // intizilization method takes in an String argument username
-    public User(String username)
+    public User(@JsonProperty("username") String username, @JsonProperty("hashedPassword") String hashedPassword, @JsonProperty("scores") List<Double> scores)
     /**
      * Initializes a new user with the given username.
      *
@@ -24,36 +36,40 @@ public class User {
      */
     {
         this.username = username;
+        this.hashedPassword = hashedPassword;
+        this.scores = scores;
     }
 
-    public void finalScore(int score)
-    /**
-     * Saves a player's final score to their user file
-     */
-    {
-        // Construct the filename based on the username.
-        String userDataFileName = username + ".txt";
+    public static File getUserFile(String username) {
+        String userDataFileName = username + ".json";
         File userFolder = new File(Auth.userFolder);
 
         if (!userFolder.exists())
             userFolder.mkdir();
 
-        File userFile = new File(userFolder, userDataFileName);
-        // If there is a file in the "users" folder with the given username.
-        if (userFile.exists()) {
-            // Try to write a new file with the user's data.
-            try {
-                // make a file writer
-                FileWriter writer = new FileWriter(userFile, true);// --since i want to append to the file i
-                // add a second parameter "true" to allow for appending instead of overwriting
-                writer.write("\n" + score);// append the users score to their userfile
-                writer.close();// close my writier
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return new File(userFolder, userDataFileName);
     }
 
+    public static User readUserFromFile(String username) throws StreamReadException, DatabindException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(User.getUserFile(username), User.class);
+    }
+
+    public void save() throws StreamWriteException, DatabindException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(User.getUserFile(this.username), this);        
+    }
+
+    @JsonIgnore
+    public void appendFinalScore(int score)
+    /**
+     * Saves a player's final score to their user file
+     */
+    {
+        scores.add((double) score);
+    }
+
+    @JsonIgnore
     public double[] returnScores()
     /**
      * Returns an array of the user's scores stored in their user file.
@@ -62,39 +78,10 @@ public class User {
      */
 
     {
-        // Create a list to temporarily store user scores as doubles.
-        List<Double> scoresList = new ArrayList<>();
-
-        String userDataFileName = username + ".txt";
-        File userFolder = new File(Auth.userFolder);
-        
-        if (!userFolder.exists())
-            userFolder.mkdir();
-
-        File userFile = new File(userFolder, userDataFileName);
-
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
-            String line = reader.readLine();
-            ; // Read and discard the first line as it is our password.
-
-            while ((line = reader.readLine()) != null) {
-                double score = Double.parseDouble(line);
-                scoresList.add(score);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Convert the list of double scores to a double[] array.
-        double[] scoresArray = new double[scoresList.size()];
-        for (int i = 0; i < scoresList.size(); i++) {
-            scoresArray[i] = scoresList.get(i);
-        }
-
-        return scoresArray;
+        return scores.stream().mapToDouble(Double::doubleValue).toArray(); 
     }
 
+    @JsonIgnore
     public double getMean()
     /**
      * Calculates and returns the mean (average) of the user's scores.
@@ -103,10 +90,10 @@ public class User {
      */
 
     {
-        double[] scores = returnScores();
-        return Statistics.mean(scores);
+        return Statistics.mean(returnScores());
     }
 
+    @JsonIgnore
     public double getMedian()
     /**
      * Calculates and returns the median of the user's scores.
@@ -115,10 +102,10 @@ public class User {
      */
 
     {
-        double[] scores = returnScores();
-        return Statistics.median(scores);
+        return Statistics.median(returnScores());
     }
 
+    @JsonIgnore
     public double getDeviation()
     /**
      * Calculates and returns the standard deviation of the user's scores.
@@ -126,10 +113,10 @@ public class User {
      * @return The standard deviation of the user's scores.
      */
     {
-        double[] scores = returnScores();
-        return Statistics.standardDeviation(scores);
+        return Statistics.standardDeviation(returnScores());
     }
 
+    @JsonIgnore
     public String getUsername()
     /**
      * Gets the username of the user.
@@ -140,4 +127,8 @@ public class User {
         return username;
     }
 
+    @JsonIgnore
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
 }

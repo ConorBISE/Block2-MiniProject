@@ -5,7 +5,8 @@ import java.util.function.Consumer;
 import org.json.JSONObject;
 
 public abstract class NetClient {
-    protected static String BASE_URL = "https://quizwhiz-ise.fly.dev";
+    //protected static String BASE_URL = "https://quizwhiz-ise.fly.dev";
+    protected static String BASE_URL = "http://localhost:8080";
 
     public void getRequest(String path, Consumer<JSONObject> callback) {
         getRequest(path, null, callback);
