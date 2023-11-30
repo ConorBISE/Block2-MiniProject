@@ -3,7 +3,6 @@ package com.cd.quizwhiz.client.ui;
 import java.util.function.Consumer;
 
 import com.cd.quizwhiz.client.questions.Player;
-import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 import com.cd.quizwhiz.client.user.Auth;
@@ -27,7 +26,7 @@ public class SignupPage extends UIPage<AppState> {
     }
 
     @Override
-    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) { 
+    public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) {
         ui.getContext().put("purpose", this.purpose);
         callback.accept(true);
     }
@@ -38,7 +37,6 @@ public class SignupPage extends UIPage<AppState> {
         ui.addListener("signin-link", "click", e -> this.onSigninLinkClick(ui));
     }
 
-    //@UIEventListener(type = "click", id = "signup-button")
     public void onSignupButtonClick(UI<AppState> ui) {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
@@ -48,7 +46,7 @@ public class SignupPage extends UIPage<AppState> {
             // and a failure message otherwise.
             if (registrationStatus.equals(username)) {
                 UserSession user = new UserSession(username, token);
-                
+
                 switch (this.playerType) {
                     case Player1:
                         ui.getState().user = user;
@@ -61,16 +59,14 @@ public class SignupPage extends UIPage<AppState> {
                 ui.loadPage(nextPage);
                 return;
             }
-            
+
             // error :(
             ui.setElementText("error-toast", registrationStatus);
             ui.setElementVisibility("error-toast", true);
         });
     }
 
-    //@UIEventListener(type = "click", id = "signin-link")
     public void onSigninLinkClick(UI<AppState> ui) {
         ui.loadPage(new LoginPage(this.playerType, this.nextPage, this.purpose));
     }
-
 }

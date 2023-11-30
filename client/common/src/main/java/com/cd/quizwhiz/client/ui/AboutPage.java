@@ -1,6 +1,5 @@
 package com.cd.quizwhiz.client.ui;
 
-import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 
@@ -11,10 +10,9 @@ public class AboutPage extends UIPage<AppState> {
 
     @Override
     public void onStart(UI<AppState> ui) {
-        ui.addListener("back-link", "click", (e) -> this.onBackLinkClick(ui));
+        ui.addListener("back-link", "click", e -> this.onBackLinkClick(ui));
     }
 
-    //@UIEventListener(type = "click", id = "back-link")
     public void onBackLinkClick(UI<AppState> ui) {
         ui.loadPage(new HomePage());
     }

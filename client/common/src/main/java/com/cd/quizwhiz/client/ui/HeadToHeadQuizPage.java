@@ -66,6 +66,5 @@ public class HeadToHeadQuizPage extends QuizPage {
     @Override
     protected void endGame(UI<AppState> ui) {
         super.endGame(ui);
-        ui.getState().multiplayerUserTwo = null;
     }
 }

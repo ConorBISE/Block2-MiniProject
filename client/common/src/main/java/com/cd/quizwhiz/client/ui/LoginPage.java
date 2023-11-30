@@ -3,7 +3,6 @@ package com.cd.quizwhiz.client.ui;
 import java.util.function.Consumer;
 
 import com.cd.quizwhiz.client.questions.Player;
-import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 import com.cd.quizwhiz.client.user.Auth;
@@ -35,11 +34,10 @@ public class LoginPage extends UIPage<AppState> {
 
     @Override
     public void onStart(UI<AppState> ui) {
-        ui.addListener("login-button", "click", (e) -> this.onLoginButtonClick(ui));
-        ui.addListener("signup-link", "click", (e) -> this.onSignupLinkClick(ui));
+        ui.addListener("login-button", "click", e -> this.onLoginButtonClick(ui));
+        ui.addListener("signup-link", "click", e -> this.onSignupLinkClick(ui));
     }
 
-    //@UIEventListener(type = "click", id = "login-button")
     public void onLoginButtonClick(UI<AppState> ui) {
         String username = ui.getInputValueById("username");
         String password = ui.getInputValueById("password");
@@ -49,25 +47,26 @@ public class LoginPage extends UIPage<AppState> {
             if (success) {
                 // Success!
                 UserSession user = new UserSession(username, token);
-                
+
                 switch (this.playerType) {
                     case Player1:
-                    ui.getState().user = user;
-                    break;
-                    
+                        ui.getState().user = user;
+                        break;
+
                     case Player2:
-                    // Check if the same user's just tried to log in twice - we don't want someone
-                    // playing themself
-                    if (ui.getState().user.getUsername().equals(username)) {
-                        ui.setElementText("error-toast", "The second player must be a different user to the first!");
-                        ui.setElementVisibility("error-toast", true);
-                        return;
-                    }
-                    
-                    ui.getState().multiplayerUserTwo = user;
-                    break;
+                        // Check if the same user's just tried to log in twice - we don't want someone
+                        // playing themself
+                        if (ui.getState().user.getUsername().equals(username)) {
+                            ui.setElementText("error-toast",
+                                    "The second player must be a different user to the first!");
+                            ui.setElementVisibility("error-toast", true);
+                            return;
+                        }
+
+                        ui.getState().multiplayerUserTwo = user;
+                        break;
                 }
-            
+
                 ui.loadPage(nextPage);
             } else {
                 ui.setElementVisibility("error-toast", true);
@@ -75,7 +74,6 @@ public class LoginPage extends UIPage<AppState> {
         });
     }
 
-    //@UIEventListener(type = "click", id = "signup-link")
     public void onSignupLinkClick(UI<AppState> ui) {
         ui.loadPage(new SignupPage(this.playerType, this.nextPage, this.purpose));
     }

@@ -1,7 +1,6 @@
 package com.cd.quizwhiz.client.ui;
 
 import com.cd.quizwhiz.common.questions.Question;
-import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 
@@ -80,7 +79,6 @@ public class QuizPage extends UIPage<AppState> {
         ui.getState().user.incrementScore();
     }
 
-    //@UIEventListener(type = "click", id = "next-button")
     public void onNextButtonClicked(UI<AppState> ui) {
         if (currentQuestionIndex == this.questionsToAsk.length - 1) {
             // We're done here!

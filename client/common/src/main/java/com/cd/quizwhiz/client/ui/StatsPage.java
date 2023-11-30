@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import com.cd.quizwhiz.client.stats.Leaderboard;
-import com.cd.quizwhiz.client.uiframework.UIEventListener;
 import com.cd.quizwhiz.client.uiframework.UI;
 import com.cd.quizwhiz.client.uiframework.UIPage;
 import com.cd.quizwhiz.client.user.UserSession;
@@ -82,7 +81,6 @@ public class StatsPage extends UIPage<AppState> {
         ui.addListener("back-link", "click", e -> this.onBackLinkClick(ui));
     }
 
-    //@UIEventListener(type = "click", id = "back-link")
     public void onBackLinkClick(UI<AppState> ui) {
         ui.loadPage(new HomePage());
     }

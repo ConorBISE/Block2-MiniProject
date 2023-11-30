@@ -1,8 +1,5 @@
 package com.cd.quizwhiz.client.uiframework;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,31 +57,6 @@ public abstract class UI<T> {
             }
 
             this.onPageLoad(page, () -> {
-                // We need to tie any convienience event handler annotations
-                // (things like @UIEventListener)
-                // to the elements they're meant to be handling events for.
-                /*Class<?> pageClass = page.getClass();
-
-                for (Method method : pageClass.getMethods()) {
-                    for (Annotation annotation : method.getAnnotations()) {
-                        if (annotation instanceof UIEventListener) {
-                            UIEventListener l = (UIEventListener) annotation;
-
-                            this.addListener(l.id(), l.type(), event -> {
-                                try {
-                                    method.invoke(page, this);
-                                } catch (IllegalAccessException e) {
-                                    System.err.println("Failed to invoke event listener for element " + l.id());
-                                    e.printStackTrace();
-                                } catch (InvocationTargetException e) {
-                                    System.err.println("Failure while invoking event listener for element " + l.id());
-                                    e.printStackTrace();
-                                }
-                            });
-                        }
-                    }
-                }*/
-
                 // Once all our ducks are in a row - hand off to the page class to let
                 // it do its post-load setup
                 page.onStart(this);

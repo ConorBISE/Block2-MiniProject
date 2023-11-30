@@ -14,55 +14,61 @@ public class HeadToHeadStatsPage extends StatsPage {
 
     @Override
     public void onPreload(UI<AppState> ui, Consumer<Boolean> callback) {
-        UserSession primaryUser = ui.getState().user;
-        UserSession secondaryUser = ui.getState().multiplayerUserTwo;
+        super.onPreload(ui, (cont) -> {
+            UserSession primaryUser = ui.getState().user;
+            UserSession secondaryUser = ui.getState().multiplayerUserTwo;
 
-        primaryUser.saveScore(ui.getNetClient(), () -> {
-            secondaryUser.saveScore(ui.getNetClient(), () -> {
-                Map<String, Object> context = ui.getContext();
+            primaryUser.saveScore(ui.getNetClient(), () -> {
+                secondaryUser.saveScore(ui.getNetClient(), () -> {
+                    System.out.println("Second save done!");
 
-                // The stats template uses the multiplayer variable to toggle the top portion
-                // of the stats page between showing a single user score, and multiple user
-                // scores
-                context.put("multiplayer", true);
-                context.put("multiplayerUserName", secondaryUser.getUsername());
+                    Map<String, Object> context = ui.getContext();
 
-                // Our superclass will already have called FinalScore on our primary user, and
-                // stored it in context. To get their score for the purpose of leaderboarding,
-                // we'll have to extract it back out.
-                int primaryUserFinalScore = (int) context.get("score");
-                int secondaryUserFinalScore = ui.getState().multiplayerUserTwo.getCurrentScore();
+                    // The stats template uses the multiplayer variable to toggle the top portion
+                    // of the stats page between showing a single user score, and multiple user
+                    // scores
+                    context.put("multiplayer", true);
+                    context.put("multiplayerUserName", secondaryUser.getUsername());
 
-                context.put("multiplayerUserTwoScore", secondaryUserFinalScore);
+                    // Our superclass will already have called FinalScore on our primary user, and
+                    // stored it in context. To get their score for the purpose of leaderboarding,
+                    // we'll have to extract it back out.
+                    int primaryUserFinalScore = (int) context.get("score");
+                    int secondaryUserFinalScore = ui.getState().multiplayerUserTwo.getCurrentScore();
 
-                // This leaderboard has every player's maximum score, along with the scores
-                // both users just got in this match
-                /*
-                 * String[][] leaderboard =
-                 * Leaderboard.getLeaderboard(primaryUser.getUsername(),
-                 * primaryUserFinalScore,
-                 * secondaryUser.getUsername(), secondaryUserFinalScore);
-                 */
+                    context.put("multiplayerUserTwoScore", secondaryUserFinalScore);
 
-                Leaderboard.getLeaderboard(ui.getNetClient(), (leaderboard) -> {
-                    context.put("leaderboard", leaderboard);
+                    // This leaderboard has every player's maximum score, along with the scores
+                    // both users just got in this match
+                    /*
+                     * String[][] leaderboard =
+                     * Leaderboard.getLeaderboard(primaryUser.getUsername(),
+                     * primaryUserFinalScore,
+                     * secondaryUser.getUsername(), secondaryUserFinalScore);
+                     */
 
-                    // Override the score message to congratulate the victor
-                    String scoreMessage;
-                    if (primaryUserFinalScore > secondaryUserFinalScore) {
-                        scoreMessage = primaryUser.getUsername() + " takes it!";
-                    } else if (primaryUserFinalScore < secondaryUserFinalScore) {
-                        scoreMessage = secondaryUser.getUsername() + " takes it!";
-                    } else {
-                        scoreMessage = "it's a draw";
-                    }
+                    Leaderboard.getLeaderboard(ui.getNetClient(), (leaderboard) -> {
+                        context.put("leaderboard", leaderboard);
 
-                    context.put("scoreMessage", scoreMessage);
+                        // Override the score message to congratulate the victor
+                        String scoreMessage;
+                        if (primaryUserFinalScore > secondaryUserFinalScore) {
+                            scoreMessage = primaryUser.getUsername() + " takes it!";
+                        } else if (primaryUserFinalScore < secondaryUserFinalScore) {
+                            scoreMessage = secondaryUser.getUsername() + " takes it!";
+                        } else {
+                            scoreMessage = "it's a draw";
+                        }
 
-                    primaryUser.resetScore();
-                    secondaryUser.resetScore();
+                        context.put("scoreMessage", scoreMessage);
 
-                    callback.accept(true);
+                        primaryUser.resetScore();
+                        secondaryUser.resetScore();
+                        
+                        ui.getState().multiplayerUserTwo = null;
+
+                        callback.accept(true);
+                    });
                 });
             });
         });
