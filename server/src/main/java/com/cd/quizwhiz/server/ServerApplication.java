@@ -82,6 +82,7 @@ public class ServerApplication {
                         .withPayload(payload)
                         .sign(KeyManagement.getAlgorithm());
 
+                ret.put("message", registrationMessage);
                 ret.put("token", token);
 
                 return ResponseEntity.status(200).body(ret);

@@ -43,7 +43,7 @@ public class Auth {
             // Try to write a new file with the user's data.
             try {
                 FileWriter writer = new FileWriter(userFile);
-                String passwordEnc = PasswordEncryption.encrypt(password);
+                String passwordEnc = PasswordEncryption.hashPassword(password);
                 // Write the user's password into the file.
                 writer.write(passwordEnc);
                 writer.close();
@@ -85,7 +85,7 @@ public class Auth {
             if (line != null) {
                 String storedPassword = line;
                 // Check if the provided password matches the stored password.
-                if (password.equals(PasswordEncryption.decrypt(storedPassword))) {
+                if (PasswordEncryption.hashPassword(password).equals(storedPassword)) {
                     loggedIn = true;
                 }
             }
