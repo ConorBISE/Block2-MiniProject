@@ -17,11 +17,17 @@ public class StatsController {
     @GetMapping("/stats")
     public Map<String, Object> stats(HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<>();
-        
+
         User user = new User((String) request.getAttribute("username"));
-        ret.put("mean", user.getMean());
-        ret.put("median", user.getMedian());
-        ret.put("deviation", user.getDeviation());
+        boolean hasStats = user.returnScores().length != 0;
+
+        ret.put("hasStats", hasStats);
+
+        if (hasStats) {   
+            ret.put("mean", user.getMean());
+            ret.put("median", user.getMedian());
+            ret.put("deviation", user.getDeviation());
+        }
         
         return ret;
     }

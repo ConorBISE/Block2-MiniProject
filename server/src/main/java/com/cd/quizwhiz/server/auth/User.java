@@ -33,7 +33,12 @@ public class User {
     {
         // Construct the filename based on the username.
         String userDataFileName = username + ".txt";
-        File userFile = new File(Auth.userFolder, userDataFileName);
+        File userFolder = new File(Auth.userFolder);
+
+        if (!userFolder.exists())
+            userFolder.mkdir();
+
+        File userFile = new File(userFolder, userDataFileName);
         // If there is a file in the "users" folder with the given username.
         if (userFile.exists()) {
             // Try to write a new file with the user's data.
@@ -61,7 +66,13 @@ public class User {
         List<Double> scoresList = new ArrayList<>();
 
         String userDataFileName = username + ".txt";
-        File userFile = new File(Auth.userFolder, userDataFileName);
+        File userFolder = new File(Auth.userFolder);
+        
+        if (!userFolder.exists())
+            userFolder.mkdir();
+
+        File userFile = new File(userFolder, userDataFileName);
+
 
         try (BufferedReader reader = new BufferedReader(new FileReader(userFile))) {
             String line = reader.readLine();

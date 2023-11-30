@@ -37,43 +37,44 @@ public class StatsPage extends UIPage<AppState> {
 
         context.put("justFinishedQuiz", this.justFinishedQuiz);
 
-        user.getStats(ui.getNetClient(), (stats) -> {
-            if (stats.hasStats) {
-                context.put("userHasScores", true);
-                context.put("userName", user.getUsername());
-                context.put("userMean", formatStat(stats.mean, 2));
-                context.put("userMedian", formatStat(stats.median, 2));
-                context.put("userDeviation", formatStat(stats.deviation, 2));
-            } else {
-                context.put("userHasScores", false);
-            }
-
-            if (justFinishedQuiz) {
-                context.put("score", user.getCurrentScore());
-                context.put("scoreMessage", scoreMessages[user.getCurrentScore()]);
-            }
-
-            // Leaderboard
-            // If we've just finished a quiz: we want to show the user not only their
-            // maximum score
-            // but also the score of the game they've just finished
-            // if (this.justFinishedQuiz) {
-            // leaderboard = Leaderboard.getLeaderboard(user.getUsername(),
-            // user.saveScore());
-            // } else {
-
-            Leaderboard.getLeaderboard(ui.getNetClient(), (leaderboard) -> {
-                context.put("leaderboard", leaderboard);
+        Runnable preloadInner = () -> {
+            user.getStats(ui.getNetClient(), (stats) -> {
+                if (stats.hasStats) {
+                    context.put("userHasScores", true);
+                    context.put("userName", user.getUsername());
+                    context.put("userMean", formatStat(stats.mean, 2));
+                    context.put("userMedian", formatStat(stats.median, 2));
+                    context.put("userDeviation", formatStat(stats.deviation, 2));
+                } else {
+                    context.put("userHasScores", false);
+                }
 
                 if (justFinishedQuiz) {
-                    user.saveScore(ui.getNetClient(), () -> {
-                        callback.accept(true);
-                    });
-                } else {
-                    callback.accept(true);
+                    context.put("score", user.getCurrentScore());
+                    context.put("scoreMessage", scoreMessages[user.getCurrentScore()]);
                 }
+
+                // Leaderboard
+                // If we've just finished a quiz: we want to show the user not only their
+                // maximum score
+                // but also the score of the game they've just finished
+                // if (this.justFinishedQuiz) {
+                // leaderboard = Leaderboard.getLeaderboard(user.getUsername(),
+                // user.saveScore());
+                // } else {
+
+                Leaderboard.getLeaderboard(ui.getNetClient(), (leaderboard) -> {
+                    context.put("leaderboard", leaderboard);
+                    callback.accept(true);
+                });
             });
-        });
+        };
+        
+        if (justFinishedQuiz) {
+            user.saveScore(ui.getNetClient(), preloadInner);
+        } else {
+            preloadInner.run();
+        }
     }
 
     @Override
@@ -89,7 +90,7 @@ public class StatsPage extends UIPage<AppState> {
         String val = String.valueOf(stat);
         int dotPos = val.indexOf(".");
         int numDecimalPlaces = val.length() - dotPos - 1;
-        
+
         if (numDecimalPlaces > maxDecimalPlaces) {
             return val.substring(0, dotPos + maxDecimalPlaces + 1);
         }

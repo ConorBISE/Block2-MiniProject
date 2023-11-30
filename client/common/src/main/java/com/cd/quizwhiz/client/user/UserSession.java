@@ -28,7 +28,8 @@ public class UserSession {
 
     public void saveScore(NetClient netClient, Runnable callback)
     /**
-     * Gets the player's current and final score for the game, and saves it to the server
+     * Gets the player's current and final score for the game, and saves it to the
+     * server
      */
     {
         JSONObject body = new JSONObject();
@@ -53,7 +54,12 @@ public class UserSession {
 
     public void getStats(NetClient netClient, Consumer<UserStats> callback) {
         netClient.getRequest("/stats", this.token, (res) -> {
-            callback.accept(new UserStats(true, res.getDouble("mean"), res.getDouble("median"), res.getDouble("deviation")));
+            boolean hasStats = res.getBoolean("hasStats");
+            UserStats stats = hasStats
+                    ? new UserStats(true, res.getDouble("mean"), res.getDouble("median"), res.getDouble("deviation"))
+                    : new UserStats(false, 0, 0, 0);
+
+            callback.accept(stats);
         });
     }
 

@@ -58,13 +58,12 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         switch (request.getServletPath()) {
-            case "/login":
-            case "/register":
-            case "/leaderboard":
-                return true;
+            case "/score/new":
+            case "/stats":
+                return false;
 
             default:
-                return false;
+                return true;
         }
     }
 

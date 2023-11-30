@@ -36,6 +36,11 @@ public class Auth {
          */
         // Construct the filename based on the username.
         String userDataFileName = username + ".txt";
+        File userFolder = new File(Auth.userFolder);
+        
+        if (!userFolder.exists())
+            userFolder.mkdir();
+
         File userFile = new File(userFolder, userDataFileName);
 
         // If there is no file in the "users" folder with the given username.
@@ -78,6 +83,11 @@ public class Auth {
 
         // Construct the filename based on the username.
         String userDataFileName = username + ".txt";
+        File userFolder = new File(Auth.userFolder);
+        
+        if (!userFolder.exists())
+            userFolder.mkdir();
+
         File userFile = new File(userFolder, userDataFileName);
 
         try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
